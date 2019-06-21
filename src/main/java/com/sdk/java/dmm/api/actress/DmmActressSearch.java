@@ -4,7 +4,7 @@ package com.sdk.java.dmm.api.actress;
 import com.sdk.java.dmm.api.AbstractDmm;
 import com.sdk.java.dmm.api.actress.dto.ActressInfo;
 import com.sdk.java.dmm.enums.ActressSearchSort;
-import com.sdk.java.dmm.enums.DmmAPI;
+import com.sdk.java.dmm.enums.DmmApi;
 import com.sdk.java.dmm.enums.Message;
 import com.sdk.java.dmm.enums.Output;
 import com.sdk.java.dmm.utils.DateFormat;
@@ -349,8 +349,8 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @return DMM_APIを実行するためのURLを管理するenum
    */
   @Override
-  protected DmmAPI getDmmAPI() {
-    return DmmAPI.ACTRESS_SEARCH;
+  protected DmmApi getDmmAPI() {
+    return DmmApi.ACTRESS_SEARCH;
   }
 
   /**

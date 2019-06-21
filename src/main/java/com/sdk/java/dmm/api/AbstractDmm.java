@@ -1,6 +1,6 @@
 package com.sdk.java.dmm.api;
 
-import com.sdk.java.dmm.enums.DmmAPI;
+import com.sdk.java.dmm.enums.DmmApi;
 import com.sdk.java.dmm.enums.Message;
 import com.sdk.java.dmm.utils.DmmProperties;
 import com.sdk.java.dmm.utils.JsonUtil;
@@ -86,7 +86,7 @@ public abstract class AbstractDmm<T extends DmmInfo> {
    *
    * @return DMM_APIを実行するためのURLを管理するenum
    */
-  protected abstract DmmAPI getDmmAPI();
+  protected abstract DmmApi getDmmAPI();
 
   /**
    * APIより返却されるJSONのマッピング対象となるDTOのClassオブジェクトを取得する。
