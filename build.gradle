@@ -1,0 +1,48 @@
+buildscript {
+  ext {
+    jackson = "2.9.9"
+    slf4j = "1.7.26"
+    lombok = "1.18.8"
+    assertj = "3.12.2"
+    junit = "5.5.0-M1"
+  }
+}
+
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "idea"
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+repositories {
+  mavenCentral()
+}
+
+tasks.withType(JavaCompile) {
+  options.encoding = "UTF-8"
+}
+
+task javadoc(type: Javadoc, overwrite: true) {
+  source = sourceSets.main.allJava
+  title = "dmm-java-sdk"
+  options.overview = "src/main/java/com/sdk/java/dmm/overview.html"
+  options.links("https://docs.oracle.com/javase/jp/11/docs/api/")
+  options.memberLevel = JavadocMemberLevel.PRIVATE
+  destinationDir = new File("$projectDir" + "\\docs")
+  options.charSet = "UTF-8"
+  options.encoding = "UTF-8"
+}
+
+dependencies {
+  implementation "com.fasterxml.jackson.core:jackson-databind:${jackson}"
+  implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jackson}"
+  implementation "org.slf4j:slf4j-simple:${slf4j}"
+  annotationProcessor "org.projectlombok:lombok:${lombok}"
+  compileOnly "org.projectlombok:lombok:${lombok}"
+  testAnnotationProcessor "org.projectlombok:lombok:${lombok}"
+  testImplementation "org.projectlombok:lombok:${lombok}"
+  testImplementation "org.assertj:assertj-core:${assertj}"
+  testImplementation "org.junit.jupiter:junit-jupiter-api:${junit}"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit}"
+}
