@@ -105,4 +105,19 @@ public class StringUtilTest {
     assertThat(StringUtil.isJapaneseSyllabary("aaa")).isFalse();
   }
 
+  @Test
+  public void 正常系_addParam_パラメータが付与されること() {
+    assertThat(StringUtil.addParam("", "paramName", "paramVal")).isEqualTo("&paramName=paramVal");
+  }
+
+  @Test
+  public void 正常系_addParam_パラメータが付与されないこと_paramNameがBlankの場合() {
+    assertThat(StringUtil.addParam("NONE", " ", "paramVal")).isEqualTo("NONE");
+  }
+
+  @Test
+  public void 正常系_addParam_パラメータが付与されないこと_paramValがBlankの場合() {
+    assertThat(StringUtil.addParam("NONE", "paramName", " ")).isEqualTo("NONE");
+  }
+
 }

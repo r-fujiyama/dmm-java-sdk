@@ -8,6 +8,7 @@ import com.sdk.java.dmm.enums.DmmApi;
 import com.sdk.java.dmm.enums.Message;
 import com.sdk.java.dmm.enums.Output;
 import com.sdk.java.dmm.utils.DateFormat;
+import com.sdk.java.dmm.utils.MessageProperties;
 import com.sdk.java.dmm.utils.StringUtil;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
@@ -76,7 +77,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    */
   public void setInitial(String initial) {
     if (!StringUtil.isJapaneseSyllabary(initial)) {
-      throw new IllegalArgumentException(getMsg(Message.M0001, initial));
+      throw new IllegalArgumentException(MessageProperties.getMsg(Message.M0001, initial));
     }
     this.initial = initial;
   }
@@ -198,7 +199,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    */
   public void setGteBirthday(String gteBirthday) {
     if (!DateFormat.uuuuMMdd_HYPHEN.isFormatCheck(gteBirthday)) {
-      throw new IllegalArgumentException(getMsg(Message.M0002, gteBirthday));
+      throw new IllegalArgumentException(MessageProperties.getMsg(Message.M0002, gteBirthday));
     }
     this.lteBirthday = gteBirthday;
   }
@@ -220,7 +221,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    */
   public void setLteBirthday(String lteBirthday) {
     if (!DateFormat.uuuuMMdd_HYPHEN.isFormatCheck(lteBirthday)) {
-      throw new IllegalArgumentException(getMsg(Message.M0002, lteBirthday));
+      throw new IllegalArgumentException(MessageProperties.getMsg(Message.M0002, lteBirthday));
     }
     this.lteBirthday = lteBirthday;
   }
@@ -266,41 +267,41 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
   protected String getParam() {
     String param = "";
     // 女優名の頭文字50音
-    param = addParam(param, "initial", this.initial);
+    param = StringUtil.addParam(param, "initial", this.initial);
     // 女優ID
-    param = addParam(param, "actress_id", this.actressId);
+    param = StringUtil.addParam(param, "actress_id", this.actressId);
     // キーワード
-    param = addParam(param, "keyword", this.keyword);
+    param = StringUtil.addParam(param, "keyword", this.keyword);
     // バスト_以上
-    param = addParam(param, "gte_bust", this.gteBust);
+    param = StringUtil.addParam(param, "gte_bust", this.gteBust);
     // バスト_以下
-    param = addParam(param, "lte_bust", this.lteBust);
+    param = StringUtil.addParam(param, "lte_bust", this.lteBust);
     // ウエスト_以上
-    param = addParam(param, "gte_waist", this.gteWaist);
+    param = StringUtil.addParam(param, "gte_waist", this.gteWaist);
     // ウエスト_以下
-    param = addParam(param, "lte_waist", this.lteWaist);
+    param = StringUtil.addParam(param, "lte_waist", this.lteWaist);
     // ヒップ_以上
-    param = addParam(param, "gte_hip", this.gteHip);
+    param = StringUtil.addParam(param, "gte_hip", this.gteHip);
     // ヒップ_以下
-    param = addParam(param, "lte_hip", this.lteHip);
+    param = StringUtil.addParam(param, "lte_hip", this.lteHip);
     // 身長_以上
-    param = addParam(param, "gte_height", this.gteHeight);
+    param = StringUtil.addParam(param, "gte_height", this.gteHeight);
     // 身長_以下
-    param = addParam(param, "lte_height", this.lteHeight);
+    param = StringUtil.addParam(param, "lte_height", this.lteHeight);
     // 生年月日_以上
-    param = addParam(param, "gte_birthday", this.gteBirthday);
+    param = StringUtil.addParam(param, "gte_birthday", this.gteBirthday);
     // 生年月日_以下
-    param = addParam(param, "lte_birthday", this.lteBirthday);
+    param = StringUtil.addParam(param, "lte_birthday", this.lteBirthday);
     // 取得件数
-    param = addParam(param, "hits", this.hits);
+    param = StringUtil.addParam(param, "hits", this.hits);
     // 検索開始位置
-    param = addParam(param, "offset", this.offset);
+    param = StringUtil.addParam(param, "offset", this.offset);
     // ソート順
     if (this.sort != null) {
-      param = addParam(param, "sort", this.sort.getValue());
+      param = StringUtil.addParam(param, "sort", this.sort.getValue());
     }
     // 出力形式
-    param = addParam(param, "output", Output.JSON.getValue());
+    param = StringUtil.addParam(param, "output", Output.JSON.getValue());
     return param;
   }
 

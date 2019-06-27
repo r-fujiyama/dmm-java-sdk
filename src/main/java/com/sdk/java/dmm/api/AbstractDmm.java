@@ -1,10 +1,8 @@
 package com.sdk.java.dmm.api;
 
 import com.sdk.java.dmm.enums.DmmApi;
-import com.sdk.java.dmm.enums.Message;
 import com.sdk.java.dmm.utils.DmmProperties;
 import com.sdk.java.dmm.utils.JsonUtil;
-import com.sdk.java.dmm.utils.MessageProperties;
 import com.sdk.java.dmm.utils.StringUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,34 +28,6 @@ public abstract class AbstractDmm<T extends DmmInfo> {
   private static final String AFFILIATE_ID = DmmProperties.getValue("AFFILIATE_ID");
   /** JSON */
   private String json;
-
-  /**
-   * URLにパラメータを付与する。<br>
-   * 検索条件または検索パラメータが{@code null}、Blank、Emptyの場合は、パラメータに値を付与せず返却する。
-   *
-   * @param param パラメータ
-   * @param searchCond 検索条件
-   * @param searchParam 検索パラメータ
-   * @return パラメータ
-   */
-  protected String addParam(String param, String searchCond, String searchParam) {
-    if (StringUtil.isAnyNullOrEmpty(searchCond, searchParam) ||
-        StringUtil.isAnyBlank(searchCond, searchParam)) {
-      return param;
-    }
-    return param + "&" + searchCond + "=" + searchParam;
-  }
-
-  /**
-   * メッセージを取得します。
-   *
-   * @param key キー
-   * @param bindStrArray メッセージにバインドされる文字列
-   * @return メッセージ
-   */
-  protected String getMsg(Message key, String... bindStrArray) {
-    return MessageProperties.getMsg(key, bindStrArray);
-  }
 
   /**
    * JSONを取得する。<br>
@@ -102,8 +72,8 @@ public abstract class AbstractDmm<T extends DmmInfo> {
    */
   public T execute() {
     log.info("execution start {}_API", this.getDmmAPI());
-    String executeURL = addParam(this.getDmmAPI().getValue(), "api_id", API_ID);
-    executeURL = addParam(executeURL, "affiliate_id", AFFILIATE_ID);
+    String executeURL = StringUtil.addParam(this.getDmmAPI().getValue(), "api_id", API_ID);
+    executeURL = StringUtil.addParam(executeURL, "affiliate_id", AFFILIATE_ID);
     executeURL += this.getParam();
     URL objURL;
     try {

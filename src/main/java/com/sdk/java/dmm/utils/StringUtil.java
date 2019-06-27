@@ -93,4 +93,19 @@ public final class StringUtil {
     return str.matches(JAPANESE_SYLLABARY_MATCHES);
   }
 
+  /**
+   * パラメータを付与する。
+   *
+   * @param str パラメータを付与する文字列
+   * @param paramName パラメータ名
+   * @param paramVal パラメータ値
+   * @return パラーメタを付与した文字列
+   */
+  public static String addParam(String str, String paramName, String paramVal) {
+    if (isAnyBlank(paramName, paramVal)) {
+      return str;
+    }
+    return str + "&" + paramName + "=" + paramVal;
+  }
+
 }
