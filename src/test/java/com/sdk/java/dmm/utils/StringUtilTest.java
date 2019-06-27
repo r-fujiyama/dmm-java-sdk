@@ -17,6 +17,11 @@ public class StringUtilTest {
   }
 
   @Test
+  public void 正常系_isNullOrEmpty_半角スペースの場合はFALSE() {
+    assertThat(StringUtil.isNullOrEmpty(" ")).isFalse();
+  }
+
+  @Test
   public void 正常系_isNullOrEmpty_NULLまたは空文字でない場合はFALSE() {
     assertThat(StringUtil.isNullOrEmpty("test")).isFalse();
   }
@@ -38,8 +43,13 @@ public class StringUtilTest {
   }
 
   @Test
-  public void 正常系_isAnyNullOrEmpty_空文字の場合はTRUE() {
+  public void 正常系_isAnyNullOrEmpty_空文字が含まれる場合はTRUE() {
     assertThat(StringUtil.isAnyNullOrEmpty("test", "")).isTrue();
+  }
+
+  @Test
+  public void 正常系_isAnyNullOrEmpty_半角スペースが含まれる場合はTRUE() {
+    assertThat(StringUtil.isAnyNullOrEmpty("test", " ")).isFalse();
   }
 
   @Test
@@ -47,15 +57,19 @@ public class StringUtilTest {
     assertThat(StringUtil.isAnyNullOrEmpty("test1", "test2")).isFalse();
   }
 
-
   @Test
   public void 正常系_isBlank_NULLの場合はTRUE() {
     assertThat(StringUtil.isBlank(null)).isTrue();
   }
 
   @Test
+  public void 正常系isBlank_空文字の場合はTRUE() {
+    assertThat(StringUtil.isBlank("")).isTrue();
+  }
+
+  @Test
   public void 正常系isBlank_空白の場合はTRUE() {
-    assertThat(StringUtil.isBlank("  　　")).isTrue();
+    assertThat(StringUtil.isBlank(" ")).isTrue();
   }
 
   @Test
@@ -81,7 +95,12 @@ public class StringUtilTest {
 
   @Test
   public void 正常系_isAnyBlank_空白の場合はTRUE() {
-    assertThat(StringUtil.isAnyBlank("test", "  　　")).isTrue();
+    assertThat(StringUtil.isAnyBlank("test", " ")).isTrue();
+  }
+
+  @Test
+  public void 正常系_isAnyBlank_半角スペースの場合はTRUE() {
+    assertThat(StringUtil.isAnyBlank("test", " ")).isTrue();
   }
 
   @Test
@@ -101,8 +120,18 @@ public class StringUtilTest {
   }
 
   @Test
+  public void 正常系_isJapaneseSyllabary_空文字の場合はFALSE() {
+    assertThat(StringUtil.isJapaneseSyllabary("")).isFalse();
+  }
+
+  @Test
+  public void 正常系_isJapaneseSyllabary_半角スペースの場合はFALSE() {
+    assertThat(StringUtil.isJapaneseSyllabary(" ")).isFalse();
+  }
+
+  @Test
   public void 正常系_isJapaneseSyllabary_50音以外の場合はTRUE() {
-    assertThat(StringUtil.isJapaneseSyllabary("aaa")).isFalse();
+    assertThat(StringUtil.isJapaneseSyllabary("aiueo")).isFalse();
   }
 
   @Test
