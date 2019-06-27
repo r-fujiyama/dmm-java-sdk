@@ -15,6 +15,13 @@ public final class StringUtil {
   /**
    * 文字列が{@code null}または空文字であった場合、{@code true}を返却します。<br>
    * それ以外の場合、{@code false}を返却します。
+   * <pre>
+   * StringUtil.isEmpty(null)      = true
+   * StringUtil.isEmpty("")        = true
+   * StringUtil.isEmpty(" ")       = false
+   * StringUtil.isEmpty("bob")     = false
+   * StringUtil.isEmpty("  bob  ") = false
+   * </pre>
    *
    * @param str 文字列
    * @return boolean
@@ -24,8 +31,15 @@ public final class StringUtil {
   }
 
   /**
-   * {@code null}または空文字の文字列が含まれる場合、{@code true}を返却します。<br>
+   * 何れかの文字列が{@code null}または空文字であった場合、{@code true}を返却します。<br>
    * それ以外の場合、{@code false}を返却します。
+   * <pre>
+   * StringUtil.isAnyNullOrEmpty(null, "bob")           = true
+   * StringUtil.isAnyNullOrEmpty("", "bob")             = true
+   * StringUtil.isAnyNullOrEmpty(" ", "bob")            = false
+   * StringUtil.isAnyNullOrEmpty("bob", "john")         = false
+   * StringUtil.isAnyNullOrEmpty("  bob  ", "  john  ") = false
+   * </pre>
    *
    * @param strArray 文字列
    * @return boolean
@@ -43,19 +57,42 @@ public final class StringUtil {
   }
 
   /**
-   * 文字列が空白であった場合、{@code true}を返却します。<br>
+   * 文字列が{@code null}、空文字、空白であった場合、{@code true}を返却します。<br>
    * それ以外の場合、{@code false}を返却します。
+   * <pre>
+   * StringUtil.isBlank(null, "bob")       = true
+   * StringUtil.isBlank("", "bob")         = true
+   * StringUtil.isBlank(" ", "bob")        = true
+   * StringUtil.isBlank("bob", "john")     = false
+   * StringUtil.isBlank("  bob  ", "john") = false
+   * </pre>
    *
    * @param str 文字列
    * @return boolean
    */
   public static boolean isBlank(String str) {
-    return (str == null || str.strip().isEmpty());
+    if (isNullOrEmpty(str)) {
+      return true;
+    }
+    for (int i = 0; i < str.length(); i++) {
+      if (!Character.isWhitespace(str.charAt(i))) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
-   * 空白の文字列が含まれる場合、{@code true}を返却します。<br>
+   * 何れかの文字列が{@code null}、空文字、空白であった場合、{@code true}を返却します。<br>
    * それ以外の場合、{@code false}を返却します。
+   *
+   * <pre>
+   * StringUtil.isAnyBlank(null)      = true
+   * StringUtil.isAnyBlank("")        = true
+   * StringUtil.isAnyBlank(" ")       = true
+   * StringUtil.isAnyBlank("bob")     = false
+   * StringUtil.isAnyBlank("  bob  ") = false
+   * </pre>
    *
    * @param strArray 文字列
    * @return boolean
@@ -76,11 +113,11 @@ public final class StringUtil {
    * 文字列が五十音の場合、{@code true}を返却します。<br>
    * それ以外の場合、{@code false}を返却します。
    * <pre>
-   *   isJapaneseSyllabary("あいうえお") = true
-   *   isJapaneseSyllabary("not") = false
-   *   isJapaneseSyllabary("") = false
-   *   isJapaneseSyllabary(" ") = false
-   *   isJapaneseSyllabary(null) = false
+   * StringUtil.isJapaneseSyllabary("あいうえお") = true
+   * StringUtil.isJapaneseSyllabary("aiueo")     = false
+   * StringUtil.isJapaneseSyllabary("")          = false
+   * StringUtil.isJapaneseSyllabary(" ")         = false
+   * StringUtil.isJapaneseSyllabary(null)        = false
    * </pre>
    *
    * @param str 文字列
@@ -94,7 +131,15 @@ public final class StringUtil {
   }
 
   /**
-   * パラメータを付与する。
+   * パラメータを付与する。<br>
+   * <pre>
+   * StringUtil.addParam("&amp;paramName1=paramVal1", "paramName2", "paramVal2") = "&amp;paramName1=paramVal1&amp;paramName2=paramVal2"
+   * StringUtil.addParam("", "paramName", "paramVal")                        = "&amp;paramName=paramVal"
+   * StringUtil.addParam(" ", "paramName", "paramVal")                       = " &amp;paramName=paramVal"
+   * StringUtil.addParam(null, "paramName", "paramVal")                      = "null&amp;paramName=paramVal"
+   * StringUtil.addParam("not add", null, "paramVal")                        = "not add"
+   * StringUtil.addParam("not add", "paramName", null)                       = "not add"
+   * </pre>
    *
    * @param str パラメータを付与する文字列
    * @param paramName パラメータ名
