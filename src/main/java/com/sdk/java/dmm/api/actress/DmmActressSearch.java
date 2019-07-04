@@ -10,6 +10,7 @@ import com.sdk.java.dmm.enums.Output;
 import com.sdk.java.dmm.utils.DateFormat;
 import com.sdk.java.dmm.utils.MessageProperties;
 import com.sdk.java.dmm.utils.StringUtil;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -198,8 +199,8 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param gteBirthday 生年月日(以上)
    */
   public void setGteBirthday(String gteBirthday) {
-    if (!DateFormat.uuuuMMdd_HYPHEN.isFormatCheck(gteBirthday)) {
-      throw new IllegalArgumentException(MessageProperties.getMsg(Message.M0002, gteBirthday));
+    if (!DateFormat.uuuuMMdd_HYPHEN.check(gteBirthday)) {
+      throw new DateTimeException(MessageProperties.getMsg(Message.M0002, gteBirthday));
     }
     this.lteBirthday = gteBirthday;
   }
@@ -220,8 +221,8 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param lteBirthday 生年月日(以下)
    */
   public void setLteBirthday(String lteBirthday) {
-    if (!DateFormat.uuuuMMdd_HYPHEN.isFormatCheck(lteBirthday)) {
-      throw new IllegalArgumentException(MessageProperties.getMsg(Message.M0002, lteBirthday));
+    if (!DateFormat.uuuuMMdd_HYPHEN.check(lteBirthday)) {
+      throw new DateTimeException(MessageProperties.getMsg(Message.M0002, lteBirthday));
     }
     this.lteBirthday = lteBirthday;
   }

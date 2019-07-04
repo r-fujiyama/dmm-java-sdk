@@ -10,7 +10,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.sdk.java.dmm.enums.ActressSearchSort;
 import com.sdk.java.dmm.enums.Output;
-import com.sdk.java.dmm.utils.DateFormat;
+import com.sdk.java.dmm.utils.DateTimeFormatConstants;
 import java.time.LocalDate;
 import lombok.Data;
 
@@ -87,7 +87,7 @@ public class Parameters {
   private Integer lteHeight;
   /** 生年月日(以上) */
   @JsonProperty("gte_birthday")
-  @JsonFormat(pattern = DateFormat.CONST_uuuuMMdd_HYPHEN)
+  @JsonFormat(pattern = DateTimeFormatConstants.uuuuMMdd_HYPHEN)
   @JsonDeserialize(using = LocalDateDeserializer.class)
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate gteBirthday;
@@ -95,7 +95,7 @@ public class Parameters {
   @JsonProperty("lte_birthday")
   @JsonDeserialize(using = LocalDateDeserializer.class)
   @JsonSerialize(using = LocalDateSerializer.class)
-  @JsonFormat(pattern = DateFormat.CONST_uuuuMMdd_HYPHEN)
+  @JsonFormat(pattern = DateTimeFormatConstants.uuuuMMdd_HYPHEN)
   private LocalDate lteBirthday;
   /** 取得件数 */
   @JsonProperty("hits")

@@ -3,6 +3,7 @@ package com.sdk.java.dmm.utils;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,11 +15,19 @@ import lombok.Getter;
 public enum DateFormat {
 
   /** uuuu-MM-dd */
-  uuuuMMdd_HYPHEN("uuuu-MM-dd");
+  uuuuMMdd_HYPHEN(DateTimeFormatConstants.uuuuMMdd_HYPHEN);
 
-  private String value;
+  private final DateTimeFormatter dateTimeFormatter;
 
-  public static final String CONST_uuuuMMdd_HYPHEN = "uuuu-MM-dd";
+  /**
+   * DateTimeFormatterを初期化する。
+   *
+   * @param value フォーマット
+   */
+  DateFormat(String value) {
+    this.dateTimeFormatter = DateTimeFormatter.ofPattern(value)
+        .withResolverStyle(ResolverStyle.STRICT);
+  }
 
   /**
    * 文字列をLocalDateへparseします
@@ -27,7 +36,7 @@ public enum DateFormat {
    * @return LocalDate
    */
   public LocalDate parse(String str) {
-    return LocalDate.parse(str, DateTimeFormatter.ofPattern(this.value));
+    return LocalDate.parse(str, dateTimeFormatter);
   }
 
   /**
@@ -37,21 +46,21 @@ public enum DateFormat {
    * @return 指定されたフォーマットの文字列
    */
   public String format(LocalDate ld) {
-    return ld.format(DateTimeFormatter.ofPattern(this.value));
+    return dateTimeFormatter.format(ld);
   }
 
   /**
-   * 文字列が指定された形式かを判定します。
+   * 文字列が指定されたフォーマットかを判定します。
    *
    * @param str 文字列
    * @return 指定された形式であれば{@code true}を返却します。
    */
-  public boolean isFormatCheck(String str) {
-    if (StringUtil.isNullOrEmpty(str)) {
+  public boolean check(String str) {
+    if (StringUtil.isBlank(str)) {
       return false;
     }
     try {
-      DateTimeFormatter.ofPattern(this.value).parse(str);
+      dateTimeFormatter.parse(str);
     } catch (DateTimeParseException e) {
       return false;
     }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.sdk.java.dmm.utils.DateTimeFormatConstants;
 import java.time.LocalDate;
 import lombok.Data;
 
@@ -60,7 +61,7 @@ public class Actress {
   private Integer height;
   /** 生年月日 */
   @JsonProperty("birthday")
-  @JsonFormat(pattern = "uuuu-MM-dd")
+  @JsonFormat(pattern = DateTimeFormatConstants.uuuuMMdd_HYPHEN)
   @JsonDeserialize(using = LocalDateDeserializer.class)
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate birthday;

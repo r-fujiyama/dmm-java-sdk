@@ -3,6 +3,7 @@ package com.sdk.java.dmm.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,10 +14,20 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum DateTimeFormat {
 
-  /** uuuu-MM-dd HH:mm:ss.SSS" */
-  uuuuMMdd_HHmmssSSS_HYPHEN("uuuu-MM-dd HH:mm:ss.SSS");
+  /** uuuu-MM-dd HH:mm:ss.SSS */
+  uuuuMMdd_HHmmssSSS_HYPHEN(DateTimeFormatConstants.uuuuMMdd_HHmmssSSS_HYPHEN);
 
-  private String value;
+  private final DateTimeFormatter dateTimeFormatter;
+
+  /**
+   * DateTimeFormatterを初期化する。
+   *
+   * @param value フォーマット
+   */
+  DateTimeFormat(String value) {
+    this.dateTimeFormatter = DateTimeFormatter.ofPattern(value)
+        .withResolverStyle(ResolverStyle.STRICT);
+  }
 
   /**
    * 文字列をLocalDateTimeへparseします
@@ -25,7 +36,7 @@ public enum DateTimeFormat {
    * @return LocalDateTime
    */
   public LocalDateTime parse(String str) {
-    return LocalDateTime.parse(str, DateTimeFormatter.ofPattern(this.value));
+    return LocalDateTime.parse(str, dateTimeFormatter);
   }
 
   /**
@@ -35,7 +46,7 @@ public enum DateTimeFormat {
    * @return 指定されたフォーマットの文字列
    */
   public String format(LocalDateTime ldt) {
-    return ldt.format(DateTimeFormatter.ofPattern(this.value));
+    return dateTimeFormatter.format(ldt);
   }
 
   /**
@@ -44,12 +55,12 @@ public enum DateTimeFormat {
    * @param str 文字列
    * @return 指定された形式であれば{@code true}を返却します。
    */
-  public boolean isFormatCheck(String str) {
-    if (StringUtil.isNullOrEmpty(str)) {
+  public boolean check(String str) {
+    if (StringUtil.isBlank(str)) {
       return false;
     }
     try {
-      DateTimeFormatter.ofPattern(this.value).parse(str);
+      dateTimeFormatter.parse(str);
     } catch (DateTimeParseException e) {
       return false;
     }

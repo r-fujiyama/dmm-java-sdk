@@ -9,6 +9,7 @@ import com.sdk.java.dmm.enums.Message;
 import com.sdk.java.dmm.utils.DateFormat;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.MessageProperties;
+import java.time.DateTimeException;
 import org.junit.jupiter.api.Test;
 
 public class DmmActressSearchTest {
@@ -127,7 +128,7 @@ public class DmmActressSearchTest {
     DmmActressSearch actressSearch = new DmmActressSearch();
     String argument = "2019/01/01";
     assertThatThrownBy(() -> actressSearch.setGteBirthday(argument))
-        .isInstanceOf(IllegalArgumentException.class)
+        .isInstanceOf(DateTimeException.class)
         .hasMessage(MessageProperties.getMsg(Message.M0002, argument));
   }
 
@@ -136,7 +137,7 @@ public class DmmActressSearchTest {
     DmmActressSearch actressSearch = new DmmActressSearch();
     String argument = "2019/01/01";
     assertThatThrownBy(() -> actressSearch.setLteBirthday(argument))
-        .isInstanceOf(IllegalArgumentException.class)
+        .isInstanceOf(DateTimeException.class)
         .hasMessage(MessageProperties.getMsg(Message.M0002, argument));
   }
 
