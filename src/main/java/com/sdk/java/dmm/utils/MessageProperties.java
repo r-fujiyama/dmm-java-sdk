@@ -12,9 +12,11 @@ import java.util.Properties;
 /**
  * message.propertiesの値を取得するクラスです。
  */
-public class MessageProperties {
+public final class MessageProperties {
 
+  /** Properties */
   private final static Properties PROPERTIES;
+  /** プロパティ名 */
   private final static String PROPERTIES_NAME = "message.properties";
 
   static {
@@ -27,6 +29,13 @@ public class MessageProperties {
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
+  }
+
+  /**
+   * コンストラクタ
+   */
+  private MessageProperties() {
+    throw new AssertionError("com.sdk.java.dmm.utils.MessageProperties instances for you!");
   }
 
   /**

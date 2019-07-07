@@ -22,7 +22,7 @@ public class DateFormatTest {
   }
 
   @Nested
-  public class check  {
+  public class check {
 
     @Test
     public void 正常系_TRUE() {

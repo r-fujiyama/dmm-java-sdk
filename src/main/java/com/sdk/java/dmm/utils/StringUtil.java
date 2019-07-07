@@ -13,6 +13,13 @@ public final class StringUtil {
       + "\\u308C\\u308D\\u308F\\u3092\\u3093]+$";
 
   /**
+   * コンストラクタ
+   */
+  private StringUtil() {
+    throw new AssertionError("com.sdk.java.dmm.utils.StringUtil instances for you!");
+  }
+
+  /**
    * 文字列が{@code null}または空文字であった場合、{@code true}を返却します。<br>
    * それ以外の場合、{@code false}を返却します。
    * <pre>

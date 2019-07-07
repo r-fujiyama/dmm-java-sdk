@@ -4,19 +4,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * LocalDateをparse、formatするためのクラスです。
  */
-@Getter
-@AllArgsConstructor
 public enum DateFormat {
 
   /** uuuu-MM-dd */
   uuuuMMdd_HYPHEN(DateTimeFormatConstants.uuuuMMdd_HYPHEN);
 
+  /** フォーマッタ */
   private final DateTimeFormatter dateTimeFormatter;
 
   /**
