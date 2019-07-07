@@ -8,11 +8,12 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum DmmApi {
+public enum DmmApiUrl {
 
-  // 女優検索URL
+  /** 女優検索URL */
   ACTRESS_SEARCH("https://api.dmm.com/affiliate/v3/ActressSearch?");
 
+  /** URL */
   private String value;
 
 }

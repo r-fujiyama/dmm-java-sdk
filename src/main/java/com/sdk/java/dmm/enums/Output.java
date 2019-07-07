@@ -16,14 +16,14 @@ public enum Output implements CodeEnum<String> {
   /** XML */
   XML("xml");
 
+  /** アウトプット形式 */
   private String value;
 
   /**
-   * 指定されたvalue持つenum定数を返します。
+   * 指定されたvalue持つEnumを返します。
    *
-   * @param value enum定数のvalue
-   * @return 指定されたvalueをenum定数
-   * @throws IllegalArgumentException この列挙型に、指定したvalueの定数がない場合
+   * @param value Enumのvalue
+   * @return 指定されたvalueを持つEnum
    */
   @JsonCreator
   public static Output of(String value) throws IllegalArgumentException {
