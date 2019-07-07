@@ -15,6 +15,7 @@ public enum Message {
   /** yyyy-mm-ddの形式ではない、または存在しない日付です:{} */
   M0002("M0002");
 
+  /** エラーコード */
   private String value;
 
 }

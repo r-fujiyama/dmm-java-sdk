@@ -1,7 +1,7 @@
 package com.sdk.java.dmm.enums;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,11 +21,9 @@ public class CodeEnumTest {
 
   @Test
   public void 異常系_ofメソッド() {
-    Throwable exception = assertThrows(
-        IllegalArgumentException.class,
-        () -> Animal.of("none")
-    );
-    assertThat(exception.getMessage()).isEqualTo("com.sdk.java.dmm.enums.CodeEnumTest$Animal:none");
+    assertThatThrownBy(() -> Animal.of("none"))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("com.sdk.java.dmm.enums.CodeEnumTest$Animal:none");
   }
 
   @Getter

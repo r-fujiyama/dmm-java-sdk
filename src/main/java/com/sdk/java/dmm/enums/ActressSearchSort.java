@@ -40,14 +40,14 @@ public enum ActressSearchSort implements CodeEnum<String> {
   /** 女優ID(降順) */
   ID_DESC("-id");
 
+  /** ソート順 */
   private String value;
 
   /**
-   * 指定されたvalue持つenum定数を返します。
+   * 指定されたvalue持つEnumを返します。
    *
-   * @param value enum定数のvalue
-   * @return 指定されたvalueを持つenum定数
-   * @throws IllegalArgumentException この列挙型に、指定したvalueの定数がない場合
+   * @param value Enumのvalue
+   * @return 指定されたvalueを持つEnum
    */
   @JsonCreator
   public static ActressSearchSort of(String value) throws IllegalArgumentException {

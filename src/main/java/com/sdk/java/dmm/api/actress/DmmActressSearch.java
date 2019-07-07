@@ -4,7 +4,7 @@ package com.sdk.java.dmm.api.actress;
 import com.sdk.java.dmm.api.AbstractDmm;
 import com.sdk.java.dmm.api.actress.dto.ActressInfo;
 import com.sdk.java.dmm.enums.ActressSearchSort;
-import com.sdk.java.dmm.enums.DmmApi;
+import com.sdk.java.dmm.enums.DmmApiUrl;
 import com.sdk.java.dmm.enums.Message;
 import com.sdk.java.dmm.enums.Output;
 import com.sdk.java.dmm.utils.DateFormat;
@@ -12,24 +12,26 @@ import com.sdk.java.dmm.utils.MessageProperties;
 import com.sdk.java.dmm.utils.StringUtil;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
+import java.util.Objects;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
+ * <p>
  * 女優検索を実行するためのクラス。<br>
  * 下記は使用方法になります。
+ * </p>
  * <pre>
  * DmmActressSearch actressSearch = new DmmActressSearch();
  * actressSearch.setInitial("は");
- * actressSearch.setActressId(26225);
  * actressSearch.setKeyword("はたの");
+ * actressSearch.setGteBust(88);
+ * actressSearch.setGteWaist(59);
  * ActressInfo result = actressSearch.execute();
  * </pre>
  */
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @EqualsAndHashCode(callSuper = false)
@@ -39,33 +41,33 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
   /** 女優名の頭文字50音 */
   private String initial;
   /** 女優ID */
-  private String actressId;
+  private Long actressId;
   /** キーワード */
   private String keyword;
   /** バスト(以上) */
-  private String gteBust;
+  private Integer gteBust;
   /** バスト(以下) */
-  private String lteBust;
+  private Integer lteBust;
   /** ウエスト(以上) */
-  private String gteWaist;
+  private Integer gteWaist;
   /** ウエスト(以下) */
-  private String lteWaist;
+  private Integer lteWaist;
   /** ヒップ(以上) */
-  private String gteHip;
+  private Integer gteHip;
   /** ヒップ(以下) */
-  private String lteHip;
+  private Integer lteHip;
   /** 身長(以上) */
-  private String gteHeight;
+  private Integer gteHeight;
   /** 身長(以下) */
-  private String lteHeight;
+  private Integer lteHeight;
   /** 生年月日(以上) */
-  private String gteBirthday;
+  private LocalDate gteBirthday;
   /** 生年月日(以下) */
-  private String lteBirthday;
+  private LocalDate lteBirthday;
   /** 取得件数 */
-  private String hits;
+  private Integer hits;
   /** 検索開始位置 */
-  private String offset;
+  private Integer offset;
   /** ソート順 */
   private ActressSearchSort sort;
 
@@ -90,7 +92,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param actressId 女優ID
    */
   public void setActressId(long actressId) {
-    this.actressId = String.valueOf(actressId);
+    this.actressId = actressId;
   }
 
   /**
@@ -110,7 +112,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param gteBust バスト(以上)
    */
   public void setGteBust(int gteBust) {
-    this.gteBust = String.valueOf(gteBust);
+    this.gteBust = gteBust;
   }
 
   /**
@@ -120,7 +122,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param lteBust バスト(以下)
    */
   public void setLteBust(int lteBust) {
-    this.lteBust = String.valueOf(lteBust);
+    this.lteBust = lteBust;
   }
 
   /**
@@ -130,7 +132,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param gteWaist ウエスト(以上)
    */
   public void setGteWaist(int gteWaist) {
-    this.gteWaist = String.valueOf(gteWaist);
+    this.gteWaist = gteWaist;
   }
 
   /**
@@ -140,7 +142,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param lteWaist ウエスト(以下)
    */
   public void setLteWaist(int lteWaist) {
-    this.lteWaist = String.valueOf(lteWaist);
+    this.lteWaist = lteWaist;
   }
 
   /**
@@ -150,7 +152,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param gteHip ヒップ(以上)
    */
   public void setGteHip(int gteHip) {
-    this.gteHip = String.valueOf(gteHip);
+    this.gteHip = gteHip;
   }
 
   /**
@@ -160,7 +162,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param lteHip ヒップ(以下)
    */
   public void setLteHip(int lteHip) {
-    this.lteHip = String.valueOf(lteHip);
+    this.lteHip = lteHip;
   }
 
   /**
@@ -170,7 +172,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param gteHeight ヒップ(以上)
    */
   public void setGteHeight(int gteHeight) {
-    this.gteHeight = String.valueOf(gteHeight);
+    this.gteHeight = gteHeight;
   }
 
   /**
@@ -180,7 +182,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param lteHeight ヒップ(以下)
    */
   public void setLteHeight(int lteHeight) {
-    this.lteHeight = String.valueOf(lteHeight);
+    this.lteHeight = lteHeight;
   }
 
   /**
@@ -189,7 +191,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param gteBirthday 生年月日(以上)
    */
   public void setGteBirthday(LocalDate gteBirthday) {
-    this.gteBirthday = DateFormat.uuuuMMdd_HYPHEN.format(gteBirthday);
+    this.gteBirthday = gteBirthday;
   }
 
   /**
@@ -202,7 +204,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
     if (!DateFormat.uuuuMMdd_HYPHEN.check(gteBirthday)) {
       throw new DateTimeException(MessageProperties.getMsg(Message.M0002, gteBirthday));
     }
-    this.lteBirthday = gteBirthday;
+    this.gteBirthday = DateFormat.uuuuMMdd_HYPHEN.parse(gteBirthday);
   }
 
   /**
@@ -211,7 +213,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param lteBirthday 生年月日(以下)
    */
   public void setLteBirthday(LocalDate lteBirthday) {
-    this.lteBirthday = DateFormat.uuuuMMdd_HYPHEN.format(lteBirthday);
+    this.lteBirthday = lteBirthday;
   }
 
   /**
@@ -224,7 +226,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
     if (!DateFormat.uuuuMMdd_HYPHEN.check(lteBirthday)) {
       throw new DateTimeException(MessageProperties.getMsg(Message.M0002, lteBirthday));
     }
-    this.lteBirthday = lteBirthday;
+    this.lteBirthday = DateFormat.uuuuMMdd_HYPHEN.parse(lteBirthday);
   }
 
   /**
@@ -236,7 +238,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param hits 取得件数
    */
   public void setHits(int hits) {
-    this.hits = String.valueOf(hits);
+    this.hits = hits;
   }
 
   /**
@@ -247,22 +249,20 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * @param offset 検索開始位置
    */
   public void setOffset(int offset) {
-    this.offset = String.valueOf(offset);
+    this.offset = offset;
   }
 
   /**
-   * ソート順を設定する
+   * ソート順を設定する。
    *
-   * @param sort 検索開始位置
+   * @param sort ソート順
    */
   public void setSort(ActressSearchSort sort) {
     this.sort = sort;
   }
 
   /**
-   * APIを実行するためのパラメータを取得する
-   *
-   * @return パラメータ
+   * {@inheritDoc}
    */
   @Override
   protected String getParam() {
@@ -270,33 +270,39 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
     // 女優名の頭文字50音
     param = StringUtil.addParam(param, "initial", this.initial);
     // 女優ID
-    param = StringUtil.addParam(param, "actress_id", this.actressId);
+    param = StringUtil.addParam(param, "actress_id", Objects.toString(this.actressId, null));
     // キーワード
     param = StringUtil.addParam(param, "keyword", this.keyword);
     // バスト_以上
-    param = StringUtil.addParam(param, "gte_bust", this.gteBust);
+    param = StringUtil.addParam(param, "gte_bust", Objects.toString(this.gteBust, null));
     // バスト_以下
-    param = StringUtil.addParam(param, "lte_bust", this.lteBust);
+    param = StringUtil.addParam(param, "lte_bust", Objects.toString(this.lteBust, null));
     // ウエスト_以上
-    param = StringUtil.addParam(param, "gte_waist", this.gteWaist);
+    param = StringUtil.addParam(param, "gte_waist", Objects.toString(this.gteWaist, null));
     // ウエスト_以下
-    param = StringUtil.addParam(param, "lte_waist", this.lteWaist);
+    param = StringUtil.addParam(param, "lte_waist", Objects.toString(this.lteWaist, null));
     // ヒップ_以上
-    param = StringUtil.addParam(param, "gte_hip", this.gteHip);
+    param = StringUtil.addParam(param, "gte_hip", Objects.toString(this.gteHip, null));
     // ヒップ_以下
-    param = StringUtil.addParam(param, "lte_hip", this.lteHip);
+    param = StringUtil.addParam(param, "lte_hip", Objects.toString(this.lteHip, null));
     // 身長_以上
-    param = StringUtil.addParam(param, "gte_height", this.gteHeight);
+    param = StringUtil.addParam(param, "gte_height", Objects.toString(this.gteHeight, null));
     // 身長_以下
-    param = StringUtil.addParam(param, "lte_height", this.lteHeight);
+    param = StringUtil.addParam(param, "lte_height", Objects.toString(this.lteHeight, null));
     // 生年月日_以上
-    param = StringUtil.addParam(param, "gte_birthday", this.gteBirthday);
+    if (this.gteBirthday != null) {
+      param = StringUtil
+          .addParam(param, "gte_birthday", DateFormat.uuuuMMdd_HYPHEN.format(this.gteBirthday));
+    }
     // 生年月日_以下
-    param = StringUtil.addParam(param, "lte_birthday", this.lteBirthday);
+    if (this.lteBirthday != null) {
+      param = StringUtil
+          .addParam(param, "lte_birthday", DateFormat.uuuuMMdd_HYPHEN.format(this.lteBirthday));
+    }
     // 取得件数
-    param = StringUtil.addParam(param, "hits", this.hits);
+    param = StringUtil.addParam(param, "hits", Objects.toString(this.hits, null));
     // 検索開始位置
-    param = StringUtil.addParam(param, "offset", this.offset);
+    param = StringUtil.addParam(param, "offset", Objects.toString(this.offset, null));
     // ソート順
     if (this.sort != null) {
       param = StringUtil.addParam(param, "sort", this.sort.getValue());
@@ -307,7 +313,7 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
   }
 
   /**
-   * パラメータをクリアする
+   * {@inheritDoc}
    */
   @Override
   public void clear() {
@@ -346,19 +352,15 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
   }
 
   /**
-   * DMM_APIを実行するためのURLを管理するenumを返却
-   *
-   * @return DMM_APIを実行するためのURLを管理するenum
+   * {@inheritDoc}
    */
   @Override
-  protected DmmApi getDmmAPI() {
-    return DmmApi.ACTRESS_SEARCH;
+  protected DmmApiUrl getDmmApiUrl() {
+    return DmmApiUrl.ACTRESS_SEARCH;
   }
 
   /**
-   * APIより返却されるJSONのマッピング対象となるDTOのclassオブジェクトを取得する
-   *
-   * @return classオブジェクト
+   * {@inheritDoc}
    */
   @Override
   protected Class<ActressInfo> getInfoClass() {

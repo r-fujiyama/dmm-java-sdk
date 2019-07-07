@@ -1,6 +1,6 @@
 package com.sdk.java.dmm.api;
 
-import com.sdk.java.dmm.enums.DmmApi;
+import com.sdk.java.dmm.enums.DmmApiUrl;
 import com.sdk.java.dmm.utils.DmmProperties;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.StringUtil;
@@ -31,7 +31,7 @@ public abstract class AbstractDmm<T extends DmmInfo> {
 
   /**
    * JSONを取得する。<br>
-   * {@code execute()}を実行後、JSONが取得可能。
+   * {@code execute()}を実行後、JSONが取得可能になる。
    *
    * @return JSON
    */
@@ -52,11 +52,11 @@ public abstract class AbstractDmm<T extends DmmInfo> {
   public abstract void clear();
 
   /**
-   * DMM_APIを実行するためのURLを管理するenumを返却
+   * DMM_APIを実行するためのURLを管理するEnumを返却する。
    *
-   * @return DMM_APIを実行するためのURLを管理するenum
+   * @return DmmApiUrl
    */
-  protected abstract DmmApi getDmmAPI();
+  protected abstract DmmApiUrl getDmmApiUrl();
 
   /**
    * APIより返却されるJSONのマッピング対象となるDTOのClassオブジェクトを取得する。
@@ -71,8 +71,8 @@ public abstract class AbstractDmm<T extends DmmInfo> {
    * @return 実行結果
    */
   public T execute() {
-    log.info("execution start {}_API", this.getDmmAPI());
-    String executeURL = StringUtil.addParam(this.getDmmAPI().getValue(), "api_id", API_ID);
+    log.info("execution start {}_API", this.getDmmApiUrl());
+    String executeURL = StringUtil.addParam(this.getDmmApiUrl().getValue(), "api_id", API_ID);
     executeURL = StringUtil.addParam(executeURL, "affiliate_id", AFFILIATE_ID);
     executeURL += this.getParam();
     URL objURL;
@@ -81,7 +81,7 @@ public abstract class AbstractDmm<T extends DmmInfo> {
     } catch (MalformedURLException e) {
       throw new UncheckedIOException("不正なURLです:" + executeURL, e);
     }
-    log.info("execute {}_API URL:{}", this.getDmmAPI(), executeURL);
+    log.info("execute {}_API URL:{}", this.getDmmApiUrl(), executeURL);
     try (InputStream is = objURL.openStream();
         InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
         BufferedReader reader = new BufferedReader(isr)) {
@@ -92,7 +92,7 @@ public abstract class AbstractDmm<T extends DmmInfo> {
         line = reader.readLine();
       }
       T result = JsonUtil.read(this.json, getInfoClass());
-      log.info("execution end {}_API", this.getDmmAPI());
+      log.info("execution end {}_API", this.getDmmApiUrl());
       return result;
     } catch (IOException e) {
       throw new UncheckedIOException("APIの実行に失敗しました:" + executeURL, e);
