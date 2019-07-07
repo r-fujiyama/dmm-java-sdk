@@ -1,11 +1,21 @@
 package com.sdk.java.dmm.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.lang.reflect.Constructor;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class StringUtilTest {
+
+  @Test
+  public void 異常系_コンストラクタ() throws Exception {
+    Constructor<StringUtil> constructor = StringUtil.class.getDeclaredConstructor();
+    constructor.setAccessible(true);
+    assertThatThrownBy(() -> constructor.newInstance())
+        .hasCause(new AssertionError("com.sdk.java.dmm.utils.StringUtil instances for you!"));
+  }
 
   @Nested
   public class isNullOrEmpty {
@@ -31,7 +41,7 @@ public class StringUtilTest {
     }
 
   }
-  
+
   @Nested
   public class isAnyNullOrEmpty {
 
@@ -43,7 +53,7 @@ public class StringUtilTest {
 
     @Test
     public void 正常系_配列が0の場合() {
-      assertThat(StringUtil.isAnyNullOrEmpty(new String[0])).isTrue();
+      assertThat(StringUtil.isAnyNullOrEmpty()).isTrue();
     }
 
     @Test
@@ -104,7 +114,7 @@ public class StringUtilTest {
 
     @Test
     public void 正常系_配列が0の場合() {
-      assertThat(StringUtil.isAnyBlank(new String[0])).isTrue();
+      assertThat(StringUtil.isAnyBlank()).isTrue();
     }
 
     @Test

@@ -11,9 +11,11 @@ import java.util.Properties;
 /**
  * dmm.propertiesの値を取得するクラスです。
  */
-public class DmmProperties {
+public final class DmmProperties {
 
+  /** Properties */
   private final static Properties PROPERTIES;
+  /** プロパティ名 */
   private final static String PROPERTIES_NAME = "dmm.properties";
 
   static {
@@ -26,6 +28,13 @@ public class DmmProperties {
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
+  }
+
+  /**
+   * コンストラクタ
+   */
+  private DmmProperties() {
+    throw new AssertionError("com.sdk.java.dmm.utils.DmmProperties instances for you!");
   }
 
   /**

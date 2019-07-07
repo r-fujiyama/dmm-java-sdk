@@ -8,9 +8,17 @@ import java.io.UncheckedIOException;
 /**
  * JSONを操作するためのクラスです。
  */
-public class JsonUtil {
+public final class JsonUtil {
 
+  /** オブジェクトマッパー */
   private static final ObjectMapper MAPPER = new ObjectMapper();
+
+  /**
+   * コンストラクタ
+   */
+  private JsonUtil() {
+    throw new AssertionError("com.sdk.java.dmm.utils.JsonUtil instances for you!");
+  }
 
   /**
    * JSONを指定されたClassにマッピングします。
