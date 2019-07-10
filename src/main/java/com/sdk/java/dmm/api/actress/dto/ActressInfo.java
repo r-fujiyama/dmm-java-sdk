@@ -4,17 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.sdk.java.dmm.api.DmmInfo;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
 /**
  * 女優検索API実行結果
  */
-@Getter
-@EqualsAndHashCode
-@ToString
+@Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "request",

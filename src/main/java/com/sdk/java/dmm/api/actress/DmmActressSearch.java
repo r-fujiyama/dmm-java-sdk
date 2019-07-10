@@ -13,10 +13,8 @@ import com.sdk.java.dmm.utils.StringUtil;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Objects;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**

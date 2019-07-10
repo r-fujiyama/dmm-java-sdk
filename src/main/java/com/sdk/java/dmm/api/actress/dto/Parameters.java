@@ -12,17 +12,12 @@ import com.sdk.java.dmm.enums.ActressSearchSort;
 import com.sdk.java.dmm.enums.Output;
 import com.sdk.java.dmm.utils.DateTimeFormatConstants;
 import java.time.LocalDate;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
 /**
  * リクエストパラメータ
  */
-@Getter
-@EqualsAndHashCode
-@ToString
+@Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "api_id",
