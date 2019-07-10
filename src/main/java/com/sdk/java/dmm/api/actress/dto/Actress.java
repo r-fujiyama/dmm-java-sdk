@@ -10,16 +10,12 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.sdk.java.dmm.utils.DateTimeFormatConstants;
 import java.time.LocalDate;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
 /**
  * 女優情報
  */
-@Getter
-@EqualsAndHashCode
-@ToString
+@Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
