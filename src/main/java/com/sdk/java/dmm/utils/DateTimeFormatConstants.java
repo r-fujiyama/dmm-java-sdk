@@ -4,8 +4,10 @@ public final class DateTimeFormatConstants {
 
   /** uuuu-MM-dd */
   public static final String uuuuMMdd_HYPHEN = "uuuu-MM-dd";
-  /** uuuu-MM-dd HH:mm:ss.SSS */
-  public static final String uuuuMMdd_HHmmssSSS_HYPHEN = "uuuu-MM-dd HH:mm:ss.SSS";
+  /** uuuu-MM-dd HH:mm:ss */
+  public static final String uuuuMMddHHmmss_HYPHEN = "uuuu-MM-dd HH:mm:ss";
+  /** uuuu-MM-dd'T'HH:mm:ss */
+  public static final String uuuuMMddTHHmmss_HYPHEN = "uuuu-MM-dd'T'HH:mm:ss";
 
   /**
    * コンストラクタ

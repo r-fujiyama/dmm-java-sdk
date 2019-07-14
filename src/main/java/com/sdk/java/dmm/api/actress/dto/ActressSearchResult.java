@@ -15,7 +15,7 @@ import lombok.Value;
     "request",
     "result"
 })
-public class ActressInfo implements DmmInfo<Request, Result> {
+public class ActressSearchResult implements DmmInfo<Request, Result> {
 
   /** リクエスト */
   @JsonProperty("request")

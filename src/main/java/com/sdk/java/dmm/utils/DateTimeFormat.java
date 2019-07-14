@@ -10,8 +10,8 @@ import java.time.format.ResolverStyle;
  */
 public enum DateTimeFormat {
 
-  /** uuuu-MM-dd HH:mm:ss.SSS */
-  uuuuMMdd_HHmmssSSS_HYPHEN(DateTimeFormatConstants.uuuuMMdd_HHmmssSSS_HYPHEN);
+  /** uuuu-MM-dd'T'HH:mm:ss */
+  uuuuMMddTHHmmss_HYPHEN(DateTimeFormatConstants.uuuuMMddTHHmmss_HYPHEN);
 
   /** フォーマッタ */
   private final DateTimeFormatter dateTimeFormatter;

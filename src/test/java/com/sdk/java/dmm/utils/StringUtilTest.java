@@ -3,6 +3,7 @@ package com.sdk.java.dmm.utils;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.sdk.java.dmm.enums.ActressSearchSort;
 import java.lang.reflect.Constructor;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -172,19 +173,69 @@ public class StringUtilTest {
   @Nested
   public class addParam {
 
-    @Test
-    public void 正常系_パラメータが付与されること() {
-      assertThat(StringUtil.addParam("", "paramName", "paramVal")).isEqualTo("&paramName=paramVal");
+    @Nested
+    public class 文字列 {
+
+      @Test
+      public void 正常系_パラメータが付与されること() {
+        assertThat(StringUtil.addParam("", "paramName", "paramVal"))
+            .isEqualTo("&paramName=paramVal");
+      }
+
+      @Test
+      public void 正常系_パラメータが付与されないこと_paramNameがBlankの場合() {
+        assertThat(StringUtil.addParam("NONE", " ", "paramVal")).isEqualTo("NONE");
+      }
+
+      @Test
+      public void 正常系_パラメータが付与されないこと_paramValがBlankの場合() {
+        assertThat(StringUtil.addParam("NONE", "paramName", " ")).isEqualTo("NONE");
+      }
+
     }
 
-    @Test
-    public void 正常系_パラメータが付与されないこと_paramNameがBlankの場合() {
-      assertThat(StringUtil.addParam("NONE", " ", "paramVal")).isEqualTo("NONE");
+    @Nested
+    public class 数値 {
+
+      @Test
+      public void 正常系_パラメータが付与されること() {
+        assertThat(StringUtil.addParam("", "paramName", 10))
+            .isEqualTo("&paramName=10");
+      }
+
+      @Test
+      public void 正常系_パラメータが付与されないこと_paramNameがBlankの場合() {
+        assertThat(StringUtil.addParam("NONE", " ", 10)).isEqualTo("NONE");
+      }
+
+      @Test
+      public void 正常系_パラメータが付与されないこと_paramValがnullの場合() {
+        Integer integer = null;
+        assertThat(StringUtil.addParam("NONE", "paramName", integer)).isEqualTo("NONE");
+      }
+
     }
 
-    @Test
-    public void 正常系_パラメータが付与されないこと_paramValがBlankの場合() {
-      assertThat(StringUtil.addParam("NONE", "paramName", " ")).isEqualTo("NONE");
+    @Nested
+    public class 列挙型 {
+
+      @Test
+      public void 正常系_パラメータが付与されること() {
+        assertThat(StringUtil.addParam("", "paramName", ActressSearchSort.ID_ASC))
+            .isEqualTo("&paramName=id");
+      }
+
+      @Test
+      public void 正常系_パラメータが付与されないこと_paramNameがBlankの場合() {
+        assertThat(StringUtil.addParam("NONE", " ", ActressSearchSort.ID_DESC)).isEqualTo("NONE");
+      }
+
+      @Test
+      public void 正常系_パラメータが付与されないこと_paramValがnullの場合() {
+        ActressSearchSort sort = null;
+        assertThat(StringUtil.addParam("NONE", "paramName", sort)).isEqualTo("NONE");
+      }
+
     }
 
   }
