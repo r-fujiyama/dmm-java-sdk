@@ -5,19 +5,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 女優検索APIにて使用する出力形式enum
+ * 出力形式Enum。
  */
 @AllArgsConstructor
 @Getter
 public enum Output implements CodeEnum<String> {
 
   /** JSON */
-  JSON("json"),
+  JSON("json", "JSON"),
   /** XML */
-  XML("xml");
+  XML("xml", "XML");
 
-  /** アウトプット形式 */
+  /** 出力形式 */
   private String value;
+  /** 名前 */
+  private String name;
 
   /**
    * 指定されたvalue持つEnumを返します。
@@ -26,7 +28,7 @@ public enum Output implements CodeEnum<String> {
    * @return 指定されたvalueを持つEnum
    */
   @JsonCreator
-  public static Output of(String value) throws IllegalArgumentException {
+  public static Output of(String value) {
     return CodeEnum.of(Output.class, value);
   }
 

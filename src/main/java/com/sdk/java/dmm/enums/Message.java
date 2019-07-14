@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * message.propertiesのキーを管理するenumです。
+ * message.propertiesのキーを管理するEnum。
  */
 @AllArgsConstructor
 @Getter

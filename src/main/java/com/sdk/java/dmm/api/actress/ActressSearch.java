@@ -2,9 +2,9 @@ package com.sdk.java.dmm.api.actress;
 
 
 import com.sdk.java.dmm.api.AbstractDmm;
-import com.sdk.java.dmm.api.actress.dto.ActressInfo;
+import com.sdk.java.dmm.api.actress.dto.ActressSearchResult;
 import com.sdk.java.dmm.enums.ActressSearchSort;
-import com.sdk.java.dmm.enums.DmmApiUrl;
+import com.sdk.java.dmm.enums.BaseURL;
 import com.sdk.java.dmm.enums.Message;
 import com.sdk.java.dmm.enums.Output;
 import com.sdk.java.dmm.utils.DateFormat;
@@ -23,18 +23,18 @@ import lombok.ToString;
  * 下記は使用方法になります。
  * </p>
  * <pre>
- * DmmActressSearch actressSearch = new DmmActressSearch();
+ * ActressSearch actressSearch = new ActressSearch();
  * actressSearch.setInitial("は");
  * actressSearch.setKeyword("はたの");
  * actressSearch.setGteBust(88);
  * actressSearch.setGteWaist(59);
- * ActressInfo result = actressSearch.execute();
+ * ActressSearchResult result = actressSearch.execute();
  * </pre>
  */
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @ToString
-public class DmmActressSearch extends AbstractDmm<ActressInfo> {
+public class ActressSearch extends AbstractDmm<ActressSearchResult> {
 
   /** 女優名の頭文字50音 */
   private String initial;
@@ -268,25 +268,25 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
     // 女優名の頭文字50音
     param = StringUtil.addParam(param, "initial", this.initial);
     // 女優ID
-    param = StringUtil.addParam(param, "actress_id", Objects.toString(this.actressId, null));
+    param = StringUtil.addParam(param, "actress_id", this.actressId);
     // キーワード
     param = StringUtil.addParam(param, "keyword", this.keyword);
     // バスト_以上
-    param = StringUtil.addParam(param, "gte_bust", Objects.toString(this.gteBust, null));
+    param = StringUtil.addParam(param, "gte_bust", this.gteBust);
     // バスト_以下
-    param = StringUtil.addParam(param, "lte_bust", Objects.toString(this.lteBust, null));
+    param = StringUtil.addParam(param, "lte_bust", this.lteBust);
     // ウエスト_以上
-    param = StringUtil.addParam(param, "gte_waist", Objects.toString(this.gteWaist, null));
+    param = StringUtil.addParam(param, "gte_waist", this.gteWaist);
     // ウエスト_以下
-    param = StringUtil.addParam(param, "lte_waist", Objects.toString(this.lteWaist, null));
+    param = StringUtil.addParam(param, "lte_waist", this.lteWaist);
     // ヒップ_以上
-    param = StringUtil.addParam(param, "gte_hip", Objects.toString(this.gteHip, null));
+    param = StringUtil.addParam(param, "gte_hip", this.gteHip);
     // ヒップ_以下
-    param = StringUtil.addParam(param, "lte_hip", Objects.toString(this.lteHip, null));
+    param = StringUtil.addParam(param, "lte_hip", this.lteHip);
     // 身長_以上
-    param = StringUtil.addParam(param, "gte_height", Objects.toString(this.gteHeight, null));
+    param = StringUtil.addParam(param, "gte_height", this.gteHeight);
     // 身長_以下
-    param = StringUtil.addParam(param, "lte_height", Objects.toString(this.lteHeight, null));
+    param = StringUtil.addParam(param, "lte_height", this.lteHeight);
     // 生年月日_以上
     if (this.gteBirthday != null) {
       param = StringUtil
@@ -302,11 +302,9 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
     // 検索開始位置
     param = StringUtil.addParam(param, "offset", Objects.toString(this.offset, null));
     // ソート順
-    if (this.sort != null) {
-      param = StringUtil.addParam(param, "sort", this.sort.getValue());
-    }
+    param = StringUtil.addParam(param, "sort", this.sort);
     // 出力形式
-    param = StringUtil.addParam(param, "output", Output.JSON.getValue());
+    param = StringUtil.addParam(param, "output", Output.JSON);
     return param;
   }
 
@@ -353,16 +351,16 @@ public class DmmActressSearch extends AbstractDmm<ActressInfo> {
    * {@inheritDoc}
    */
   @Override
-  protected DmmApiUrl getDmmApiUrl() {
-    return DmmApiUrl.ACTRESS_SEARCH;
+  protected BaseURL getDmmApiUrl() {
+    return BaseURL.ACTRESS_SEARCH;
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  protected Class<ActressInfo> getInfoClass() {
-    return ActressInfo.class;
+  protected Class<ActressSearchResult> getInfoClass() {
+    return ActressSearchResult.class;
   }
 
 }

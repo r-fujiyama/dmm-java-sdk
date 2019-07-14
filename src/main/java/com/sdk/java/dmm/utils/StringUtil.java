@@ -1,5 +1,7 @@
 package com.sdk.java.dmm.utils;
 
+import com.sdk.java.dmm.enums.CodeEnum;
+
 /**
  * 文字列操作のためのクラスです。
  */
@@ -158,6 +160,52 @@ public final class StringUtil {
       return str;
     }
     return str + "&" + paramName + "=" + paramVal;
+  }
+
+  /**
+   * パラメータを付与する。<br>
+   * <pre>
+   * StringUtil.addParam("&amp;paramName1=paramVal1", "paramName2", "paramVal2") = "&amp;paramName1=paramVal1&amp;paramName2=paramVal2"
+   * StringUtil.addParam("", "paramName", "paramVal")                        = "&amp;paramName=paramVal"
+   * StringUtil.addParam(" ", "paramName", "paramVal")                       = " &amp;paramName=paramVal"
+   * StringUtil.addParam(null, "paramName", "paramVal")                      = "null&amp;paramName=paramVal"
+   * StringUtil.addParam("not add", null, "paramVal")                        = "not add"
+   * StringUtil.addParam("not add", "paramName", null)                       = "not add"
+   * </pre>
+   *
+   * @param str パラメータを付与する文字列
+   * @param paramName パラメータ名
+   * @param paramVal パラメータ値
+   * @return パラーメタを付与した文字列
+   */
+  public static String addParam(String str, String paramName, Number paramVal) {
+    if (isBlank(paramName) || paramVal == null) {
+      return str;
+    }
+    return str + "&" + paramName + "=" + paramVal;
+  }
+
+  /**
+   * パラメータを付与する。<br>
+   * <pre>
+   * StringUtil.addParam("&amp;paramName1=paramVal1", "paramName2", "paramVal2") = "&amp;paramName1=paramVal1&amp;paramName2=paramVal2"
+   * StringUtil.addParam("", "paramName", "paramVal")                        = "&amp;paramName=paramVal"
+   * StringUtil.addParam(" ", "paramName", "paramVal")                       = " &amp;paramName=paramVal"
+   * StringUtil.addParam(null, "paramName", "paramVal")                      = "null&amp;paramName=paramVal"
+   * StringUtil.addParam("not add", null, "paramVal")                        = "not add"
+   * StringUtil.addParam("not add", "paramName", null)                       = "not add"
+   * </pre>
+   *
+   * @param str パラメータを付与する文字列
+   * @param paramName パラメータ名
+   * @param paramVal パラメータ値
+   * @return パラーメタを付与した文字列
+   */
+  public static String addParam(String str, String paramName, CodeEnum paramVal) {
+    if (isBlank(paramName) || paramVal == null) {
+      return str;
+    }
+    return str + "&" + paramName + "=" + paramVal.getValue();
   }
 
 }
