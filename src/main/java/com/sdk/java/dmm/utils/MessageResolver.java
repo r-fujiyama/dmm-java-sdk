@@ -12,7 +12,7 @@ import java.util.Properties;
 /**
  * message.propertiesの値を取得するクラスです。
  */
-public final class MessageProperties {
+public final class MessageResolver {
 
   /** Properties */
   private final static Properties PROPERTIES;
@@ -20,7 +20,7 @@ public final class MessageProperties {
   private final static String PROPERTIES_NAME = "message.properties";
 
   static {
-    try (InputStream is = MessageProperties.class.getClassLoader()
+    try (InputStream is = MessageResolver.class.getClassLoader()
         .getResourceAsStream(PROPERTIES_NAME);
         BufferedReader br = new BufferedReader(
             new InputStreamReader(is, StandardCharsets.UTF_8))) {
@@ -34,7 +34,7 @@ public final class MessageProperties {
   /**
    * コンストラクタ
    */
-  private MessageProperties() {
+  private MessageResolver() {
     throw new AssertionError("com.sdk.java.dmm.utils.MessageProperties instances for you!");
   }
 

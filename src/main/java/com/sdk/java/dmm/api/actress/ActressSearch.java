@@ -7,19 +7,17 @@ import com.sdk.java.dmm.enums.ActressSearchSort;
 import com.sdk.java.dmm.enums.BaseURL;
 import com.sdk.java.dmm.enums.Message;
 import com.sdk.java.dmm.enums.Output;
+import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.utils.DateFormat;
-import com.sdk.java.dmm.utils.MessageProperties;
 import com.sdk.java.dmm.utils.StringUtil;
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.Objects;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 /**
  * <p>
- * 女優検索を実行するためのクラス。<br>
+ * 女優検索を実行するためのクラスです。<br>
  * 下記は使用方法になります。
  * </p>
  * <pre>
@@ -75,10 +73,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:あい
    *
    * @param initial 頭文字
+   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public void setInitial(String initial) {
+  public void setInitial(String initial) throws DmmIllegalArgumentException {
     if (!StringUtil.isJapaneseSyllabary(initial)) {
-      throw new IllegalArgumentException(MessageProperties.getMsg(Message.M0001, initial));
+      throw new DmmIllegalArgumentException(Message.M0001, initial);
     }
     this.initial = initial;
   }
@@ -197,10 +196,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:1980-01-01
    *
    * @param gteBirthday 生年月日(以上)
+   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public void setGteBirthday(String gteBirthday) {
+  public void setGteBirthday(String gteBirthday) throws DmmIllegalArgumentException {
     if (!DateFormat.uuuuMMdd_HYPHEN.check(gteBirthday)) {
-      throw new DateTimeException(MessageProperties.getMsg(Message.M0002, gteBirthday));
+      throw new DmmIllegalArgumentException(Message.M0002, gteBirthday);
     }
     this.gteBirthday = DateFormat.uuuuMMdd_HYPHEN.parse(gteBirthday);
   }
@@ -219,10 +219,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:1980-01-01
    *
    * @param lteBirthday 生年月日(以下)
+   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public void setLteBirthday(String lteBirthday) {
+  public void setLteBirthday(String lteBirthday) throws DmmIllegalArgumentException {
     if (!DateFormat.uuuuMMdd_HYPHEN.check(lteBirthday)) {
-      throw new DateTimeException(MessageProperties.getMsg(Message.M0002, lteBirthday));
+      throw new DmmIllegalArgumentException(Message.M0002, lteBirthday);
     }
     this.lteBirthday = DateFormat.uuuuMMdd_HYPHEN.parse(lteBirthday);
   }
@@ -252,6 +253,20 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
 
   /**
    * ソート順を設定する。
+   * 名前昇順：NAME_ASC
+   * 名前降順：NAME_DESC
+   * バスト昇順：BUST_ASC
+   * バスト降順：BUST_DESC
+   * ウエスト昇順：WAIST_ASC
+   * ウエスト降順：WAIST_DESC
+   * ヒップ昇順：HIP_ASC
+   * ヒップ降順：HIP_DESC
+   * 身長昇順：HEIGHT_ASC
+   * 身長降順：HEIGHT_DESC
+   * 生年月日昇順：BIRTHDAY_ASC
+   * 生年月日降順：BIRTHDAY_DESC
+   * 女優ID昇順：ID_ASC
+   * 女優ID降順：ID_DESC
    *
    * @param sort ソート順
    */
@@ -298,9 +313,9 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
           .addParam(param, "lte_birthday", DateFormat.uuuuMMdd_HYPHEN.format(this.lteBirthday));
     }
     // 取得件数
-    param = StringUtil.addParam(param, "hits", Objects.toString(this.hits, null));
+    param = StringUtil.addParam(param, "hits", this.hits);
     // 検索開始位置
-    param = StringUtil.addParam(param, "offset", Objects.toString(this.offset, null));
+    param = StringUtil.addParam(param, "offset", this.offset);
     // ソート順
     param = StringUtil.addParam(param, "sort", this.sort);
     // 出力形式

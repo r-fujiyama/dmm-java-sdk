@@ -6,7 +6,7 @@ public final class DateTimeFormatConstants {
   public static final String uuuuMMdd_HYPHEN = "uuuu-MM-dd";
   /** uuuu-MM-dd HH:mm:ss */
   public static final String uuuuMMddHHmmss_HYPHEN = "uuuu-MM-dd HH:mm:ss";
-  /** uuuu-MM-dd'T'HH:mm:ss */
+  /** uuuu-MM-ddTHH:mm:ss */
   public static final String uuuuMMddTHHmmss_HYPHEN = "uuuu-MM-dd'T'HH:mm:ss";
 
   /**
