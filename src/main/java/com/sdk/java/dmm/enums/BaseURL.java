@@ -9,7 +9,9 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum BaseURL {
-  
+
+  /** 商品検索API */
+  ITEM_SEARCH("https://api.dmm.com/affiliate/v3/ItemList?", "商品検索API"),
   /** 女優検索API */
   ACTRESS_SEARCH("https://api.dmm.com/affiliate/v3/ActressSearch?", "女優検索API");
 

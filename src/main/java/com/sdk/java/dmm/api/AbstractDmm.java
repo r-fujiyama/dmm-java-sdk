@@ -91,7 +91,7 @@ public abstract class AbstractDmm<T extends DmmInfo> {
         this.json += line;
         line = reader.readLine();
       }
-      T result = JsonUtil.read(this.json, getInfoClass());
+      T result = JsonUtil.read(this.json, this.getInfoClass());
       log.info("execution end {}_API", this.getDmmApiUrl());
       return result;
     } catch (IOException e) {

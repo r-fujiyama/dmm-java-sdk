@@ -12,7 +12,7 @@ public interface CodeEnum<T> {
 
   /**
    * 指定されたEnumに指定されたvalueが存在する場合は、Enumを返却します。<br>
-   * そうでない場合は、{@code IllegalArgumentException}となります。
+   * そうでない場合は、{@code IllegalArgumentException}をスローします。
    *
    * @param <T> {@code CodeEnum}の仮型パラメータ
    * @param <E> CodeEnumをimplementsしたEnum
