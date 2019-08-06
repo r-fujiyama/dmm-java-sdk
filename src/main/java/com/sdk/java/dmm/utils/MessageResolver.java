@@ -44,7 +44,7 @@ public final class MessageResolver {
    * @param key キー
    * @return メッセージ
    */
-  public static String getMsg(Message key) {
+  public static String getMessage(Message key) {
     return PROPERTIES.getProperty(key.getValue());
   }
 
@@ -55,7 +55,7 @@ public final class MessageResolver {
    * @param bindStrArray エラーメッセージにバインドされる文字列
    * @return メッセージ
    */
-  public static String getMsg(Message key, String... bindStrArray) {
+  public static String getMessage(Message key, String... bindStrArray) {
     String msg = PROPERTIES.getProperty(key.getValue());
     for (String bindStr : bindStrArray) {
       msg = msg.replaceFirst("\\{\\}", bindStr);

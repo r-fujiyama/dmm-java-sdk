@@ -14,11 +14,9 @@ import com.sdk.java.dmm.enums.MonoStock;
 import com.sdk.java.dmm.enums.Site;
 import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.exception.DmmIllegalParameterException;
-import com.sdk.java.dmm.utils.DateFormat;
 import com.sdk.java.dmm.utils.DateTimeFormat;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.MessageResolver;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -597,7 +595,7 @@ public class ItemSearchTest {
       String argument = "2019/01/01";
       assertThatThrownBy(() -> itemSearch.setGteDate(argument))
           .isInstanceOf(DmmIllegalArgumentException.class)
-          .hasMessage(MessageResolver.getMsg(Message.M0003, argument));
+          .hasMessage(MessageResolver.getMessage(Message.M0003, argument));
     }
 
     @Test
@@ -605,14 +603,14 @@ public class ItemSearchTest {
       String argument = "2019/01/01";
       assertThatThrownBy(() -> itemSearch.setLteDate(argument))
           .isInstanceOf(DmmIllegalArgumentException.class)
-          .hasMessage(MessageResolver.getMsg(Message.M0003, argument));
+          .hasMessage(MessageResolver.getMessage(Message.M0003, argument));
     }
 
     @Test
     public void 異常系_execute_サイトが設定されていない場合() {
       assertThatThrownBy(() -> itemSearch.execute())
           .isInstanceOf(DmmIllegalParameterException.class)
-          .hasMessage(MessageResolver.getMsg(Message.M0004));
+          .hasMessage(MessageResolver.getMessage(Message.M0004));
     }
 
     @Test
@@ -621,7 +619,7 @@ public class ItemSearchTest {
       itemSearch.setFloor("floor");
       assertThatThrownBy(() -> itemSearch.execute())
           .isInstanceOf(DmmIllegalParameterException.class)
-          .hasMessage(MessageResolver.getMsg(Message.M0005));
+          .hasMessage(MessageResolver.getMessage(Message.M0005));
     }
 
     @Test
@@ -630,7 +628,7 @@ public class ItemSearchTest {
       itemSearch.setArticle(Article.ACTRESS);
       assertThatThrownBy(() -> itemSearch.execute())
           .isInstanceOf(DmmIllegalParameterException.class)
-          .hasMessage(MessageResolver.getMsg(Message.M0006));
+          .hasMessage(MessageResolver.getMessage(Message.M0006));
     }
 
     @Test
@@ -639,7 +637,7 @@ public class ItemSearchTest {
       itemSearch.setArticleId(1);
       assertThatThrownBy(() -> itemSearch.execute())
           .isInstanceOf(DmmIllegalParameterException.class)
-          .hasMessage(MessageResolver.getMsg(Message.M0006));
+          .hasMessage(MessageResolver.getMessage(Message.M0006));
     }
 
   }

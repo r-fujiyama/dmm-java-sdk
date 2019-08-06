@@ -9,11 +9,11 @@ public class DmmException extends RuntimeException {
   }
 
   public DmmException(Message message, String... param) {
-    super(MessageResolver.getMsg(message, param));
+    super(MessageResolver.getMessage(message, param));
   }
 
   public DmmException(Throwable e, Message message, String... param) {
-    super(MessageResolver.getMsg(message, param), e);
+    super(MessageResolver.getMessage(message, param), e);
   }
 
   public DmmException(Throwable e) {
