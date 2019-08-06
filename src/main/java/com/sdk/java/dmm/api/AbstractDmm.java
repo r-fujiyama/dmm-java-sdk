@@ -26,18 +26,65 @@ public abstract class AbstractDmm<T extends DmmInfo> {
   private static final String API_ID = DmmProperties.getValue("API_ID");
   /** アフェリエイトID */
   private static final String AFFILIATE_ID = DmmProperties.getValue("AFFILIATE_ID");
-  /** JSON */
-  private String json;
 
   /**
-   * JSONを取得する。<br>
-   * {@code execute()}を実行後、JSONが取得可能になる。
+   * APIを実行しJSONを取得する。<br>
    *
    * @return JSON
    */
   public String getJson() {
-    return this.json;
+    String json = this.connectToUrl();
+    log.info("execution end {}_API JSON:{}", this.getBaseURL(), json);
+    return json;
   }
+
+  /**
+   * APIを実行し結果を取得する。
+   *
+   * @return API実行結果DTO
+   */
+  public T execute() {
+    T result = JsonUtil.read(this.connectToUrl(), this.getResultClass());
+    log.info("execution end {}_API dto-info:<{}>", this.getBaseURL(), result.toString());
+    return result;
+  }
+
+  /**
+   * 　URLのHTMLを文字列で取得する。
+   *
+   * @return 指定されたURLのHTML文字列
+   */
+  private String connectToUrl() {
+    log.info("execution start {}_API", this.getBaseURL());
+    String executeURL = StringUtil.addParam(this.getBaseURL().getValue(), "api_id", API_ID);
+    executeURL = StringUtil.addParam(executeURL, "affiliate_id", AFFILIATE_ID);
+    executeURL += this.getParam();
+    URL objURL;
+    try {
+      objURL = new URL(executeURL);
+    } catch (MalformedURLException e) {
+      throw new UncheckedIOException("不正なURLです:" + executeURL, e);
+    }
+    log.info("execute {}_API URL:{}", this.getBaseURL(), executeURL);
+    try (InputStream is = objURL.openStream();
+        InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+        BufferedReader reader = new BufferedReader(isr)) {
+      String json = "";
+      String line = reader.readLine();
+      while (line != null) {
+        json += line;
+        line = reader.readLine();
+      }
+      return json;
+    } catch (IOException e) {
+      throw new UncheckedIOException("APIの実行に失敗しました:" + executeURL, e);
+    }
+  }
+
+  /**
+   * パラメータをクリアする。
+   */
+  public abstract void clear();
 
   /**
    * APIを実行するためのパラメータを取得する。
@@ -47,56 +94,17 @@ public abstract class AbstractDmm<T extends DmmInfo> {
   protected abstract String getParam();
 
   /**
-   * パラメータをクリアする。
-   */
-  public abstract void clear();
-
-  /**
    * DMM_APIを実行するためのURLを管理するEnumを返却する。
    *
    * @return BaseURL
    */
-  protected abstract BaseURL getDmmApiUrl();
+  protected abstract BaseURL getBaseURL();
 
   /**
    * APIより返却されるJSONのマッピング対象となるDTOのClassオブジェクトを取得する。
    *
    * @return classオブジェクト
    */
-  protected abstract Class<T> getInfoClass();
-
-  /**
-   * APIを実行し結果を取得する。
-   *
-   * @return 実行結果
-   */
-  public T execute() {
-    log.info("execution start {}_API", this.getDmmApiUrl());
-    String executeURL = StringUtil.addParam(this.getDmmApiUrl().getValue(), "api_id", API_ID);
-    executeURL = StringUtil.addParam(executeURL, "affiliate_id", AFFILIATE_ID);
-    executeURL += this.getParam();
-    URL objURL;
-    try {
-      objURL = new URL(executeURL);
-    } catch (MalformedURLException e) {
-      throw new UncheckedIOException("不正なURLです:" + executeURL, e);
-    }
-    log.info("execute {}_API URL:{}", this.getDmmApiUrl(), executeURL);
-    try (InputStream is = objURL.openStream();
-        InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-        BufferedReader reader = new BufferedReader(isr)) {
-      this.json = "";
-      String line = reader.readLine();
-      while (line != null) {
-        this.json += line;
-        line = reader.readLine();
-      }
-      T result = JsonUtil.read(this.json, this.getInfoClass());
-      log.info("execution end {}_API", this.getDmmApiUrl());
-      return result;
-    } catch (IOException e) {
-      throw new UncheckedIOException("APIの実行に失敗しました:" + executeURL, e);
-    }
-  }
+  protected abstract Class<T> getResultClass();
 
 }

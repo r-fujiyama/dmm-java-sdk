@@ -12,6 +12,8 @@ public enum BaseURL {
 
   /** 商品検索API */
   ITEM_SEARCH("https://api.dmm.com/affiliate/v3/ItemList?", "商品検索API"),
+  /** フロアAPI */
+  FLOOR_SEARCH("https://api.dmm.com/affiliate/v3/FloorList?","フロアAPI"),
   /** 女優検索API */
   ACTRESS_SEARCH("https://api.dmm.com/affiliate/v3/ActressSearch?", "女優検索API");
 

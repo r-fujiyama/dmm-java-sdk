@@ -14,10 +14,10 @@ import lombok.Value;
 })
 public class Author {
 
+  @JsonProperty("id")
+  private Long id;
   @JsonProperty("ruby")
   private String ruby;
-  @JsonProperty("id")
-  private Integer id;
   @JsonProperty("name")
   private String name;
 

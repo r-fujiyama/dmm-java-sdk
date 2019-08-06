@@ -1,5 +1,8 @@
 package com.sdk.java.dmm.api.actress;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import com.sdk.java.dmm.api.actress.dto.Actress;
 import com.sdk.java.dmm.api.actress.dto.ActressSearchResult;
 import com.sdk.java.dmm.enums.ActressSearchSort;
@@ -8,15 +11,11 @@ import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.utils.DateFormat;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.MessageResolver;
+import java.time.LocalDate;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class ActressSearchTest {
 
@@ -32,8 +31,7 @@ public class ActressSearchTest {
 
     @Test
     public void 正常系_女優検索API実行_条件無し() {
-      ActressSearchResult result = execute();
-      assertThat(result.getResult().getStatus()).isEqualTo(200);
+      execute();
     }
 
     @Test
@@ -164,7 +162,7 @@ public class ActressSearchTest {
 
     @Test
     public void 正常系_女優検索API実行_誕生日を文字列で指定_以下() {
-      String cond ="1996-12-15";
+      String cond = "1996-12-15";
       actressSearch.setLteBirthday(cond);
       ActressSearchResult result = execute();
       result.getResult().getActress()
@@ -424,7 +422,7 @@ public class ActressSearchTest {
       String argument = "test";
       assertThatThrownBy(() -> actressSearch.setInitial(argument))
           .isInstanceOf(DmmIllegalArgumentException.class)
-          .hasMessage(MessageResolver.getMsg(Message.M0001, argument));
+          .hasMessage(MessageResolver.getMessage(Message.M0001, argument));
     }
 
     @Test
@@ -432,7 +430,7 @@ public class ActressSearchTest {
       String argument = "2019/01/01";
       assertThatThrownBy(() -> actressSearch.setGteBirthday(argument))
           .isInstanceOf(DmmIllegalArgumentException.class)
-          .hasMessage(MessageResolver.getMsg(Message.M0002, argument));
+          .hasMessage(MessageResolver.getMessage(Message.M0002, argument));
     }
 
     @Test
@@ -440,7 +438,7 @@ public class ActressSearchTest {
       String argument = "2019/01/01";
       assertThatThrownBy(() -> actressSearch.setLteBirthday(argument))
           .isInstanceOf(DmmIllegalArgumentException.class)
-          .hasMessage(MessageResolver.getMsg(Message.M0002, argument));
+          .hasMessage(MessageResolver.getMessage(Message.M0002, argument));
     }
 
   }

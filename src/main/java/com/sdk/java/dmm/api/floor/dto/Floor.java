@@ -1,21 +1,30 @@
-package com.sdk.java.dmm.api.item.dto;
+package com.sdk.java.dmm.api.floor.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Value;
 
+/**
+ * フロア情報
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
-    "name"
+    "name",
+    "code"
 })
-public class Color {
+public class Floor {
 
+  /** フロアID */
   @JsonProperty("id")
-  private Long id;
+  public Long id;
+  /** フロア名 */
   @JsonProperty("name")
-  private String name;
+  public String name;
+  /** フロアコード */
+  @JsonProperty("code")
+  public String code;
 
 }

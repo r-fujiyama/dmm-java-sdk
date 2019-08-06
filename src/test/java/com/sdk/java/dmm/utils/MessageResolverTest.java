@@ -20,13 +20,13 @@ class MessageResolverTest {
 
   @Test
   void 正常系_getValue_キーのみ指定() {
-    String actual = MessageResolver.getMsg(Message.M0001);
+    String actual = MessageResolver.getMessage(Message.M0001);
     assertThat(actual).isEqualTo("50音の文字列ではありません:{}");
   }
 
   @Test
   void 正常系_getMsg_バインドする文字列あり() {
-    String actual = MessageResolver.getMsg(Message.M0001, "BIND");
+    String actual = MessageResolver.getMessage(Message.M0001, "BIND");
     assertThat(actual).isEqualTo("50音の文字列ではありません:BIND");
   }
 

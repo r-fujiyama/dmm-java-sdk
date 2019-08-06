@@ -274,6 +274,46 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
     this.sort = sort;
   }
 
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void clear() {
+    // 女優名の頭文字50音
+    this.initial = null;
+    // 女優ID
+    this.actressId = null;
+    // キーワード
+    this.keyword = null;
+    // バスト_以上
+    this.gteBust = null;
+    // バスト_以下
+    this.lteBust = null;
+    // ウエスト_以上
+    this.gteWaist = null;
+    // ウエスト_以下
+    this.lteWaist = null;
+    // ヒップ_以上
+    this.gteHip = null;
+    // ヒップ_以下
+    this.lteHip = null;
+    // 身長_以上
+    this.gteHeight = null;
+    // 身長_以下
+    this.lteHeight = null;
+    // 生年月日_以上
+    this.gteBirthday = null;
+    // 生年月日_以下
+    this.lteBirthday = null;
+    // 取得件数
+    this.hits = null;
+    // 検索開始位置
+    this.offset = null;
+    // ソート順
+    this.sort = null;
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -325,48 +365,10 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
 
   /**
    * {@inheritDoc}
+   *
    */
   @Override
-  public void clear() {
-    // 女優名の頭文字50音
-    this.initial = null;
-    // 女優ID
-    this.actressId = null;
-    // キーワード
-    this.keyword = null;
-    // バスト_以上
-    this.gteBust = null;
-    // バスト_以下
-    this.lteBust = null;
-    // ウエスト_以上
-    this.gteWaist = null;
-    // ウエスト_以下
-    this.lteWaist = null;
-    // ヒップ_以上
-    this.gteHip = null;
-    // ヒップ_以下
-    this.lteHip = null;
-    // 身長_以上
-    this.gteHeight = null;
-    // 身長_以下
-    this.lteHeight = null;
-    // 生年月日_以上
-    this.gteBirthday = null;
-    // 生年月日_以下
-    this.lteBirthday = null;
-    // 取得件数
-    this.hits = null;
-    // 検索開始位置
-    this.offset = null;
-    // ソート順
-    this.sort = null;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  protected BaseURL getDmmApiUrl() {
+  protected BaseURL getBaseURL() {
     return BaseURL.ACTRESS_SEARCH;
   }
 
@@ -374,7 +376,7 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * {@inheritDoc}
    */
   @Override
-  protected Class<ActressSearchResult> getInfoClass() {
+  protected Class<ActressSearchResult> getResultClass() {
     return ActressSearchResult.class;
   }
 

@@ -256,6 +256,39 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * {@inheritDoc}
    */
   @Override
+  public void clear() {
+    /** サイト */
+    this.site = null;
+    /** サービス */
+    this.service = null;
+    /** フロア */
+    this.floor = null;
+    /** 取得件数 */
+    this.hits = null;
+    /** 検索開始位置 */
+    this.offset = null;
+    /** ソート順 */
+    this.sort = null;
+    /** キーワード */
+    this.keyword = null;
+    /** 商品id */
+    this.cid = null;
+    /** 絞りこみ項目 */
+    this.article = null;
+    /** 絞り込みid */
+    this.articleId = null;
+    /** 発売日絞り込み_以上 */
+    this.gteDate = null;
+    /** 発売日絞り込み_以下 */
+    this.lteDate = null;
+    /** 在庫絞り込み */
+    this.monoStock = null;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   protected String getParam() {
     this.paramCheck();
     String param = "";
@@ -297,40 +330,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * {@inheritDoc}
    */
   @Override
-  public void clear() {
-    /** サイト */
-    this.site = null;
-    /** サービス */
-    this.service = null;
-    /** フロア */
-    this.floor = null;
-    /** 取得件数 */
-    this.hits = null;
-    /** 検索開始位置 */
-    this.offset = null;
-    /** ソート順 */
-    this.sort = null;
-    /** キーワード */
-    this.keyword = null;
-    /** 商品id */
-    this.cid = null;
-    /** 絞りこみ項目 */
-    this.article = null;
-    /** 絞り込みid */
-    this.articleId = null;
-    /** 発売日絞り込み_以上 */
-    this.gteDate = null;
-    /** 発売日絞り込み_以下 */
-    this.lteDate = null;
-    /** 在庫絞り込み */
-    this.monoStock = null;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  protected BaseURL getDmmApiUrl() {
+  protected BaseURL getBaseURL() {
     return BaseURL.ITEM_SEARCH;
   }
 
@@ -338,7 +338,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * {@inheritDoc}
    */
   @Override
-  protected Class<ItemSearchResult> getInfoClass() {
+  protected Class<ItemSearchResult> getResultClass() {
     return ItemSearchResult.class;
   }
 
