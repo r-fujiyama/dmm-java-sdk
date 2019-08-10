@@ -13,6 +13,8 @@ import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.exception.DmmIllegalParameterException;
 import com.sdk.java.dmm.utils.DateTimeFormat;
 import com.sdk.java.dmm.utils.StringUtil;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -75,32 +77,38 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * 一般（DMM.com）かアダルト（FANZA）。
    *
    * @param site サイト
+   * @return ItemSearch
    */
-  public void setSite(Site site) {
+  public ItemSearch setSite(Site site) {
     this.site = site;
+    return this;
   }
 
   /**
    * サービスを設定する。<br>
-   * <a href="https://affiliate.dmm.com/api/v3/floorlist.html">フロアAPI</a>から取得できるサービスコードを指定。
+   * <a href="https://affiliate.dmm.com/api/v3/floorlist.html">フロア検索API</a>から取得できるサービスコードを指定。
    * 例：digital
    *
    * @param service サービス
+   * @return ItemSearch
    */
-  public void setService(String service) {
-    this.service = service;
+  public ItemSearch setService(String service) {
+    this.service = URLEncoder.encode(service, StandardCharsets.UTF_8);
+    return this;
   }
 
   /**
    * フロアを設定する。<br>
-   * <a href="https://affiliate.dmm.com/api/v3/floorlist.html">フロアAPI</a>から取得できるフロアコードを指定。<br>
+   * <a href="https://affiliate.dmm.com/api/v3/floorlist.html">フロア検索API</a>から取得できるフロアコードを指定。<br>
    * フロアを設定する場合は、サービスが必須です。
    * 例：videoa
    *
    * @param floor フロア
+   * @return ItemSearch
    */
-  public void setFloor(String floor) {
-    this.floor = floor;
+  public ItemSearch setFloor(String floor) {
+    this.floor = URLEncoder.encode(floor, StandardCharsets.UTF_8);
+    return this;
   }
 
   /**
@@ -108,9 +116,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * 初期値：20　最大：100
    *
    * @param hits 取得件数
+   * @return ItemSearch
    */
-  public void setHits(Integer hits) {
+  public ItemSearch setHits(Integer hits) {
     this.hits = hits;
+    return this;
   }
 
   /**
@@ -118,9 +128,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * 初期値：1　最大：50000
    *
    * @param offset 検索開始位置
+   * @return ItemSearch
    */
-  public void setOffset(Integer offset) {
+  public ItemSearch setOffset(Integer offset) {
     this.offset = offset;
+    return this;
   }
 
   /**
@@ -133,9 +145,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * 評価：REVIEW<br>
    *
    * @param sort ソート順
+   * @return ItemSearch
    */
-  public void setSort(ItemSearchSort sort) {
+  public ItemSearch setSort(ItemSearchSort sort) {
     this.sort = sort;
+    return this;
   }
 
   /**
@@ -144,9 +158,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * 例：上原亜衣
    *
    * @param keyword キーワード
+   * @return ItemSearch
    */
-  public void setKeyword(String keyword) {
-    this.keyword = keyword;
+  public ItemSearch setKeyword(String keyword) {
+    this.keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
+    return this;
   }
 
   /**
@@ -155,9 +171,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * 例：15dss00145
    *
    * @param cid 商品ID
+   * @return ItemSearch
    */
-  public void setCid(String cid) {
-    this.cid = cid;
+  public ItemSearch setCid(String cid) {
+    this.cid = URLEncoder.encode(cid, StandardCharsets.UTF_8);
+    return this;
   }
 
   /**
@@ -170,9 +188,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * <a href="https://affiliate.dmm.com/api/v3/makersearch.html">メーカー</a>：MAKER<br>
    *
    * @param article 絞りこみ項目
+   * @return ItemSearch
    */
-  public void setArticle(Article article) {
+  public ItemSearch setArticle(Article article) {
     this.article = article;
+    return this;
   }
 
   /**
@@ -182,9 +202,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * 例：1011199
    *
    * @param articleId 絞り込みID
+   * @return ItemSearch
    */
-  public void setArticleId(long articleId) {
+  public ItemSearch setArticleId(long articleId) {
     this.articleId = articleId;
+    return this;
   }
 
   /**
@@ -192,9 +214,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * このパラメータで指定した日付以降に発売された商品を絞り込むことができます。
    *
    * @param gteDate 発売日絞り込み(以上)
+   * @return ItemSearch
    */
-  public void setGteDate(LocalDateTime gteDate) {
+  public ItemSearch setGteDate(LocalDateTime gteDate) {
     this.gteDate = gteDate;
+    return this;
   }
 
   /**
@@ -203,13 +227,15 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * 例:2019-05-26T21:50:10
    *
    * @param gteDate 発売日絞り込み(以上)
+   * @return ItemSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public void setGteDate(String gteDate) throws DmmIllegalArgumentException {
+  public ItemSearch setGteDate(String gteDate) throws DmmIllegalArgumentException {
     if (!DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.check(gteDate)) {
       throw new DmmIllegalArgumentException(Message.M0003, gteDate);
     }
     this.gteDate = DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse(gteDate);
+    return this;
   }
 
   /**
@@ -217,9 +243,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * このパラメータで指定した日付以前に発売された商品を絞り込むことができます。
    *
    * @param lteDate 発売日絞り込み(以下)
+   * @return ItemSearch
    */
-  public void setLteDate(LocalDateTime lteDate) {
+  public ItemSearch setLteDate(LocalDateTime lteDate) {
     this.lteDate = lteDate;
+    return this;
   }
 
   /**
@@ -228,13 +256,15 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * 例:2016-04-30T23:59:59
    *
    * @param lteDate 発売日絞り込み(以上)
+   * @return ItemSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public void setLteDate(String lteDate) throws DmmIllegalArgumentException {
+  public ItemSearch setLteDate(String lteDate) throws DmmIllegalArgumentException {
     if (!DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.check(lteDate)) {
       throw new DmmIllegalArgumentException(Message.M0003, lteDate);
     }
     this.lteDate = DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse(lteDate);
+    return this;
   }
 
   /**
@@ -247,9 +277,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * ※通販サービスのみ指定可能
    *
    * @param monoStock 在庫絞り込み
+   * @return ItemSearch
    */
-  public void setMonoStock(MonoStock monoStock) {
+  public ItemSearch setMonoStock(MonoStock monoStock) {
     this.monoStock = monoStock;
+    return this;
   }
 
   /**
@@ -257,31 +289,31 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    */
   @Override
   public void clear() {
-    /** サイト */
+    // サイト
     this.site = null;
-    /** サービス */
+    // サービス
     this.service = null;
-    /** フロア */
+    // フロア
     this.floor = null;
-    /** 取得件数 */
+    // 取得件数
     this.hits = null;
-    /** 検索開始位置 */
+    // 検索開始位置
     this.offset = null;
-    /** ソート順 */
+    // ソート順
     this.sort = null;
-    /** キーワード */
+    // キーワード
     this.keyword = null;
-    /** 商品id */
+    // 商品id
     this.cid = null;
-    /** 絞りこみ項目 */
+    // 絞りこみ項目
     this.article = null;
-    /** 絞り込みid */
+    // 絞り込みid
     this.articleId = null;
-    /** 発売日絞り込み_以上 */
+    // 発売日絞り込み_以上
     this.gteDate = null;
-    /** 発売日絞り込み_以下 */
+    // 発売日絞り込み_以下
     this.lteDate = null;
-    /** 在庫絞り込み */
+    // 在庫絞り込み
     this.monoStock = null;
   }
 
@@ -293,35 +325,35 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
     this.paramCheck();
     String param = "";
     param = StringUtil.addParam(param, "site", this.site);
-    /** サービス */
+    // サービス
     param = StringUtil.addParam(param, "service", this.service);
-    /** フロア */
+    // フロア
     param = StringUtil.addParam(param, "floor", this.floor);
-    /** 取得件数 */
+    // 取得件数
     param = StringUtil.addParam(param, "hits", this.hits);
-    /** 検索開始位置 */
+    // 検索開始位置
     param = StringUtil.addParam(param, "offset", this.offset);
-    /** ソート順 */
+    // ソート順
     param = StringUtil.addParam(param, "sort", this.sort);
-    /** キーワード */
+    // キーワード
     param = StringUtil.addParam(param, "keyword", this.keyword);
-    /** 商品id */
+    // 商品id
     param = StringUtil.addParam(param, "cid", this.cid);
-    /** 絞りこみ項目 */
+    // 絞りこみ項目
     param = StringUtil.addParam(param, "article", this.article);
-    /** 絞り込みid */
+    // 絞り込みid
     param = StringUtil.addParam(param, "article_id", this.articleId);
-    /** 発売日絞り込み_以上 */
+    // 発売日絞り込み_以上
     if (this.gteDate != null) {
       param = StringUtil.addParam(param, "gte_date",
           DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.format(this.gteDate));
     }
-    /** 発売日絞り込み_以下 */
+    // 発売日絞り込み_以下
     if (this.lteDate != null) {
       param = StringUtil.addParam(param, "lte_date",
           DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.format(this.lteDate));
     }
-    /** 在庫絞り込み */
+    // 在庫絞り込み
     param = StringUtil.addParam(param, "mono_stock", this.monoStock);
     return param;
   }
@@ -344,11 +376,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
 
   /**
    * パラメータの相関チェックを行う。<br>
-   * 入力値が不正な場合は、{@code DmmIllegalArgumentException}をスローする。
+   * 入力値が不正な場合は、{@code DmmIllegalParameterException}をスローする。
    *
-   * @throws DmmIllegalArgumentException パラメータが不正な場合にスローされる
+   * @throws DmmIllegalParameterException パラメータが不正な場合にスローされる
    */
-  private void paramCheck() throws DmmIllegalArgumentException {
+  private void paramCheck() throws DmmIllegalParameterException {
     if (this.site == null) {
       throw new DmmIllegalParameterException(Message.M0004);
     }

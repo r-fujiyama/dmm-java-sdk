@@ -17,6 +17,6 @@ public class Request {
 
   /** リクエストパラメータ */
   @JsonProperty("parameters")
-  public Parameters parameters;
+  private Parameters parameters;
 
 }

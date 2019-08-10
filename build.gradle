@@ -8,6 +8,8 @@ buildscript {
   }
 }
 
+def defaultEncoding = "UTF-8"
+
 apply plugin: "java"
 apply plugin: "eclipse"
 apply plugin: "idea"
@@ -20,7 +22,13 @@ repositories {
 }
 
 tasks.withType(JavaCompile) {
-  options.encoding = "UTF-8"
+  options.encoding = defaultEncoding
+}
+
+test {
+  useJUnitPlatform {
+    includeEngines "junit-jupiter"
+  }
 }
 
 task javadoc(type: Javadoc, overwrite: true) {
@@ -30,8 +38,8 @@ task javadoc(type: Javadoc, overwrite: true) {
   options.links("https://docs.oracle.com/javase/jp/11/docs/api/")
   options.memberLevel = JavadocMemberLevel.PRIVATE
   destinationDir = new File("$projectDir" + "\\docs")
-  options.charSet = "UTF-8"
-  options.encoding = "UTF-8"
+  options.charSet = defaultEncoding
+  options.encoding = defaultEncoding
 }
 
 dependencies {

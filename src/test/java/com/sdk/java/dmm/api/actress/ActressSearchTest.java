@@ -27,7 +27,7 @@ public class ActressSearchTest {
   }
 
   @Nested
-  public class execute {
+  public class 正常系_execute {
 
     @Test
     public void 正常系_女優検索API実行_条件無し() {
@@ -193,6 +193,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.NAME_ASC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           String actual = actressList.get(i - 1).getRuby();
           String expected = actressList.get(i).getRuby();
@@ -205,6 +206,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.NAME_DESC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           String actual = actressList.get(i - 1).getRuby();
           String expected = actressList.get(i).getRuby();
@@ -217,6 +219,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.BUST_ASC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           int actual = actressList.get(i - 1).getBust();
           int expected = actressList.get(i).getBust();
@@ -229,6 +232,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.BUST_DESC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           int actual = actressList.get(i - 1).getBust();
           int expected = actressList.get(i).getBust();
@@ -241,6 +245,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.WAIST_ASC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           int actual = actressList.get(i - 1).getWaist();
           int expected = actressList.get(i).getWaist();
@@ -253,6 +258,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.WAIST_DESC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           int actual = actressList.get(i - 1).getWaist();
           int expected = actressList.get(i).getWaist();
@@ -265,6 +271,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.HIP_ASC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           int actual = actressList.get(i - 1).getHip();
           int expected = actressList.get(i).getHip();
@@ -277,6 +284,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.HIP_DESC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           int actual = actressList.get(i - 1).getHip();
           int expected = actressList.get(i).getHip();
@@ -289,6 +297,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.HEIGHT_ASC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           int actual = actressList.get(i - 1).getHeight();
           int expected = actressList.get(i).getHeight();
@@ -301,6 +310,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.HEIGHT_DESC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           int actual = actressList.get(i - 1).getHeight();
           int expected = actressList.get(i).getHeight();
@@ -313,6 +323,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.BIRTHDAY_ASC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           LocalDate actual = actressList.get(i - 1).getBirthday();
           LocalDate expected = actressList.get(i).getBirthday();
@@ -325,6 +336,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.BIRTHDAY_DESC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           LocalDate actual = actressList.get(i - 1).getBirthday();
           LocalDate expected = actressList.get(i).getBirthday();
@@ -337,6 +349,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.ID_ASC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           long actual = actressList.get(i - 1).getId();
           long expected = actressList.get(i).getId();
@@ -349,6 +362,7 @@ public class ActressSearchTest {
         actressSearch.setSort(ActressSearchSort.ID_DESC);
         ActressSearchResult result = execute();
         List<Actress> actressList = result.getResult().getActress();
+        assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
           long actual = actressList.get(i - 1).getId();
           long expected = actressList.get(i).getId();
@@ -412,6 +426,30 @@ public class ActressSearchTest {
     actressSearch.setSort(ActressSearchSort.ID_DESC);
     actressSearch.clear();
     assertThat(actressSearch).isEqualTo(new ActressSearch());
+  }
+
+  @Test
+  public void 正常系_setterからActressSearchが返却されていることを確認() {
+    assertThat(actressSearch.setInitial("あ")).isEqualTo(actressSearch);
+    assertThat(actressSearch.setActressId(1L)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setKeyword("あ")).isEqualTo(actressSearch);
+    assertThat(actressSearch.setGteBust(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteBust(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setGteWaist(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteWaist(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setGteHip(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteHip(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setGteHeight(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteHeight(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setGteBirthday(DateFormat.uuuuMMdd_HYPHEN.parse("1988-05-24")))
+        .isEqualTo(actressSearch);
+    assertThat(actressSearch.setGteBirthday("1988-05-24")).isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteBirthday(DateFormat.uuuuMMdd_HYPHEN.parse("1988-05-24")))
+        .isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteBirthday("1988-05-24")).isEqualTo(actressSearch);
+    assertThat(actressSearch.setHits(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setOffset(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setSort(ActressSearchSort.ID_ASC)).isEqualTo(actressSearch);
   }
 
   @Nested

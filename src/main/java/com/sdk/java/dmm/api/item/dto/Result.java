@@ -25,10 +25,10 @@ public class Result {
   private Integer resultCount;
   /** 全体件数 */
   @JsonProperty("total_count")
-  private Integer totalCount;
+  private Long totalCount;
   /** 検索開始位置 */
   @JsonProperty("first_position")
-  private Integer firstPosition;
+  private Long firstPosition;
   /** 商品情報 */
   @JsonProperty("items")
   private List<Item> items = null;

@@ -19,12 +19,12 @@ public class Parameters {
 
   /** API_ID */
   @JsonProperty("api_id")
-  public String apiId;
+  private String apiId;
   /** アフィリエイトID */
   @JsonProperty("affiliate_id")
-  public String affiliateId;
+  private String affiliateId;
   /** 出力形式 */
   @JsonProperty("output")
-  public String output;
+  private String output;
 
 }

@@ -19,12 +19,12 @@ public class Floor {
 
   /** フロアID */
   @JsonProperty("id")
-  public Long id;
+  private Long id;
   /** フロア名 */
   @JsonProperty("name")
-  public String name;
+  private String name;
   /** フロアコード */
   @JsonProperty("code")
-  public String code;
+  private String code;
 
 }

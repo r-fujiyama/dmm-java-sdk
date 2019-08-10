@@ -21,7 +21,8 @@ import lombok.Value;
     "manufacture",
     "artist",
     "type",
-    "color"
+    "color",
+    "size"
 })
 public class ItemInfo {
 
@@ -51,5 +52,7 @@ public class ItemInfo {
   private List<Type> type = null;
   @JsonProperty("color")
   private List<Color> color = null;
+  @JsonProperty("size")
+  private List<Size> size = null;
 
 }

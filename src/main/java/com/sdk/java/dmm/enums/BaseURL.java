@@ -12,10 +12,12 @@ public enum BaseURL {
 
   /** 商品検索API */
   ITEM_SEARCH("https://api.dmm.com/affiliate/v3/ItemList?", "商品検索API"),
-  /** フロアAPI */
-  FLOOR_SEARCH("https://api.dmm.com/affiliate/v3/FloorList?","フロアAPI"),
   /** 女優検索API */
-  ACTRESS_SEARCH("https://api.dmm.com/affiliate/v3/ActressSearch?", "女優検索API");
+  ACTRESS_SEARCH("https://api.dmm.com/affiliate/v3/ActressSearch?", "女優検索API"),
+  /** ジャンル検索API */
+  GENRE_SEARCH("https://api.dmm.com/affiliate/v3/GenreSearch?", "ジャンル検索API"),
+  /** フロア検索API */
+  FLOOR_SEARCH("https://api.dmm.com/affiliate/v3/FloorList?", "フロア検索API");
 
   /** URL */
   private String value;

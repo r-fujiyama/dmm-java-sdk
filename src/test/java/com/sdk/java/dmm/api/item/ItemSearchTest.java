@@ -38,7 +38,7 @@ public class ItemSearchTest {
   }
 
   @Nested
-  public class execute {
+  public class 正常系_execute {
 
     @Nested
     public class サイト_DMM {
@@ -138,6 +138,7 @@ public class ItemSearchTest {
           itemSearch.setSort(ItemSearchSort.DATE);
           ItemSearchResult result = execute();
           List<Item> itemList = result.getResult().getItems();
+          assertThat(itemList).isNotEmpty();
           for (int i = 1; i < itemList.size(); i++) {
             LocalDateTime actual = itemList.get(i - 1).getDate();
             LocalDateTime expected = itemList.get(i).getDate();
@@ -150,6 +151,7 @@ public class ItemSearchTest {
           itemSearch.setSort(ItemSearchSort.REVIEW);
           ItemSearchResult result = execute();
           List<Item> itemList = result.getResult().getItems();
+          assertThat(itemList).isNotEmpty();
           for (int i = 1; i < itemList.size(); i++) {
             double actualAverage = itemList.get(i - 1).getReview().getAverage();
             double expectedAverage = itemList.get(i).getReview().getAverage();
@@ -164,20 +166,18 @@ public class ItemSearchTest {
 
       }
 
+      /**
+       * 絞りこみ項目による検索は、絞り込みIDが必須
+       */
       @Nested
       public class 正常系_商品検索API実行_絞りこみ項目と絞り込みID {
-
-        /**
-         * 絞りこみ項目による検索は、絞り込みIDが必須
-         */
 
         @Test
         public void 女優() {
           itemSearch.setArticle(Article.ACTRESS);
           itemSearch.setArticleId(15365);
           ItemSearchResult itemSearchResult = execute();
-          assertThat(itemSearchResult.getResult().getResultCount()).isNotEqualTo(0);
-          List<List<String>> nameListList = new ArrayList();
+          List<List<String>> nameListList = new ArrayList<List<String>>();
           itemSearchResult.getResult().getItems().forEach(item -> nameListList.add(
               item.getIteminfo().getActor().stream().map(actor -> actor.getName())
                   .collect(Collectors.toList())));
@@ -186,7 +186,8 @@ public class ItemSearchTest {
           actressSearch.setActressId(15365);
           ActressSearchResult actressSearchResult = actressSearch.execute();
           String expected = actressSearchResult.getResult().getActress().get(0).getName();
-          nameListList.forEach(nameList -> assertThat(nameList).contains(expected));
+          nameListList
+              .forEach(nameList -> assertThat(nameList).isNotEmpty().contains(expected));
         }
 
         @Test
@@ -196,7 +197,15 @@ public class ItemSearchTest {
 
         @Test
         public void ジャンル() {
-          // TODO ジャンル検索API実装後に実装する。
+          itemSearch.setArticle(Article.GENRE);
+          long cond = 1;
+          itemSearch.setArticleId(cond);
+          ItemSearchResult itemSearchResult = execute();
+          List<List<Long>> idListList = new ArrayList<List<Long>>();
+          itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
+              item.getIteminfo().getGenre().stream().map(genre -> genre.getId())
+                  .collect(Collectors.toList())));
+          idListList.forEach(idList -> assertThat(idList).isNotEmpty().contains(cond));
         }
 
         @Test
@@ -393,6 +402,7 @@ public class ItemSearchTest {
           itemSearch.setSort(ItemSearchSort.DATE);
           ItemSearchResult result = execute();
           List<Item> itemList = result.getResult().getItems();
+          assertThat(itemList).isNotEmpty();
           for (int i = 1; i < itemList.size(); i++) {
             LocalDateTime actual = itemList.get(i - 1).getDate();
             LocalDateTime expected = itemList.get(i).getDate();
@@ -405,6 +415,7 @@ public class ItemSearchTest {
           itemSearch.setSort(ItemSearchSort.REVIEW);
           ItemSearchResult result = execute();
           List<Item> itemList = result.getResult().getItems();
+          assertThat(itemList).isNotEmpty();
           for (int i = 1; i < itemList.size(); i++) {
             double actualAverage = itemList.get(i - 1).getReview().getAverage();
             double expectedAverage = itemList.get(i).getReview().getAverage();
@@ -419,37 +430,27 @@ public class ItemSearchTest {
 
       }
 
+      /**
+       * 絞りこみ項目による検索は、絞り込みIDが必須
+       */
       @Nested
       public class 正常系_商品検索API実行_絞りこみ項目と絞り込みID {
-
-        /**
-         * 絞りこみ項目による検索は、絞り込みIDが必須
-         */
 
         @Test
         public void 女優() {
           itemSearch.setArticle(Article.ACTRESS);
           itemSearch.setArticleId(26225);
           ItemSearchResult itemSearchResult = execute();
-          assertThat(itemSearchResult.getResult().getResultCount()).isNotEqualTo(0);
-
-          List<List<Long>> idListList = new ArrayList();
+          List<List<Long>> idListList = new ArrayList<List<Long>>();
           itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
               item.getIteminfo().getActress().stream().map(actress -> actress.getId())
-                  .collect(Collectors.toList())));
-
-          List<List<String>> nameListList = new ArrayList();
-          itemSearchResult.getResult().getItems().forEach(item -> nameListList.add(
-              item.getIteminfo().getActress().stream().map(actress -> actress.getName())
                   .collect(Collectors.toList())));
 
           ActressSearch actressSearch = new ActressSearch();
           actressSearch.setActressId(26225);
           ActressSearchResult actressSearchResult = actressSearch.execute();
-          long expectedId = actressSearchResult.getResult().getActress().get(0).getId();
-          String expectedName = actressSearchResult.getResult().getActress().get(0).getName();
-          idListList.forEach(idList -> assertThat(idList).contains(expectedId));
-          nameListList.forEach(nameList -> assertThat(nameList).contains(expectedName));
+          long expected = actressSearchResult.getResult().getActress().get(0).getId();
+          idListList.forEach(idList -> assertThat(idList).isNotEmpty().contains(expected));
         }
 
         @Test
@@ -459,7 +460,15 @@ public class ItemSearchTest {
 
         @Test
         public void ジャンル() {
-          // TODO ジャンル検索API実装後に実装する。
+          itemSearch.setArticle(Article.GENRE);
+          long cond = 1;
+          itemSearch.setArticleId(cond);
+          ItemSearchResult itemSearchResult = execute();
+          List<List<Long>> idListList = new ArrayList<List<Long>>();
+          itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
+              item.getIteminfo().getGenre().stream().map(genre -> genre.getId())
+                  .collect(Collectors.toList())));
+          idListList.forEach(idList -> assertThat(idList).isNotEmpty().contains(cond));
         }
 
         @Test
@@ -585,6 +594,29 @@ public class ItemSearchTest {
     itemSearch.setMonoStock(MonoStock.STOCK);
     itemSearch.clear();
     assertThat(itemSearch).isEqualTo(new ItemSearch());
+  }
+
+  @Test
+  public void 正常系_setterからItemSearchが返却されていることを確認() {
+    assertThat(itemSearch.setSite(Site.DMM)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setService("a")).isEqualTo(itemSearch);
+    assertThat(itemSearch.setFloor("a")).isEqualTo(itemSearch);
+    assertThat(itemSearch.setHits(1)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setOffset(1)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setSort(ItemSearchSort.RANK)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setKeyword("あ")).isEqualTo(itemSearch);
+    assertThat(itemSearch.setCid("a")).isEqualTo(itemSearch);
+    assertThat(itemSearch.setArticle(Article.ACTRESS)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setArticleId(1)).isEqualTo(itemSearch);
+    assertThat(
+        itemSearch.setGteDate(DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse("2019-07-01T00:00:00")))
+        .isEqualTo(itemSearch);
+    assertThat(itemSearch.setGteDate("2019-07-01T00:00:00")).isEqualTo(itemSearch);
+    assertThat(
+        itemSearch.setLteDate(DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse("2019-07-01T00:00:00")))
+        .isEqualTo(itemSearch);
+    assertThat(itemSearch.setLteDate("2019-07-01T00:00:00")).isEqualTo(itemSearch);
+    assertThat(itemSearch.setMonoStock(MonoStock.STOCK)).isEqualTo(itemSearch);
   }
 
   @Nested

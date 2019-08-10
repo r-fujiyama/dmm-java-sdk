@@ -7,7 +7,7 @@ import com.sdk.java.dmm.api.DmmInfo;
 import lombok.Value;
 
 /**
- * フロアAPI実行結果
+ * フロア検索API実行結果
  */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -20,12 +20,12 @@ public class Service {
 
   /** サービス名 */
   @JsonProperty("name")
-  public String name;
+  private String name;
   /** サービスコード */
   @JsonProperty("code")
-  public String code;
+  private String code;
   /** フロア情報 */
   @JsonProperty("floor")
-  public List<Floor> floor = null;
+  private List<Floor> floor = null;
 
 }

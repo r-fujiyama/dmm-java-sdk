@@ -3,6 +3,8 @@ com.sdk.java.dmm.api.actress
 com.sdk.java.dmm.api.actress.dto
 com.sdk.java.dmm.api.floor
 com.sdk.java.dmm.api.floor.dto
+com.sdk.java.dmm.api.genre
+com.sdk.java.dmm.api.genre.dto
 com.sdk.java.dmm.api.item
 com.sdk.java.dmm.api.item.dto
 com.sdk.java.dmm.enums

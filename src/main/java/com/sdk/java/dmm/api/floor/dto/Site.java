@@ -20,12 +20,12 @@ public class Site {
 
   /** サイト名 */
   @JsonProperty("name")
-  public String name;
+  private String name;
   /** サイトコード */
   @JsonProperty("code")
-  public String code;
+  private String code;
   /** サービス情報 */
   @JsonProperty("service")
-  public List<Service> service = null;
+  private List<Service> service = null;
 
 }

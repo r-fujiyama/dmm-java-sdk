@@ -14,7 +14,7 @@ import lombok.Value;
 public class Maker {
 
   @JsonProperty("id")
-  private Long id;
+  private String id;
   @JsonProperty("name")
   private String name;
 

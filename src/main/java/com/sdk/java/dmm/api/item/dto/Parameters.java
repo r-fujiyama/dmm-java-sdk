@@ -60,7 +60,7 @@ public class Parameters {
   @JsonProperty("article")
   private Article article;
   @JsonProperty("article_id")
-  private String articleId;
+  private Long articleId;
   @JsonProperty("gte_date")
   @JsonFormat(pattern = DateTimeFormatConstants.uuuuMMddTHHmmss_HYPHEN)
   @JsonDeserialize(using = LocalDateTimeDeserializer.class)
