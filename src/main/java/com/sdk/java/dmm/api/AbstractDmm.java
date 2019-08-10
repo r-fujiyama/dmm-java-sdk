@@ -33,7 +33,7 @@ public abstract class AbstractDmm<T extends DmmInfo> {
    * @return JSON
    */
   public String getJson() {
-    String json = this.connectToUrl();
+    String json = this.fetchJson();
     log.info("execution end {}_API JSON:{}", this.getBaseURL(), json);
     return json;
   }
@@ -44,17 +44,17 @@ public abstract class AbstractDmm<T extends DmmInfo> {
    * @return API実行結果DTO
    */
   public T execute() {
-    T result = JsonUtil.read(this.connectToUrl(), this.getResultClass());
-    log.info("execution end {}_API dto-info:<{}>", this.getBaseURL(), result.toString());
+    T result = JsonUtil.read(this.fetchJson(), this.getResultClass());
+    log.info("execution end {}_API DTO-INFO:{}", this.getBaseURL(), result.toString());
     return result;
   }
 
   /**
-   * 　URLのHTMLを文字列で取得する。
+   * APIを実行しJSONを取得する。
    *
-   * @return 指定されたURLのHTML文字列
+   * @return JSON
    */
-  private String connectToUrl() {
+  private String fetchJson() {
     log.info("execution start {}_API", this.getBaseURL());
     String executeURL = StringUtil.addParam(this.getBaseURL().getValue(), "api_id", API_ID);
     executeURL = StringUtil.addParam(executeURL, "affiliate_id", AFFILIATE_ID);

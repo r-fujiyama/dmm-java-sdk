@@ -10,6 +10,8 @@ import com.sdk.java.dmm.enums.Output;
 import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.utils.DateFormat;
 import com.sdk.java.dmm.utils.StringUtil;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,7 +36,7 @@ import lombok.ToString;
 @ToString
 public class ActressSearch extends AbstractDmm<ActressSearchResult> {
 
-  /** 女優名の頭文字50音 */
+  /** 女優名の頭文字(50音) */
   private String initial;
   /** 女優ID */
   private Long actressId;
@@ -69,17 +71,18 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
 
   /**
    * 女優名の頭文字を設定する。<br>
-   * 50音をUTF-8で指定。<br>
    * 例:あい
    *
    * @param initial 頭文字
+   * @return this ActressSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public void setInitial(String initial) throws DmmIllegalArgumentException {
+  public ActressSearch setInitial(String initial) throws DmmIllegalArgumentException {
     if (!StringUtil.isJapaneseSyllabary(initial)) {
       throw new DmmIllegalArgumentException(Message.M0001, initial);
     }
-    this.initial = initial;
+    this.initial = URLEncoder.encode(initial, StandardCharsets.UTF_8);
+    return this;
   }
 
   /**
@@ -87,9 +90,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:15365
    *
    * @param actressId 女優ID
+   * @return this ActressSearch
    */
-  public void setActressId(long actressId) {
+  public ActressSearch setActressId(long actressId) {
     this.actressId = actressId;
+    return this;
   }
 
   /**
@@ -97,9 +102,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:あさみ
    *
    * @param keyword キーワード
+   * @return this ActressSearch
    */
-  public void setKeyword(String keyword) {
-    this.keyword = keyword;
+  public ActressSearch setKeyword(String keyword) {
+    this.keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
+    return this;
   }
 
   /**
@@ -107,9 +114,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:80
    *
    * @param gteBust バスト(以上)
+   * @return this ActressSearch
    */
-  public void setGteBust(int gteBust) {
+  public ActressSearch setGteBust(int gteBust) {
     this.gteBust = gteBust;
+    return this;
   }
 
   /**
@@ -117,9 +126,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:80
    *
    * @param lteBust バスト(以下)
+   * @return this ActressSearch
    */
-  public void setLteBust(int lteBust) {
+  public ActressSearch setLteBust(int lteBust) {
     this.lteBust = lteBust;
+    return this;
   }
 
   /**
@@ -127,9 +138,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:60
    *
    * @param gteWaist ウエスト(以上)
+   * @return this ActressSearch
    */
-  public void setGteWaist(int gteWaist) {
+  public ActressSearch setGteWaist(int gteWaist) {
     this.gteWaist = gteWaist;
+    return this;
   }
 
   /**
@@ -137,9 +150,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:60
    *
    * @param lteWaist ウエスト(以下)
+   * @return this ActressSearch
    */
-  public void setLteWaist(int lteWaist) {
+  public ActressSearch setLteWaist(int lteWaist) {
     this.lteWaist = lteWaist;
+    return this;
   }
 
   /**
@@ -147,9 +162,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:90
    *
    * @param gteHip ヒップ(以上)
+   * @return this ActressSearch
    */
-  public void setGteHip(int gteHip) {
+  public ActressSearch setGteHip(int gteHip) {
     this.gteHip = gteHip;
+    return this;
   }
 
   /**
@@ -157,9 +174,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:90
    *
    * @param lteHip ヒップ(以下)
+   * @return this ActressSearch
    */
-  public void setLteHip(int lteHip) {
+  public ActressSearch setLteHip(int lteHip) {
     this.lteHip = lteHip;
+    return this;
   }
 
   /**
@@ -167,9 +186,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:160
    *
    * @param gteHeight ヒップ(以上)
+   * @return this ActressSearch
    */
-  public void setGteHeight(int gteHeight) {
+  public ActressSearch setGteHeight(int gteHeight) {
     this.gteHeight = gteHeight;
+    return this;
   }
 
   /**
@@ -177,18 +198,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:160
    *
    * @param lteHeight ヒップ(以下)
+   * @return this ActressSearch
    */
-  public void setLteHeight(int lteHeight) {
+  public ActressSearch setLteHeight(int lteHeight) {
     this.lteHeight = lteHeight;
-  }
-
-  /**
-   * 生年月日(以上)を設定する。<br>
-   *
-   * @param gteBirthday 生年月日(以上)
-   */
-  public void setGteBirthday(LocalDate gteBirthday) {
-    this.gteBirthday = gteBirthday;
+    return this;
   }
 
   /**
@@ -196,22 +210,27 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:1980-01-01
    *
    * @param gteBirthday 生年月日(以上)
+   * @return this ActressSearch
+   */
+  public ActressSearch setGteBirthday(LocalDate gteBirthday) {
+    this.gteBirthday = gteBirthday;
+    return this;
+  }
+
+  /**
+   * 生年月日(以上)を設定する。<br>
+   * 例:1980-01-01
+   *
+   * @param gteBirthday 生年月日(以上)
+   * @return this ActressSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public void setGteBirthday(String gteBirthday) throws DmmIllegalArgumentException {
+  public ActressSearch setGteBirthday(String gteBirthday) throws DmmIllegalArgumentException {
     if (!DateFormat.uuuuMMdd_HYPHEN.check(gteBirthday)) {
       throw new DmmIllegalArgumentException(Message.M0002, gteBirthday);
     }
     this.gteBirthday = DateFormat.uuuuMMdd_HYPHEN.parse(gteBirthday);
-  }
-
-  /**
-   * 生年月日(以下)を設定する。<br>
-   *
-   * @param lteBirthday 生年月日(以下)
-   */
-  public void setLteBirthday(LocalDate lteBirthday) {
-    this.lteBirthday = lteBirthday;
+    return this;
   }
 
   /**
@@ -219,36 +238,52 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 例:1980-01-01
    *
    * @param lteBirthday 生年月日(以下)
+   * @return this ActressSearch
+   */
+  public ActressSearch setLteBirthday(LocalDate lteBirthday) {
+    this.lteBirthday = lteBirthday;
+    return this;
+  }
+
+  /**
+   * 生年月日(以下)を設定する。<br>
+   * 例:1980-01-01
+   *
+   * @param lteBirthday 生年月日(以下)
+   * @return this ActressSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public void setLteBirthday(String lteBirthday) throws DmmIllegalArgumentException {
+  public ActressSearch setLteBirthday(String lteBirthday) throws DmmIllegalArgumentException {
     if (!DateFormat.uuuuMMdd_HYPHEN.check(lteBirthday)) {
       throw new DmmIllegalArgumentException(Message.M0002, lteBirthday);
     }
     this.lteBirthday = DateFormat.uuuuMMdd_HYPHEN.parse(lteBirthday);
+    return this;
   }
 
   /**
    * 取得件数を設定する。<br>
    * 初期値：20 <br>
-   * 最大値:100<br>
-   * 例:80
+   * 最大値:100
    *
    * @param hits 取得件数
+   * @return this ActressSearch
    */
-  public void setHits(int hits) {
+  public ActressSearch setHits(int hits) {
     this.hits = hits;
+    return this;
   }
 
   /**
    * 検索開始位置を設定する。<br>
-   * 初期値:1<br>
-   * 例:10
+   * 初期値:1
    *
    * @param offset 検索開始位置
+   * @return this ActressSearch
    */
-  public void setOffset(int offset) {
+  public ActressSearch setOffset(int offset) {
     this.offset = offset;
+    return this;
   }
 
   /**
@@ -269,9 +304,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * 女優ID降順：ID_DESC
    *
    * @param sort ソート順
+   * @return this ActressSearch
    */
-  public void setSort(ActressSearchSort sort) {
+  public ActressSearch setSort(ActressSearchSort sort) {
     this.sort = sort;
+    return this;
   }
 
 
@@ -365,7 +402,6 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
 
   /**
    * {@inheritDoc}
-   *
    */
   @Override
   protected BaseURL getBaseURL() {

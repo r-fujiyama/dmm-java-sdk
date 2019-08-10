@@ -18,6 +18,6 @@ public class Result {
 
   /** サイト情報 */
   @JsonProperty("site")
-  public List<Site> site = null;
+  private List<Site> site = null;
 
 }
