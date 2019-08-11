@@ -1,4 +1,4 @@
-package com.sdk.java.dmm.api.genre.dto;
+package com.sdk.java.dmm.api.maker.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,7 +24,7 @@ import lombok.Value;
     "floor_id",
     "floor_name",
     "floor_code",
-    "genre"
+    "maker"
 })
 public class Result {
 
@@ -62,7 +62,7 @@ public class Result {
   @JsonProperty("floor_code")
   private String floorCode;
   /** ジャンル情報 */
-  @JsonProperty("genre")
-  private List<Genre> genre = Collections.emptyList();
+  @JsonProperty("maker")
+  private List<Maker> maker = Collections.emptyList();
 
 }

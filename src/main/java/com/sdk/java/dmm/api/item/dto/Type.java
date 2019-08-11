@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Value;
 
+/**
+ * タイプ
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -13,8 +16,10 @@ import lombok.Value;
 })
 public class Type {
 
+  /** タイプID */
   @JsonProperty("id")
-  private Long id;
+  private String id;
+  /** タイプ名 */
   @JsonProperty("name")
   private String name;
 

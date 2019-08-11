@@ -37,7 +37,7 @@ public class Actress {
 
   /** 女優ID */
   @JsonProperty("id")
-  private Long id;
+  private String id;
   /** 女優名 */
   @JsonProperty("name")
   private String name;

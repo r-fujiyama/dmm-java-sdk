@@ -1,4 +1,4 @@
-package com.sdk.java.dmm.api.genre.dto;
+package com.sdk.java.dmm.api.maker.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,7 +11,7 @@ import lombok.Value;
  * リクエストパラメータ
  */
 @Value
-@JsonIgnoreProperties("Genre")
+@JsonIgnoreProperties("Maker")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "api_id",

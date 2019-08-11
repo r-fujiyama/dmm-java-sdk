@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Value;
 
+/**
+ * サンプル画像URL
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -12,6 +15,7 @@ import lombok.Value;
 })
 public class SampleImageURL {
 
+  /** サンプル（小）リスト */
   @JsonProperty("sample_s")
   private SampleS sampleS;
 

@@ -175,7 +175,7 @@ public class ItemSearchTest {
         @Test
         public void 女優() {
           itemSearch.setArticle(Article.ACTRESS);
-          itemSearch.setArticleId(15365);
+          itemSearch.setArticleId("15365");
           ItemSearchResult itemSearchResult = execute();
           List<List<String>> nameListList = new ArrayList<List<String>>();
           itemSearchResult.getResult().getItems().forEach(item -> nameListList.add(
@@ -183,7 +183,7 @@ public class ItemSearchTest {
                   .collect(Collectors.toList())));
 
           ActressSearch actressSearch = new ActressSearch();
-          actressSearch.setActressId(15365);
+          actressSearch.setActressId("15365");
           ActressSearchResult actressSearchResult = actressSearch.execute();
           String expected = actressSearchResult.getResult().getActress().get(0).getName();
           nameListList
@@ -198,10 +198,10 @@ public class ItemSearchTest {
         @Test
         public void ジャンル() {
           itemSearch.setArticle(Article.GENRE);
-          long cond = 1;
+          String cond = "1";
           itemSearch.setArticleId(cond);
           ItemSearchResult itemSearchResult = execute();
-          List<List<Long>> idListList = new ArrayList<List<Long>>();
+          List<List<String>> idListList = new ArrayList<List<String>>();
           itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
               item.getIteminfo().getGenre().stream().map(genre -> genre.getId())
                   .collect(Collectors.toList())));
@@ -215,7 +215,15 @@ public class ItemSearchTest {
 
         @Test
         public void メーカー() {
-          // TODO シリーズAPI実装後に実装する。
+          itemSearch.setArticle(Article.MAKER);
+          String cond = "1";
+          itemSearch.setArticleId(cond);
+          ItemSearchResult itemSearchResult = execute();
+          List<List<String>> idListList = new ArrayList<List<String>>();
+          itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
+              item.getIteminfo().getMaker().stream().map(maker -> maker.getId())
+                  .collect(Collectors.toList())));
+          idListList.forEach(idList -> assertThat(idList).isNotEmpty().contains(cond));
         }
 
       }
@@ -439,17 +447,17 @@ public class ItemSearchTest {
         @Test
         public void 女優() {
           itemSearch.setArticle(Article.ACTRESS);
-          itemSearch.setArticleId(26225);
+          itemSearch.setArticleId("26225");
           ItemSearchResult itemSearchResult = execute();
-          List<List<Long>> idListList = new ArrayList<List<Long>>();
+          List<List<String>> idListList = new ArrayList<List<String>>();
           itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
               item.getIteminfo().getActress().stream().map(actress -> actress.getId())
                   .collect(Collectors.toList())));
 
           ActressSearch actressSearch = new ActressSearch();
-          actressSearch.setActressId(26225);
+          actressSearch.setActressId("26225");
           ActressSearchResult actressSearchResult = actressSearch.execute();
-          long expected = actressSearchResult.getResult().getActress().get(0).getId();
+          String expected = actressSearchResult.getResult().getActress().get(0).getId();
           idListList.forEach(idList -> assertThat(idList).isNotEmpty().contains(expected));
         }
 
@@ -461,10 +469,10 @@ public class ItemSearchTest {
         @Test
         public void ジャンル() {
           itemSearch.setArticle(Article.GENRE);
-          long cond = 1;
+          String cond = "1";
           itemSearch.setArticleId(cond);
           ItemSearchResult itemSearchResult = execute();
-          List<List<Long>> idListList = new ArrayList<List<Long>>();
+          List<List<String>> idListList = new ArrayList<List<String>>();
           itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
               item.getIteminfo().getGenre().stream().map(genre -> genre.getId())
                   .collect(Collectors.toList())));
@@ -478,7 +486,15 @@ public class ItemSearchTest {
 
         @Test
         public void メーカー() {
-          // TODO シリーズAPI実装後に実装する。
+          itemSearch.setArticle(Article.MAKER);
+          String cond = "5786";
+          itemSearch.setArticleId(cond);
+          ItemSearchResult itemSearchResult = execute();
+          List<List<String>> idListList = new ArrayList<List<String>>();
+          itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
+              item.getIteminfo().getMaker().stream().map(maker -> maker.getId())
+                  .collect(Collectors.toList())));
+          idListList.forEach(idList -> assertThat(idList).isNotEmpty().contains(cond));
         }
 
       }
@@ -588,7 +604,7 @@ public class ItemSearchTest {
     itemSearch.setKeyword("aaa");
     itemSearch.setCid("aaa");
     itemSearch.setArticle(Article.GENRE);
-    itemSearch.setArticleId(1);
+    itemSearch.setArticleId("1");
     itemSearch.setGteDate(DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse("2019-07-01T00:00:00"));
     itemSearch.setLteDate(DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse("2019-07-01T00:00:00"));
     itemSearch.setMonoStock(MonoStock.STOCK);
@@ -607,7 +623,7 @@ public class ItemSearchTest {
     assertThat(itemSearch.setKeyword("あ")).isEqualTo(itemSearch);
     assertThat(itemSearch.setCid("a")).isEqualTo(itemSearch);
     assertThat(itemSearch.setArticle(Article.ACTRESS)).isEqualTo(itemSearch);
-    assertThat(itemSearch.setArticleId(1)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setArticleId("1")).isEqualTo(itemSearch);
     assertThat(
         itemSearch.setGteDate(DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse("2019-07-01T00:00:00")))
         .isEqualTo(itemSearch);
@@ -623,11 +639,25 @@ public class ItemSearchTest {
   public class 異常系 {
 
     @Test
+    public void 異常系_setHits_0の場合() {
+      assertThatThrownBy(() -> itemSearch.setHits(0))
+          .isInstanceOf(DmmIllegalArgumentException.class)
+          .hasMessage(MessageResolver.getMessage(Message.M0008, "hits"));
+    }
+
+    @Test
+    public void 異常系_setOffset_0の場合() {
+      assertThatThrownBy(() -> itemSearch.setOffset(0))
+          .isInstanceOf(DmmIllegalArgumentException.class)
+          .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
+    }
+
+    @Test
     public void 異常系_setGteDate_フォーマット不正() {
       String argument = "2019/01/01";
       assertThatThrownBy(() -> itemSearch.setGteDate(argument))
           .isInstanceOf(DmmIllegalArgumentException.class)
-          .hasMessage(MessageResolver.getMessage(Message.M0003, argument));
+          .hasMessage(MessageResolver.getMessage(Message.M0003, "gteDate", argument));
     }
 
     @Test
@@ -635,7 +665,7 @@ public class ItemSearchTest {
       String argument = "2019/01/01";
       assertThatThrownBy(() -> itemSearch.setLteDate(argument))
           .isInstanceOf(DmmIllegalArgumentException.class)
-          .hasMessage(MessageResolver.getMessage(Message.M0003, argument));
+          .hasMessage(MessageResolver.getMessage(Message.M0003, "lteDate", argument));
     }
 
     @Test
@@ -666,7 +696,7 @@ public class ItemSearchTest {
     @Test
     public void 異常系_execute_絞り込み項目IDが設定されていてが絞り込み項目設定されていない場合() {
       itemSearch.setSite(Site.DMM);
-      itemSearch.setArticleId(1);
+      itemSearch.setArticleId("1");
       assertThatThrownBy(() -> itemSearch.execute())
           .isInstanceOf(DmmIllegalParameterException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0006));

@@ -45,7 +45,7 @@ public class ActressSearchTest {
 
     @Test
     public void 正常系_女優検索API実行_女優ID() {
-      long cond = 26225;
+      String cond = "26225";
       actressSearch.setActressId(cond);
       ActressSearchResult result = execute();
       result.getResult().getActress()
@@ -351,8 +351,8 @@ public class ActressSearchTest {
         List<Actress> actressList = result.getResult().getActress();
         assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
-          long actual = actressList.get(i - 1).getId();
-          long expected = actressList.get(i).getId();
+          int actual = Integer.parseInt(actressList.get(i - 1).getId());
+          int expected = Integer.parseInt(actressList.get(i).getId());
           assertThat(actual).isLessThanOrEqualTo(expected);
         }
       }
@@ -364,8 +364,8 @@ public class ActressSearchTest {
         List<Actress> actressList = result.getResult().getActress();
         assertThat(actressList).isNotEmpty();
         for (int i = 1; i < actressList.size(); i++) {
-          long actual = actressList.get(i - 1).getId();
-          long expected = actressList.get(i).getId();
+          int actual = Integer.parseInt(actressList.get(i - 1).getId());
+          int expected = Integer.parseInt(actressList.get(i).getId());
           assertThat(actual).isGreaterThanOrEqualTo(expected);
         }
       }
@@ -375,7 +375,7 @@ public class ActressSearchTest {
     @Test
     public void 正常系_女優検索API実行_すべての検索条件() {
       actressSearch.setInitial("は");
-      actressSearch.setActressId(26225);
+      actressSearch.setActressId("26225");
       actressSearch.setKeyword("はたの");
       actressSearch.setGteBust(88);
       actressSearch.setLteBust(88);
@@ -400,7 +400,7 @@ public class ActressSearchTest {
 
   @Test
   public void 正常系_getJson() {
-    actressSearch.setActressId(26225);
+    actressSearch.setActressId("26225");
     ActressSearchResult expected = execute();
     ActressSearchResult actual = JsonUtil.read(actressSearch.getJson(), ActressSearchResult.class);
     assertThat(actual).isEqualTo(expected);
@@ -409,7 +409,7 @@ public class ActressSearchTest {
   @Test
   public void 正常系_clear() {
     actressSearch.setInitial("は");
-    actressSearch.setActressId(26225);
+    actressSearch.setActressId("26225");
     actressSearch.setKeyword("はたの");
     actressSearch.setGteBust(88);
     actressSearch.setLteBust(88);
@@ -431,7 +431,7 @@ public class ActressSearchTest {
   @Test
   public void 正常系_setterからActressSearchが返却されていることを確認() {
     assertThat(actressSearch.setInitial("あ")).isEqualTo(actressSearch);
-    assertThat(actressSearch.setActressId(1L)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setActressId("1")).isEqualTo(actressSearch);
     assertThat(actressSearch.setKeyword("あ")).isEqualTo(actressSearch);
     assertThat(actressSearch.setGteBust(1)).isEqualTo(actressSearch);
     assertThat(actressSearch.setLteBust(1)).isEqualTo(actressSearch);
@@ -460,7 +460,7 @@ public class ActressSearchTest {
       String argument = "test";
       assertThatThrownBy(() -> actressSearch.setInitial(argument))
           .isInstanceOf(DmmIllegalArgumentException.class)
-          .hasMessage(MessageResolver.getMessage(Message.M0001, argument));
+          .hasMessage(MessageResolver.getMessage(Message.M0001, "initial", argument));
     }
 
     @Test
@@ -468,7 +468,7 @@ public class ActressSearchTest {
       String argument = "2019/01/01";
       assertThatThrownBy(() -> actressSearch.setGteBirthday(argument))
           .isInstanceOf(DmmIllegalArgumentException.class)
-          .hasMessage(MessageResolver.getMessage(Message.M0002, argument));
+          .hasMessage(MessageResolver.getMessage(Message.M0002, "gteBirthday", argument));
     }
 
     @Test
@@ -476,7 +476,21 @@ public class ActressSearchTest {
       String argument = "2019/01/01";
       assertThatThrownBy(() -> actressSearch.setLteBirthday(argument))
           .isInstanceOf(DmmIllegalArgumentException.class)
-          .hasMessage(MessageResolver.getMessage(Message.M0002, argument));
+          .hasMessage(MessageResolver.getMessage(Message.M0002, "lteBirthday", argument));
+    }
+
+    @Test
+    public void 異常系_setHits_0の場合() {
+      assertThatThrownBy(() -> actressSearch.setHits(0))
+          .isInstanceOf(DmmIllegalArgumentException.class)
+          .hasMessage(MessageResolver.getMessage(Message.M0008, "hits"));
+    }
+
+    @Test
+    public void 異常系_setOffset_0の場合() {
+      assertThatThrownBy(() -> actressSearch.setOffset(0))
+          .isInstanceOf(DmmIllegalArgumentException.class)
+          .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
     }
 
   }

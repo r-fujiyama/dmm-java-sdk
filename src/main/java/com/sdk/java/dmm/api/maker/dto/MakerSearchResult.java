@@ -1,4 +1,4 @@
-package com.sdk.java.dmm.api.genre.dto;
+package com.sdk.java.dmm.api.maker.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,7 +7,7 @@ import com.sdk.java.dmm.api.DmmInfo;
 import lombok.Value;
 
 /**
- * ジャンル検索API実行結果
+ * メーカー検索API実行結果
  */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -15,7 +15,7 @@ import lombok.Value;
     "request",
     "result"
 })
-public class GenreSearchResult implements DmmInfo<Request, Result> {
+public class MakerSearchResult implements DmmInfo {
 
   /** リクエスト */
   @JsonProperty("request")

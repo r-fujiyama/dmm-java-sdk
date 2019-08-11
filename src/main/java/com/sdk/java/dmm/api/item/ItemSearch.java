@@ -63,13 +63,19 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
   /** 絞りこみ項目 */
   private Article article;
   /** 絞り込みID */
-  private Long articleId;
+  private String articleId;
   /** 発売日絞り込み_以上 */
   private LocalDateTime gteDate;
-  /** 発売日絞り込み_以 */
+  /** 発売日絞り込み_以下 */
   private LocalDateTime lteDate;
   /** 在庫絞り込み */
   private MonoStock monoStock;
+
+  /**
+   * ItemSearchオブジェクトを生成します。
+   */
+  public ItemSearch() {
+  }
 
   /**
    * サイトを設定する。<br>
@@ -86,7 +92,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
 
   /**
    * サービスを設定する。<br>
-   * <a href="https://affiliate.dmm.com/api/v3/floorlist.html">フロア検索API</a>から取得できるサービスコードを指定。
+   * <a href="https://affiliate.dmm.com/api/v3/floorlist.html">フロア検索API</a>から取得できるサービスコードを指定。<br>
    * 例：digital
    *
    * @param service サービス
@@ -100,7 +106,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
   /**
    * フロアを設定する。<br>
    * <a href="https://affiliate.dmm.com/api/v3/floorlist.html">フロア検索API</a>から取得できるフロアコードを指定。<br>
-   * フロアを設定する場合は、サービスが必須です。
+   * フロアを設定する場合は、サービスが必須です。<br>
    * 例：videoa
    *
    * @param floor フロア
@@ -117,8 +123,12 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    *
    * @param hits 取得件数
    * @return ItemSearch
+   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public ItemSearch setHits(Integer hits) {
+  public ItemSearch setHits(Integer hits) throws DmmIllegalArgumentException {
+    if (hits == 0) {
+      throw new DmmIllegalArgumentException(Message.M0008, "hits");
+    }
     this.hits = hits;
     return this;
   }
@@ -129,8 +139,12 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    *
    * @param offset 検索開始位置
    * @return ItemSearch
+   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public ItemSearch setOffset(Integer offset) {
+  public ItemSearch setOffset(Integer offset) throws DmmIllegalArgumentException {
+    if (offset == 0) {
+      throw new DmmIllegalArgumentException(Message.M0008, "offset");
+    }
     this.offset = offset;
     return this;
   }
@@ -154,7 +168,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
 
   /**
    * キーワードを設定する。<br>
-   * UTF-8で指定
+   * UTF-8で指定<br>
    * 例：上原亜衣
    *
    * @param keyword キーワード
@@ -167,7 +181,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
 
   /**
    * 商品IDを設定する。<br>
-   * 商品に振られているcontent_id
+   * 商品に振られているcontent_id<br>
    * 例：15dss00145
    *
    * @param cid 商品ID
@@ -197,15 +211,15 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
 
   /**
    * 絞り込みIDを設定する。<br>
-   * 絞り込み項目のIDは各検索APIから取得可能です。
+   * 絞り込み項目のIDは各検索APIから取得可能です。<br>
    * 絞り込みIDを設定する場合は、絞り込み項目が必須です。<br>
    * 例：1011199
    *
    * @param articleId 絞り込みID
    * @return ItemSearch
    */
-  public ItemSearch setArticleId(long articleId) {
-    this.articleId = articleId;
+  public ItemSearch setArticleId(String articleId) {
+    this.articleId = URLEncoder.encode(articleId, StandardCharsets.UTF_8);
     return this;
   }
 
@@ -232,7 +246,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    */
   public ItemSearch setGteDate(String gteDate) throws DmmIllegalArgumentException {
     if (!DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.check(gteDate)) {
-      throw new DmmIllegalArgumentException(Message.M0003, gteDate);
+      throw new DmmIllegalArgumentException(Message.M0003, "gteDate", gteDate);
     }
     this.gteDate = DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse(gteDate);
     return this;
@@ -261,7 +275,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    */
   public ItemSearch setLteDate(String lteDate) throws DmmIllegalArgumentException {
     if (!DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.check(lteDate)) {
-      throw new DmmIllegalArgumentException(Message.M0003, lteDate);
+      throw new DmmIllegalArgumentException(Message.M0003, "lteDate", lteDate);
     }
     this.lteDate = DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse(lteDate);
     return this;

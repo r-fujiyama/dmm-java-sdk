@@ -3,9 +3,13 @@ package com.sdk.java.dmm.api.item.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Collections;
 import java.util.List;
 import lombok.Value;
 
+/**
+ * リザルト
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -31,6 +35,6 @@ public class Result {
   private Long firstPosition;
   /** 商品情報 */
   @JsonProperty("items")
-  private List<Item> items = null;
+  private List<Item> items = Collections.emptyList();
 
 }

@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Value;
 
+/**
+ * メーカー
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -13,8 +16,10 @@ import lombok.Value;
 })
 public class Maker {
 
+  /** メーカー名 */
   @JsonProperty("id")
   private String id;
+  /** メーカーID */
   @JsonProperty("name")
   private String name;
 

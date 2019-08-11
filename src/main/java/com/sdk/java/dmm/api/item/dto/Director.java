@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Value;
 
+/**
+ * 監督
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -14,10 +17,13 @@ import lombok.Value;
 })
 public class Director {
 
+  /** 監督ID */
   @JsonProperty("id")
-  private Long id;
+  private String id;
+  /** 監督名 */
   @JsonProperty("name")
   private String name;
+  /** 監督名（読み仮名） */
   @JsonProperty("ruby")
   private String ruby;
 
