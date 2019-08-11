@@ -1,7 +1,7 @@
 package com.sdk.java.dmm.api.genre;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Java6Assertions.assertThat;
 
 import com.sdk.java.dmm.api.floor.FloorSearch;
 import com.sdk.java.dmm.api.floor.dto.FloorSearchResult;

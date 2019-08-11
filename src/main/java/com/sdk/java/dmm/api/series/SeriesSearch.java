@@ -1,8 +1,8 @@
-package com.sdk.java.dmm.api.maker;
+package com.sdk.java.dmm.api.series;
 
 
 import com.sdk.java.dmm.api.AbstractDmm;
-import com.sdk.java.dmm.api.maker.dto.MakerSearchResult;
+import com.sdk.java.dmm.api.series.dto.SeriesSearchResult;
 import com.sdk.java.dmm.enums.BaseURL;
 import com.sdk.java.dmm.enums.Message;
 import com.sdk.java.dmm.enums.Output;
@@ -17,7 +17,7 @@ import lombok.ToString;
 
 /**
  * <p>
- * メーカー検索を実行するためのクラスです。<br>
+ * シリーズ検索を実行するためのクラスです。<br>
  * 使用するにあたって下記の事項に注意してください。<br>
  * フロアIDは必須です。<br>
  * </p>
@@ -25,19 +25,19 @@ import lombok.ToString;
  * 下記は使用方法になります。
  * </p>
  * <pre>
- * MakerSearch makerSearch = new MakerSearch();
- * makerSearch.setFloorId(43);
- * MakerSearchResult result = makerSearch.execute();
+ * SeriesSearch seriesSearch = new SeriesSearch();
+ * seriesSearch.setFloorId(43);
+ * SeriesSearchResult result = seriesSearch.execute();
  * </pre>
  */
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @ToString
-public class MakerSearch extends AbstractDmm<MakerSearchResult> {
+public class SeriesSearch extends AbstractDmm<SeriesSearchResult> {
 
   /** フロアID */
   public String floorId;
-  /** メーカー名の頭文字(50音) */
+  /** シリーズ名の頭文字(50音) */
   public String initial;
   /** 取得件数 */
   public Integer hits;
@@ -47,7 +47,7 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
   /**
    * MakerSearchオブジェクトを生成します。
    */
-  public MakerSearch() {
+  public SeriesSearch() {
   }
 
   /**
@@ -55,23 +55,23 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
    * <a href="https://affiliate.dmm.com/api/v3/floorlist.html">フロア検索API</a>から取得可能なフロアID
    *
    * @param floorId フロアID
-   * @return this GenreSearch
+   * @return this SeriesSearch
    */
-  public MakerSearch setFloorId(String floorId) {
+  public SeriesSearch setFloorId(String floorId) {
     this.floorId = URLEncoder.encode(floorId, StandardCharsets.UTF_8);
     return this;
   }
 
   /**
-   * メーカーの頭文字を設定する。<br>
+   * 作者の頭文字を設定する。<br>
    * 50音をUTF-8で指定。<br>
    * 例:あい
    *
    * @param initial 頭文字
-   * @return this GenreSearch
+   * @return this SeriesSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public MakerSearch setInitial(String initial) throws DmmIllegalArgumentException {
+  public SeriesSearch setInitial(String initial) throws DmmIllegalArgumentException {
     if (!StringUtil.isJapaneseSyllabary(initial)) {
       throw new DmmIllegalArgumentException(Message.M0001, "initial", initial);
     }
@@ -84,9 +84,9 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
    * 初期値：100　最大：500
    *
    * @param hits 取得件数
-   * @return this GenreSearch
+   * @return this SeriesSearch
    */
-  public MakerSearch setHits(Integer hits) {
+  public SeriesSearch setHits(Integer hits) {
     if (hits == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "hits");
     }
@@ -99,9 +99,9 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
    * 初期値：1
    *
    * @param offset 検索開始位置
-   * @return this GenreSearch
+   * @return this SeriesSearch
    */
-  public MakerSearch setOffset(long offset) {
+  public SeriesSearch setOffset(long offset) {
     if (offset == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "offset");
     }
@@ -116,7 +116,7 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
   public void clear() {
     // フロアID
     this.floorId = null;
-    // メーカーの頭文字(50音)
+    // 作者の頭文字(50音)
     this.initial = null;
     // 取得件数
     this.hits = null;
@@ -133,7 +133,7 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
     String param = "";
     // フロアID
     param = StringUtil.addParam(param, "floor_id", this.floorId);
-    // メーカーの頭文字(50音)
+    // 作者の頭文字(50音)
     param = StringUtil.addParam(param, "initial", this.initial);
     // 取得件数
     param = StringUtil.addParam(param, "hits", this.hits);
@@ -149,15 +149,15 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
    */
   @Override
   protected BaseURL getBaseURL() {
-    return BaseURL.MAKER_SEARCH;
+    return BaseURL.SERIES_SEARCH;
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  protected Class<MakerSearchResult> getResultClass() {
-    return MakerSearchResult.class;
+  protected Class<SeriesSearchResult> getResultClass() {
+    return SeriesSearchResult.class;
   }
 
   /**

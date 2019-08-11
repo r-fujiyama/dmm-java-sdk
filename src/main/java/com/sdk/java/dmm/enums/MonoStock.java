@@ -22,8 +22,8 @@ public enum MonoStock implements CodeEnum<String> {
 
   /** 在庫絞り込み */
   private String value;
-  /** 名前 */
-  private String name;
+  /** ラベル */
+  private String label;
 
   /**
    * 指定されたvalue持つEnumを返します。

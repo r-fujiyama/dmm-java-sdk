@@ -24,8 +24,8 @@ public enum ItemSearchSort implements CodeEnum<String> {
 
   /** ソート順 */
   private String value;
-  /** 名前 */
-  private String name;
+  /** ラベル */
+  private String label;
 
   /**
    * 指定されたvalue持つEnumを返します。
