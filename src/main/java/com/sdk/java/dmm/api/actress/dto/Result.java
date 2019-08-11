@@ -3,6 +3,7 @@ package com.sdk.java.dmm.api.actress.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Collections;
 import java.util.List;
 import lombok.Value;
 
@@ -34,6 +35,6 @@ public class Result {
   private Long firstPosition;
   /** 女優情報 */
   @JsonProperty("actress")
-  private List<Actress> actress = null;
+  private List<Actress> actress = Collections.emptyList();
 
 }

@@ -20,14 +20,14 @@ class MessageResolverTest {
 
   @Test
   void 正常系_getValue_キーのみ指定() {
-    String actual = MessageResolver.getMessage(Message.M0001);
-    assertThat(actual).isEqualTo("50音の文字列ではありません:{}");
+    String actual = MessageResolver.getMessage(Message.M0004);
+    assertThat(actual).isEqualTo("サイトを指定してください");
   }
 
   @Test
   void 正常系_getMsg_バインドする文字列あり() {
-    String actual = MessageResolver.getMessage(Message.M0001, "BIND");
-    assertThat(actual).isEqualTo("50音の文字列ではありません:BIND");
+    String actual = MessageResolver.getMessage(Message.M0001, "test", "test");
+    assertThat(actual).isEqualTo("test -> 50音の文字列ではありません -> value:test");
   }
 
 }

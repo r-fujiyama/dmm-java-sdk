@@ -18,6 +18,10 @@ import lombok.ToString;
 /**
  * <p>
  * ジャンル検索を実行するためのクラスです。<br>
+ * 使用するにあたって下記の事項に注意してください。<br>
+ * フロアIDは必須です。<br>
+ * </p>
+ * <p>
  * 下記は使用方法になります。
  * </p>
  * <pre>
@@ -32,13 +36,19 @@ import lombok.ToString;
 public class GenreSearch extends AbstractDmm<GenreSearchResult> {
 
   /** フロアID */
-  public Long floorId;
-  /** ジャンルの頭文字(50音) */
+  public String floorId;
+  /** ジャンル名の頭文字(50音) */
   public String initial;
   /** 取得件数 */
   public Integer hits;
   /** 検索開始位置 */
   public Long offset;
+
+  /**
+   * GenreSearchオブジェクトを生成します。
+   */
+  public GenreSearch() {
+  }
 
   /**
    * フロアIDを設定する。<br>
@@ -47,8 +57,8 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
    * @param floorId フロアID
    * @return this GenreSearch
    */
-  public GenreSearch setFloorId(long floorId) {
-    this.floorId = floorId;
+  public GenreSearch setFloorId(String floorId) {
+    this.floorId = URLEncoder.encode(floorId, StandardCharsets.UTF_8);
     return this;
   }
 
@@ -63,7 +73,7 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
    */
   public GenreSearch setInitial(String initial) throws DmmIllegalArgumentException {
     if (!StringUtil.isJapaneseSyllabary(initial)) {
-      throw new DmmIllegalArgumentException(Message.M0001, initial);
+      throw new DmmIllegalArgumentException(Message.M0001, "initial", initial);
     }
     this.initial = URLEncoder.encode(initial, StandardCharsets.UTF_8);
     return this;
@@ -75,8 +85,12 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
    *
    * @param hits 取得件数
    * @return this GenreSearch
+   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public GenreSearch setHits(Integer hits) {
+  public GenreSearch setHits(Integer hits) throws DmmIllegalArgumentException {
+    if (hits == 0) {
+      throw new DmmIllegalArgumentException(Message.M0008, "hits");
+    }
     this.hits = hits;
     return this;
   }
@@ -87,8 +101,12 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
    *
    * @param offset 検索開始位置
    * @return this GenreSearch
+   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public GenreSearch setOffset(long offset) {
+  public GenreSearch setOffset(long offset) throws DmmIllegalArgumentException {
+    if (offset == 0) {
+      throw new DmmIllegalArgumentException(Message.M0008, "offset");
+    }
     this.offset = offset;
     return this;
   }

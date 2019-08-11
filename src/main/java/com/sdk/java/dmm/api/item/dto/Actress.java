@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Value;
 
+/**
+ * 女優（アダルト作品のみ）
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -14,10 +17,13 @@ import lombok.Value;
 })
 public class Actress {
 
+  /** 女優ID */
   @JsonProperty("id")
-  private Long id;
+  private String id;
+  /** 女優名 */
   @JsonProperty("name")
   private String name;
+  /** 女優名（読み仮名） */
   @JsonProperty("ruby")
   private String ruby;
 

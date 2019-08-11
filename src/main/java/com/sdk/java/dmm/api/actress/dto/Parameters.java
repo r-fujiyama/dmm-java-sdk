@@ -57,7 +57,7 @@ public class Parameters {
   private String initial;
   /** 女優ID */
   @JsonProperty("actress_id")
-  private Long actressId;
+  private String actressId;
   /** キーワード */
   @JsonProperty("keyword")
   private String keyword;

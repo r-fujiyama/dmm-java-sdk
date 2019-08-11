@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Value;
 
+/**
+ * カラー
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -13,8 +16,10 @@ import lombok.Value;
 })
 public class Color {
 
+  /** カラーID */
   @JsonProperty("id")
-  private Long id;
+  private String id;
+  /** カラー名 */
   @JsonProperty("name")
   private String name;
 

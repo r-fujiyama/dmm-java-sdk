@@ -26,6 +26,12 @@ import lombok.ToString;
 public class FloorSearch extends AbstractDmm<FloorSearchResult> {
 
   /**
+   * FloorSearchオブジェクトを生成します。
+   */
+  public FloorSearch() {
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override

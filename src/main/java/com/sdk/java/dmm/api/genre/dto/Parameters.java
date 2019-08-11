@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.sdk.java.dmm.enums.Output;
 import lombok.Value;
 
+/**
+ * リクエストパラメータ
+ */
 @Value
 @JsonIgnoreProperties("Genre")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -23,24 +26,24 @@ public class Parameters {
 
   /** API_ID */
   @JsonProperty("api_id")
-  public String apiId;
+  private String apiId;
   /** アフィリエイトID */
   @JsonProperty("affiliate_id")
-  public String affiliateId;
+  private String affiliateId;
   /** フロアID */
   @JsonProperty("floor_id")
-  public Long floorId;
+  private String floorId;
   /** 頭文字(50音) */
   @JsonProperty("initial")
-  public String initial;
+  private String initial;
   /** 取得件数 */
   @JsonProperty("hits")
-  public Integer hits;
+  private Integer hits;
   /** 検索開始位置 */
   @JsonProperty("offset")
-  public Long offset;
+  private Long offset;
   /** 出力形式 */
   @JsonProperty("output")
-  public Output output;
+  private Output output;
 
 }

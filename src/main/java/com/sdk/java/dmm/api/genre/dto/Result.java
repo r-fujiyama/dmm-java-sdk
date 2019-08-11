@@ -3,9 +3,13 @@ package com.sdk.java.dmm.api.genre.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Collections;
 import java.util.List;
 import lombok.Value;
 
+/**
+ * リザルト
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -26,39 +30,39 @@ public class Result {
 
   /** ステータスコード */
   @JsonProperty("status")
-  public Integer status;
+  private Integer status;
   /** 取得件数 */
   @JsonProperty("result_count")
-  public Integer resultCount;
+  private Integer resultCount;
   /** 全体件数 */
   @JsonProperty("total_count")
-  public Long totalCount;
+  private Long totalCount;
   /** 検索開始位置 */
   @JsonProperty("first_position")
-  public Long firstPosition;
+  private Long firstPosition;
   /** サイト名 */
   @JsonProperty("site_name")
-  public String siteName;
+  private String siteName;
   /** サイトコード */
   @JsonProperty("site_code")
-  public String siteCode;
+  private String siteCode;
   /** サービス名 */
   @JsonProperty("service_name")
-  public String serviceName;
+  private String serviceName;
   /** サービスコード */
   @JsonProperty("service_code")
-  public String serviceCode;
+  private String serviceCode;
   /** フロアID */
   @JsonProperty("floor_id")
-  public Long floorId;
+  private String floorId;
   /** フロア名 */
   @JsonProperty("floor_name")
-  public String floorName;
+  private String floorName;
   /** フロアコード */
   @JsonProperty("floor_code")
-  public String floorCode;
+  private String floorCode;
   /** ジャンル情報 */
   @JsonProperty("genre")
-  public List<Genre> genre = null;
+  private List<Genre> genre = Collections.emptyList();
 
 }

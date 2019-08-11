@@ -16,6 +16,8 @@ public enum BaseURL {
   ACTRESS_SEARCH("https://api.dmm.com/affiliate/v3/ActressSearch?", "女優検索API"),
   /** ジャンル検索API */
   GENRE_SEARCH("https://api.dmm.com/affiliate/v3/GenreSearch?", "ジャンル検索API"),
+  /** メーカー検索API */
+  MAKER_SEARCH("https://api.dmm.com/affiliate/v3/MakerSearch?", "ジャンル検索API"),
   /** フロア検索API */
   FLOOR_SEARCH("https://api.dmm.com/affiliate/v3/FloorList?", "フロア検索API");
 

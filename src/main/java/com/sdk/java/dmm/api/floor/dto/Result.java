@@ -3,6 +3,7 @@ package com.sdk.java.dmm.api.floor.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Collections;
 import java.util.List;
 import lombok.Value;
 
@@ -18,6 +19,6 @@ public class Result {
 
   /** サイト情報 */
   @JsonProperty("site")
-  private List<Site> site = null;
+  private List<Site> site = Collections.emptyList();
 
 }

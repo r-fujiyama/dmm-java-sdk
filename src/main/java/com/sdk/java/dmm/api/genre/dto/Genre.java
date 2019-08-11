@@ -20,15 +20,15 @@ public class Genre {
 
   /** ジャンルID */
   @JsonProperty("genre_id")
-  public Long genreId;
+  private String genreId;
   /** ジャンル名 */
   @JsonProperty("name")
-  public String name;
+  private String name;
   /** ジャンル名(読み仮名) */
   @JsonProperty("ruby")
-  public String ruby;
+  private String ruby;
   /** リストページURL（アフィリエイトID付き） */
   @JsonProperty("list_url")
-  public String listUrl;
+  private String listUrl;
 
 }

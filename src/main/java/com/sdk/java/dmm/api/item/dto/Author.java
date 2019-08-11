@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Value;
 
+/**
+ * 作家、原作者、著者
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -14,11 +17,14 @@ import lombok.Value;
 })
 public class Author {
 
+  /** 作家、原作者、著者ID */
   @JsonProperty("id")
-  private Long id;
-  @JsonProperty("ruby")
-  private String ruby;
+  private String id;
+  /** 作家、原作者、著者名 */
   @JsonProperty("name")
   private String name;
+  /** 作家、原作者、著者名（読み仮名） */
+  @JsonProperty("ruby")
+  private String ruby;
 
 }

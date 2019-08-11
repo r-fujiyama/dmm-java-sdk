@@ -16,6 +16,9 @@ import com.sdk.java.dmm.utils.DateTimeFormatConstants;
 import java.time.LocalDateTime;
 import lombok.Value;
 
+/**
+ * リクエストパラメータ
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -37,40 +40,55 @@ import lombok.Value;
 })
 public class Parameters {
 
+  /** API_ID */
   @JsonProperty("api_id")
   private String apiId;
+  /** アフィリエイトID */
   @JsonProperty("affiliate_id")
   private String affiliateId;
+  /** サイト */
   @JsonProperty("site")
   private Site site;
+  /** サービス */
   @JsonProperty("service")
   private String service;
+  /** フロア */
   @JsonProperty("floor")
   private String floor;
+  /** 取得件数 */
   @JsonProperty("hits")
   private Integer hits;
+  /** 検索開始位置 */
   @JsonProperty("offset")
   private Integer offset;
+  /** ソート順 */
   @JsonProperty("sort")
   private ItemSearchSort sort;
+  /** キーワード */
   @JsonProperty("keyword")
   private String keyword;
+  /** 商品ID */
   @JsonProperty("cid")
   private String cid;
+  /** 絞りこみ項目 */
   @JsonProperty("article")
   private Article article;
+  /** 絞り込みID */
   @JsonProperty("article_id")
-  private Long articleId;
+  private String articleId;
+  /** 発売日絞り込み_以上 */
   @JsonProperty("gte_date")
   @JsonFormat(pattern = DateTimeFormatConstants.uuuuMMddTHHmmss_HYPHEN)
   @JsonDeserialize(using = LocalDateTimeDeserializer.class)
   @JsonSerialize(using = LocalDateTimeSerializer.class)
   private LocalDateTime gteDate;
+  /** 発売日絞り込み_以下 */
   @JsonProperty("lte_date")
   @JsonFormat(pattern = DateTimeFormatConstants.uuuuMMddTHHmmss_HYPHEN)
   @JsonDeserialize(using = LocalDateTimeDeserializer.class)
   @JsonSerialize(using = LocalDateTimeSerializer.class)
   private LocalDateTime lteDate;
+  /** 在庫絞り込み */
   @JsonProperty("mono_stock")
   private MonoStock monoStock;
 

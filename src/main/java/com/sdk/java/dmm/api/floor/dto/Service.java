@@ -3,6 +3,7 @@ package com.sdk.java.dmm.api.floor.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Collections;
 import java.util.List;
 import lombok.Value;
 
@@ -26,6 +27,6 @@ public class Service {
   private String code;
   /** フロア情報 */
   @JsonProperty("floor")
-  private List<Floor> floor = null;
+  private List<Floor> floor = Collections.emptyList();
 
 }

@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Value;
 
+/**
+ * リクエスト
+ */
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -12,6 +15,7 @@ import lombok.Value;
 })
 public class Request {
 
+  /** リクエストパラメータ */
   @JsonProperty("parameters")
   private Parameters parameters;
 

@@ -39,7 +39,7 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
   /** 女優名の頭文字(50音) */
   private String initial;
   /** 女優ID */
-  private Long actressId;
+  private String actressId;
   /** キーワード */
   private String keyword;
   /** バスト(以上) */
@@ -70,6 +70,12 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
   private ActressSearchSort sort;
 
   /**
+   * ActressSearchオブジェクトを生成します。
+   */
+  public ActressSearch() {
+  }
+
+  /**
    * 女優名の頭文字を設定する。<br>
    * 例:あい
    *
@@ -79,7 +85,7 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    */
   public ActressSearch setInitial(String initial) throws DmmIllegalArgumentException {
     if (!StringUtil.isJapaneseSyllabary(initial)) {
-      throw new DmmIllegalArgumentException(Message.M0001, initial);
+      throw new DmmIllegalArgumentException(Message.M0001, "initial", initial);
     }
     this.initial = URLEncoder.encode(initial, StandardCharsets.UTF_8);
     return this;
@@ -92,8 +98,8 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * @param actressId 女優ID
    * @return this ActressSearch
    */
-  public ActressSearch setActressId(long actressId) {
-    this.actressId = actressId;
+  public ActressSearch setActressId(String actressId) {
+    this.actressId = URLEncoder.encode(actressId, StandardCharsets.UTF_8);
     return this;
   }
 
@@ -227,7 +233,7 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    */
   public ActressSearch setGteBirthday(String gteBirthday) throws DmmIllegalArgumentException {
     if (!DateFormat.uuuuMMdd_HYPHEN.check(gteBirthday)) {
-      throw new DmmIllegalArgumentException(Message.M0002, gteBirthday);
+      throw new DmmIllegalArgumentException(Message.M0002, "gteBirthday", gteBirthday);
     }
     this.gteBirthday = DateFormat.uuuuMMdd_HYPHEN.parse(gteBirthday);
     return this;
@@ -255,7 +261,7 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    */
   public ActressSearch setLteBirthday(String lteBirthday) throws DmmIllegalArgumentException {
     if (!DateFormat.uuuuMMdd_HYPHEN.check(lteBirthday)) {
-      throw new DmmIllegalArgumentException(Message.M0002, lteBirthday);
+      throw new DmmIllegalArgumentException(Message.M0002, "lteBirthday", lteBirthday);
     }
     this.lteBirthday = DateFormat.uuuuMMdd_HYPHEN.parse(lteBirthday);
     return this;
@@ -268,8 +274,12 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    *
    * @param hits 取得件数
    * @return this ActressSearch
+   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public ActressSearch setHits(int hits) {
+  public ActressSearch setHits(int hits) throws DmmIllegalArgumentException {
+    if (hits == 0) {
+      throw new DmmIllegalArgumentException(Message.M0008, "hits");
+    }
     this.hits = hits;
     return this;
   }
@@ -280,8 +290,12 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    *
    * @param offset 検索開始位置
    * @return this ActressSearch
+   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public ActressSearch setOffset(int offset) {
+  public ActressSearch setOffset(int offset) throws DmmIllegalArgumentException {
+    if (offset == 0) {
+      throw new DmmIllegalArgumentException(Message.M0008, "offset");
+    }
     this.offset = offset;
     return this;
   }

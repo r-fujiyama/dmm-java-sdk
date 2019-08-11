@@ -19,7 +19,7 @@ public class Floor {
 
   /** フロアID */
   @JsonProperty("id")
-  private Long id;
+  private String id;
   /** フロア名 */
   @JsonProperty("name")
   private String name;
