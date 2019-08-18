@@ -21,6 +21,8 @@ public enum BaseURL implements CodeEnum<String> {
   MAKER_SEARCH("https://api.dmm.com/affiliate/v3/MakerSearch?", "ジャンル検索API"),
   /** シリーズ検索API */
   SERIES_SEARCH("https://api.dmm.com/affiliate/v3/SeriesSearch?", "シリーズ検索API"),
+  /** 作者検索API */
+  AUTHOR_SEARCH("https://api.dmm.com/affiliate/v3/AuthorSearch?", "作者検索API"),
   /** フロア検索API */
   FLOOR_SEARCH("https://api.dmm.com/affiliate/v3/FloorList?", "フロア検索API");
 
