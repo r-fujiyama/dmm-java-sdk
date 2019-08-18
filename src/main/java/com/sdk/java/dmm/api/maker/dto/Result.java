@@ -61,7 +61,7 @@ public class Result {
   /** フロアコード */
   @JsonProperty("floor_code")
   private String floorCode;
-  /** ジャンル情報 */
+  /** メーカー情報 */
   @JsonProperty("maker")
   private List<Maker> maker = Collections.emptyList();
 

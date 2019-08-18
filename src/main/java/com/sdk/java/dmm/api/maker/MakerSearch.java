@@ -63,7 +63,7 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
   }
 
   /**
-   * ジャンルの頭文字を設定する。<br>
+   * メーカーの頭文字を設定する。<br>
    * 50音をUTF-8で指定。<br>
    * 例:あい
    *
@@ -116,7 +116,7 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
   public void clear() {
     // フロアID
     this.floorId = null;
-    // ジャンルの頭文字(50音)
+    // メーカーの頭文字(50音)
     this.initial = null;
     // 取得件数
     this.hits = null;
@@ -133,7 +133,7 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
     String param = "";
     // フロアID
     param = StringUtil.addParam(param, "floor_id", this.floorId);
-    // ジャンルの頭文字(50音)
+    // メーカーの頭文字(50音)
     param = StringUtil.addParam(param, "initial", this.initial);
     // 取得件数
     param = StringUtil.addParam(param, "hits", this.hits);

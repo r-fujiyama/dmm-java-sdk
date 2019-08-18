@@ -24,8 +24,8 @@ public enum Article implements CodeEnum<String> {
 
   /** 絞りこみ項目 */
   private String value;
-  /** 名前 */
-  private String name;
+  /** ラベル */
+  private String label;
 
   /**
    * 指定されたvalue持つEnumを返します。

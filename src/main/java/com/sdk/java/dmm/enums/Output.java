@@ -18,8 +18,8 @@ public enum Output implements CodeEnum<String> {
 
   /** 出力形式 */
   private String value;
-  /** 名前 */
-  private String name;
+  /** ラベル */
+  private String label;
 
   /**
    * 指定されたvalue持つEnumを返します。

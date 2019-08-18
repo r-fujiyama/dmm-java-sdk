@@ -30,11 +30,12 @@ public class CodeEnumTest {
   @AllArgsConstructor
   public enum Animal implements CodeEnum<String> {
 
-    LION("lion"),
-    ZEBRA("zebra"),
-    ELEPHANT("elephant");
+    LION("lion", "ライオン"),
+    ZEBRA("zebra", "ゼブラ"),
+    ELEPHANT("elephant", "エレファント");
 
     private String value;
+    private String label;
 
     public static Animal of(String value) {
       return CodeEnum.of(Animal.class, value);

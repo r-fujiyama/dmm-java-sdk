@@ -9,6 +9,8 @@ com.sdk.java.dmm.api.item
 com.sdk.java.dmm.api.item.dto
 com.sdk.java.dmm.api.maker
 com.sdk.java.dmm.api.maker.dto
+com.sdk.java.dmm.api.series
+com.sdk.java.dmm.api.series.dto
 com.sdk.java.dmm.enums
 com.sdk.java.dmm.exception
 com.sdk.java.dmm.utils

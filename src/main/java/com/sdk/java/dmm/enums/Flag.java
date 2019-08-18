@@ -18,8 +18,8 @@ public enum Flag implements CodeEnum<Integer> {
 
   /** フラグ */
   private Integer value;
-  /** 名前 */
-  private String name;
+  /** ラベル */
+  private String label;
 
   /**
    * 指定されたvalue持つEnumを返します。

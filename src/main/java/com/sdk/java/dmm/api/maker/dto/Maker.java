@@ -31,7 +31,7 @@ public class Maker {
   /** リストページURL（アフィリエイトID付き） */
   @JsonProperty("list_url")
   private String listUrl;
-  /** 別名 */
+  /** メーカー名別名 */
   @JsonProperty("another_name")
   private String anotherName;
 
