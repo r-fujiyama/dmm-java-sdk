@@ -1,10 +1,10 @@
 buildscript {
   ext {
     jackson = "2.9.9"
-    slf4j = "1.7.26"
+    slf4j = "1.7.28"
     lombok = "1.18.8"
-    assertj = "3.12.2"
-    junit = "5.5.0-M1"
+    assertj = "3.13.2"
+    junit = "5.5.1"
   }
 }
 
@@ -19,6 +19,10 @@ targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
   mavenCentral()
+}
+
+wrapper {
+  gradleVersion = '5.6'
 }
 
 tasks.withType(JavaCompile) {
@@ -37,7 +41,7 @@ task javadoc(type: Javadoc, overwrite: true) {
   options.overview = "src/main/java/com/sdk/java/dmm/overview.html"
   options.links("https://docs.oracle.com/javase/jp/11/docs/api/")
   options.memberLevel = JavadocMemberLevel.PRIVATE
-  destinationDir = new File("$projectDir" + "\\docs")
+  destinationDir = new File("$projectDir" + "/docs")
   options.charSet = defaultEncoding
   options.encoding = defaultEncoding
 }
