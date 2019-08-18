@@ -1,6 +1,8 @@
 com.sdk.java.dmm.api
 com.sdk.java.dmm.api.actress
 com.sdk.java.dmm.api.actress.dto
+com.sdk.java.dmm.api.author
+com.sdk.java.dmm.api.author.dto
 com.sdk.java.dmm.api.floor
 com.sdk.java.dmm.api.floor.dto
 com.sdk.java.dmm.api.genre
