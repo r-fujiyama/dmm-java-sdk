@@ -51,7 +51,7 @@ public final class MessageResolver {
   /**
    * message.propertiesの値に引数がバインドされた値を取得する。
    *
-   * @param key キー
+   * @param key          キー
    * @param bindStrArray エラーメッセージにバインドされる文字列
    * @return メッセージ
    */

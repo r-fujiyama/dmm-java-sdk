@@ -28,9 +28,9 @@ public abstract class AbstractDmm<T extends DmmInfo> {
   private static final String AFFILIATE_ID = DmmProperties.getValue("AFFILIATE_ID");
 
   /**
-   * APIを実行しJSONを取得する。<br>
+   * APIを実行しJSON文字列を取得する。<br>
    *
-   * @return JSON
+   * @return JSON文字列
    */
   public String getJson() {
     String json = this.fetchJson();
@@ -50,9 +50,9 @@ public abstract class AbstractDmm<T extends DmmInfo> {
   }
 
   /**
-   * APIを実行しJSONを取得する。
+   * APIを実行しJSON文字列を取得する。
    *
-   * @return JSON
+   * @return JSON文字列
    */
   private String fetchJson() {
     log.info("execution start {}_API", this.getBaseURL());
