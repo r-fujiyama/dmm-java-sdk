@@ -12,8 +12,14 @@ plugins {
   id 'java'
   id 'eclipse'
   id 'idea'
+  id 'maven'
 }
 
+group = 'com.sdk.java.dmm'
+version = 'v1.0.0'
+project.ext {
+  artifactId = 'dmm-java-sdk'
+}
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
@@ -29,9 +35,17 @@ idea {
   }
 }
 
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: "file://$projectDir/repository")
+    }
+  }
+}
+
 def defaultEncoding = 'UTF-8'
 
-tasks.withType(JavaCompile) {
+compileJava {
   options.encoding = defaultEncoding
 }
 
@@ -47,7 +61,7 @@ javadoc {
 task generateJavadoc(type: Javadoc) {
   source = sourceSets.main.allJava
   classpath = sourceSets.main.compileClasspath
-  destinationDir = new File("$projectDir" + '/docs')
+  destinationDir = new File("$projectDir/docs")
   title = 'dmm-java-sdk'
   options.overview = 'src/main/java/com/sdk/java/dmm/overview.html'
   options.links('https://docs.oracle.com/javase/jp/11/docs/api/')
