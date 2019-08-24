@@ -192,7 +192,15 @@ public class ItemSearchTest {
 
         @Test
         public void 作者() {
-          // TODO 作者検索API実装後に実装する。
+          itemSearch.setArticle(Article.AUTHOR);
+          String cond = "25";
+          itemSearch.setArticleId(cond);
+          ItemSearchResult itemSearchResult = execute();
+          List<List<String>> idListList = new ArrayList<List<String>>();
+          itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
+              item.getIteminfo().getAuthor().stream().map(genre -> genre.getId())
+                  .collect(Collectors.toList())));
+          idListList.forEach(idList -> assertThat(idList).isNotEmpty().contains(cond));
         }
 
         @Test
@@ -210,7 +218,15 @@ public class ItemSearchTest {
 
         @Test
         public void シリーズ() {
-          // TODO シリーズAPI実装後に実装する。
+          itemSearch.setArticle(Article.SERIES);
+          String cond = "69800";
+          itemSearch.setArticleId(cond);
+          ItemSearchResult itemSearchResult = execute();
+          List<List<String>> idListList = new ArrayList<List<String>>();
+          itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
+              item.getIteminfo().getSeries().stream().map(genre -> genre.getId())
+                  .collect(Collectors.toList())));
+          idListList.forEach(idList -> assertThat(idList).isNotEmpty().contains(cond));
         }
 
         @Test
@@ -463,7 +479,15 @@ public class ItemSearchTest {
 
         @Test
         public void 作者() {
-          // TODO 作者検索API実装後に実装する。
+          itemSearch.setArticle(Article.AUTHOR);
+          String cond = "3";
+          itemSearch.setArticleId(cond);
+          ItemSearchResult itemSearchResult = execute();
+          List<List<String>> idListList = new ArrayList<List<String>>();
+          itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
+              item.getIteminfo().getAuthor().stream().map(genre -> genre.getId())
+                  .collect(Collectors.toList())));
+          idListList.forEach(idList -> assertThat(idList).isNotEmpty().contains(cond));
         }
 
         @Test
@@ -481,7 +505,15 @@ public class ItemSearchTest {
 
         @Test
         public void シリーズ() {
-          // TODO シリーズAPI実装後に実装する。
+          itemSearch.setArticle(Article.SERIES);
+          String cond = "16015";
+          itemSearch.setArticleId(cond);
+          ItemSearchResult itemSearchResult = execute();
+          List<List<String>> idListList = new ArrayList<List<String>>();
+          itemSearchResult.getResult().getItems().forEach(item -> idListList.add(
+              item.getIteminfo().getSeries().stream().map(genre -> genre.getId())
+                  .collect(Collectors.toList())));
+          idListList.forEach(idList -> assertThat(idList).isNotEmpty().contains(cond));
         }
 
         @Test
