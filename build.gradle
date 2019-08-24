@@ -12,8 +12,14 @@ plugins {
   id 'java'
   id 'eclipse'
   id 'idea'
+  id 'maven'
 }
 
+group = 'com.sdk.java.dmm'
+version = 'v1.0.0'
+project.ext {
+  artifactId = 'dmm-java-sdk'
+}
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
@@ -47,12 +53,20 @@ javadoc {
 task generateJavadoc(type: Javadoc) {
   source = sourceSets.main.allJava
   classpath = sourceSets.main.compileClasspath
-  destinationDir = new File("$projectDir" + '/docs')
+  destinationDir = new File("$projectDir/docs")
   title = 'dmm-java-sdk'
   options.overview = 'src/main/java/com/sdk/java/dmm/overview.html'
   options.links('https://docs.oracle.com/javase/jp/11/docs/api/')
   options.memberLevel = JavadocMemberLevel.PRIVATE
   options.encoding = defaultEncoding
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: "file://$projectDir/repository")
+    }
+  }
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -83,12 +97,13 @@ repositories {
 dependencies {
   implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
   implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
-  implementation "org.slf4j:slf4j-simple:${slf4jVersion}"
-  annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+  compileOnly "org.slf4j:slf4j-simple:${slf4jVersion}"
   compileOnly "org.projectlombok:lombok:${lombokVersion}"
-  testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-  testImplementation "org.projectlombok:lombok:${lombokVersion}"
+  annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
   testImplementation "org.assertj:assertj-core:${assertjVersion}"
   testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+  testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+  testRuntimeOnly "org.slf4j:slf4j-simple:${slf4jVersion}"
   testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+  testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
