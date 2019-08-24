@@ -3,7 +3,6 @@ package com.sdk.java.dmm.api.author;
 
 import com.sdk.java.dmm.api.AbstractDmm;
 import com.sdk.java.dmm.api.author.dto.AuthorSearchResult;
-import com.sdk.java.dmm.api.maker.dto.MakerSearchResult;
 import com.sdk.java.dmm.enums.BaseURL;
 import com.sdk.java.dmm.enums.Message;
 import com.sdk.java.dmm.enums.Output;
