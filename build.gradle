@@ -1,60 +1,94 @@
 buildscript {
   ext {
-    jackson = "2.9.9"
-    slf4j = "1.7.28"
-    lombok = "1.18.8"
-    assertj = "3.13.2"
-    junit = "5.5.1"
+    jacksonVersion = '2.9.9'
+    slf4jVersion = '1.7.28'
+    lombokVersion = '1.18.8'
+    assertjVersion = '3.13.2'
+    junitVersion = '5.5.1'
   }
 }
 
-def defaultEncoding = "UTF-8"
-
-apply plugin: "java"
-apply plugin: "eclipse"
-apply plugin: "idea"
+plugins {
+  id 'java'
+  id 'eclipse'
+  id 'idea'
+}
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
-
-repositories {
-  mavenCentral()
-}
 
 wrapper {
   gradleVersion = '5.6'
 }
 
+idea {
+  module {
+    inheritOutputDirs = false
+    outputDir = compileJava.destinationDir
+    testOutputDir = compileTestJava.destinationDir
+  }
+}
+
+def defaultEncoding = 'UTF-8'
+
 tasks.withType(JavaCompile) {
   options.encoding = defaultEncoding
 }
 
-test {
-  useJUnitPlatform {
-    includeEngines "junit-jupiter"
-  }
-}
-
-task javadoc(type: Javadoc, overwrite: true) {
+javadoc {
   source = sourceSets.main.allJava
-  title = "dmm-java-sdk"
-  options.overview = "src/main/java/com/sdk/java/dmm/overview.html"
-  options.links("https://docs.oracle.com/javase/jp/11/docs/api/")
+  title = 'dmm-java-sdk'
+  options.overview = 'src/main/java/com/sdk/java/dmm/overview.html'
+  options.links('https://docs.oracle.com/javase/jp/11/docs/api/')
   options.memberLevel = JavadocMemberLevel.PRIVATE
-  destinationDir = new File("$projectDir" + "/docs")
-  options.charSet = defaultEncoding
   options.encoding = defaultEncoding
 }
 
+task generateJavadoc(type: Javadoc) {
+  source = sourceSets.main.allJava
+  classpath = sourceSets.main.compileClasspath
+  destinationDir = new File("$projectDir" + '/docs')
+  title = 'dmm-java-sdk'
+  options.overview = 'src/main/java/com/sdk/java/dmm/overview.html'
+  options.links('https://docs.oracle.com/javase/jp/11/docs/api/')
+  options.memberLevel = JavadocMemberLevel.PRIVATE
+  options.encoding = defaultEncoding
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+  archiveClassifier.set('sources')
+  from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  archiveClassifier.set('javadoc')
+  from javadoc.destinationDir
+}
+
+artifacts {
+  archives sourcesJar
+  archives javadocJar
+}
+
+test {
+  useJUnitPlatform {
+    includeEngines 'junit-jupiter'
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
 dependencies {
-  implementation "com.fasterxml.jackson.core:jackson-databind:${jackson}"
-  implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jackson}"
-  implementation "org.slf4j:slf4j-simple:${slf4j}"
-  annotationProcessor "org.projectlombok:lombok:${lombok}"
-  compileOnly "org.projectlombok:lombok:${lombok}"
-  testAnnotationProcessor "org.projectlombok:lombok:${lombok}"
-  testImplementation "org.projectlombok:lombok:${lombok}"
-  testImplementation "org.assertj:assertj-core:${assertj}"
-  testImplementation "org.junit.jupiter:junit-jupiter-api:${junit}"
-  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit}"
+  implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+  implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
+  implementation "org.slf4j:slf4j-simple:${slf4jVersion}"
+  annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+  compileOnly "org.projectlombok:lombok:${lombokVersion}"
+  testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+  testImplementation "org.projectlombok:lombok:${lombokVersion}"
+  testImplementation "org.assertj:assertj-core:${assertjVersion}"
+  testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 }
