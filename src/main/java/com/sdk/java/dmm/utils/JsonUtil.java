@@ -21,12 +21,12 @@ public final class JsonUtil {
   }
 
   /**
-   * JSONを指定されたClassにマッピングします。
+   * JSON文字列を指定されたクラスにマッピングします。
    *
-   * @param json JSON
-   * @param clazz Classオブジェクト
-   * @param <T> JSONとマッピングされるオブジェクトのClassの型
-   * @return JSONがマッピングされたオブジェクト
+   * @param json  JSON文字列
+   * @param clazz マッピングクラス
+   * @param <T>   マッピングクラス型
+   * @return マッピングオブジェクト
    */
   public static <T> T read(String json, Class<T> clazz) {
     try {
