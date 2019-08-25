@@ -1,6 +1,8 @@
 package com.sdk.java.dmm.utils;
 
 import com.sdk.java.dmm.enums.CodeEnum;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 文字列操作のためのクラスです。
@@ -206,6 +208,19 @@ public final class StringUtil {
       return str;
     }
     return str + "&" + paramName + "=" + paramVal.getValue();
+  }
+
+  /**
+   * 文字列をUTF8にエンコードする。
+   *
+   * @param str 文字列
+   * @return UTF8にエンコードされた文字列
+   */
+  public static String URLEncode(String str) {
+    if (isNullOrEmpty(str)) {
+      return str;
+    }
+    return URLEncoder.encode(str, StandardCharsets.UTF_8);
   }
 
 }

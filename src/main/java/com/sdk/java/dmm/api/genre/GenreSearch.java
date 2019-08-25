@@ -9,8 +9,6 @@ import com.sdk.java.dmm.enums.Output;
 import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.exception.DmmIllegalParameterException;
 import com.sdk.java.dmm.utils.StringUtil;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -58,7 +56,7 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
    * @return this GenreSearch
    */
   public GenreSearch setFloorId(String floorId) {
-    this.floorId = URLEncoder.encode(floorId, StandardCharsets.UTF_8);
+    this.floorId = floorId;
     return this;
   }
 
@@ -75,7 +73,7 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
     if (!StringUtil.isJapaneseSyllabary(initial)) {
       throw new DmmIllegalArgumentException(Message.M0001, "initial", initial);
     }
-    this.initial = URLEncoder.encode(initial, StandardCharsets.UTF_8);
+    this.initial = initial;
     return this;
   }
 
@@ -134,9 +132,9 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
     this.paramCheck();
     String param = "";
     // フロアID
-    param = StringUtil.addParam(param, "floor_id", this.floorId);
+    param = StringUtil.addParam(param, "floor_id", StringUtil.URLEncode(this.floorId));
     // ジャンルの頭文字(50音)
-    param = StringUtil.addParam(param, "initial", this.initial);
+    param = StringUtil.addParam(param, "initial", StringUtil.URLEncode(this.initial));
     // 取得件数
     param = StringUtil.addParam(param, "hits", this.hits);
     // 検索開始位置
