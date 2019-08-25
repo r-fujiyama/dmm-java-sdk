@@ -10,8 +10,6 @@ import com.sdk.java.dmm.enums.Output;
 import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.utils.DateFormat;
 import com.sdk.java.dmm.utils.StringUtil;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -87,7 +85,7 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
     if (!StringUtil.isJapaneseSyllabary(initial)) {
       throw new DmmIllegalArgumentException(Message.M0001, "initial", initial);
     }
-    this.initial = URLEncoder.encode(initial, StandardCharsets.UTF_8);
+    this.initial = initial;
     return this;
   }
 
@@ -99,7 +97,7 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * @return this ActressSearch
    */
   public ActressSearch setActressId(String actressId) {
-    this.actressId = URLEncoder.encode(actressId, StandardCharsets.UTF_8);
+    this.actressId = actressId;
     return this;
   }
 
@@ -111,7 +109,7 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
    * @return this ActressSearch
    */
   public ActressSearch setKeyword(String keyword) {
-    this.keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
+    this.keyword = keyword;
     return this;
   }
 
@@ -372,11 +370,11 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
   protected String getParam() {
     String param = "";
     // 女優名の頭文字50音
-    param = StringUtil.addParam(param, "initial", this.initial);
+    param = StringUtil.addParam(param, "initial", StringUtil.URLEncode(this.initial));
     // 女優ID
-    param = StringUtil.addParam(param, "actress_id", this.actressId);
+    param = StringUtil.addParam(param, "actress_id", StringUtil.URLEncode(this.actressId));
     // キーワード
-    param = StringUtil.addParam(param, "keyword", this.keyword);
+    param = StringUtil.addParam(param, "keyword", StringUtil.URLEncode(this.keyword));
     // バスト_以上
     param = StringUtil.addParam(param, "gte_bust", this.gteBust);
     // バスト_以下

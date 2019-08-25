@@ -13,8 +13,6 @@ import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.exception.DmmIllegalParameterException;
 import com.sdk.java.dmm.utils.DateTimeFormat;
 import com.sdk.java.dmm.utils.StringUtil;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -99,7 +97,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @return ItemSearch
    */
   public ItemSearch setService(String service) {
-    this.service = URLEncoder.encode(service, StandardCharsets.UTF_8);
+    this.service = service;
     return this;
   }
 
@@ -113,7 +111,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @return ItemSearch
    */
   public ItemSearch setFloor(String floor) {
-    this.floor = URLEncoder.encode(floor, StandardCharsets.UTF_8);
+    this.floor = floor;
     return this;
   }
 
@@ -175,7 +173,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @return ItemSearch
    */
   public ItemSearch setKeyword(String keyword) {
-    this.keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
+    this.keyword = keyword;
     return this;
   }
 
@@ -188,7 +186,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @return ItemSearch
    */
   public ItemSearch setCid(String cid) {
-    this.cid = URLEncoder.encode(cid, StandardCharsets.UTF_8);
+    this.cid = cid;
     return this;
   }
 
@@ -219,7 +217,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @return ItemSearch
    */
   public ItemSearch setArticleId(String articleId) {
-    this.articleId = URLEncoder.encode(articleId, StandardCharsets.UTF_8);
+    this.articleId = articleId;
     return this;
   }
 
@@ -340,9 +338,9 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
     String param = "";
     param = StringUtil.addParam(param, "site", this.site);
     // サービス
-    param = StringUtil.addParam(param, "service", this.service);
+    param = StringUtil.addParam(param, "service", StringUtil.URLEncode(this.service));
     // フロア
-    param = StringUtil.addParam(param, "floor", this.floor);
+    param = StringUtil.addParam(param, "floor", StringUtil.URLEncode(this.floor));
     // 取得件数
     param = StringUtil.addParam(param, "hits", this.hits);
     // 検索開始位置
@@ -350,13 +348,13 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
     // ソート順
     param = StringUtil.addParam(param, "sort", this.sort);
     // キーワード
-    param = StringUtil.addParam(param, "keyword", this.keyword);
+    param = StringUtil.addParam(param, "keyword", StringUtil.URLEncode(this.keyword));
     // 商品id
-    param = StringUtil.addParam(param, "cid", this.cid);
+    param = StringUtil.addParam(param, "cid", StringUtil.URLEncode(this.cid));
     // 絞りこみ項目
     param = StringUtil.addParam(param, "article", this.article);
     // 絞り込みid
-    param = StringUtil.addParam(param, "article_id", this.articleId);
+    param = StringUtil.addParam(param, "article_id", StringUtil.URLEncode(this.articleId));
     // 発売日絞り込み_以上
     if (this.gteDate != null) {
       param = StringUtil.addParam(param, "gte_date",

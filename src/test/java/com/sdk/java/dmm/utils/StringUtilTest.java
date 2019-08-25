@@ -240,4 +240,19 @@ public class StringUtilTest {
 
   }
 
+  @Nested
+  public class URLEncode {
+
+    @Test
+    public void 正常系_エンコードが正常に実行される() {
+      assertThat(StringUtil.URLEncode("あ")).isEqualTo("%E3%81%82");
+    }
+
+    @Test
+    public void 正常_引数がNULLの場合() {
+      assertThat(StringUtil.URLEncode(null)).isEqualTo(null);
+    }
+
+  }
+
 }
