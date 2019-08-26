@@ -84,7 +84,7 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
    * @param hits 取得件数
    * @return this GenreSearch
    */
-  public MakerSearch setHits(Integer hits) {
+  public MakerSearch setHits(int hits) {
     if (hits == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "hits");
     }

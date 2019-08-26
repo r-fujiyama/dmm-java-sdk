@@ -84,7 +84,7 @@ public class SeriesSearch extends AbstractDmm<SeriesSearchResult> {
    * @param hits 取得件数
    * @return this SeriesSearch
    */
-  public SeriesSearch setHits(Integer hits) {
+  public SeriesSearch setHits(int hits) {
     if (hits == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "hits");
     }

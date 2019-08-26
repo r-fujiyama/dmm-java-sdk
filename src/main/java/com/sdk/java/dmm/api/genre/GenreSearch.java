@@ -85,7 +85,7 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
    * @return this GenreSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public GenreSearch setHits(Integer hits) throws DmmIllegalArgumentException {
+  public GenreSearch setHits(int hits) throws DmmIllegalArgumentException {
     if (hits == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "hits");
     }

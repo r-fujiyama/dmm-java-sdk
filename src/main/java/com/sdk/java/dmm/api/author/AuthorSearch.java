@@ -84,7 +84,7 @@ public class AuthorSearch extends AbstractDmm<AuthorSearchResult> {
    * @param hits 取得件数
    * @return this GenreSearch
    */
-  public AuthorSearch setHits(Integer hits) {
+  public AuthorSearch setHits(int hits) {
     if (hits == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "hits");
     }

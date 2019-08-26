@@ -123,7 +123,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @return ItemSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public ItemSearch setHits(Integer hits) throws DmmIllegalArgumentException {
+  public ItemSearch setHits(int hits) throws DmmIllegalArgumentException {
     if (hits == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "hits");
     }
@@ -139,7 +139,7 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @return ItemSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public ItemSearch setOffset(Integer offset) throws DmmIllegalArgumentException {
+  public ItemSearch setOffset(int offset) throws DmmIllegalArgumentException {
     if (offset == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "offset");
     }
