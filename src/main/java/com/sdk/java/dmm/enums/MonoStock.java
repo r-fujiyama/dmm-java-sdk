@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 商品検索APIにて使用する在庫絞り込みEnum。
+ * 商品検索APIにて使用する在庫絞り込み列挙型
  */
 @AllArgsConstructor
 @Getter
@@ -20,16 +20,16 @@ public enum MonoStock implements CodeEnum<String> {
   /** マーケットプレイスのみ */
   DMP("dmp", "マーケットプレイスのみ");
 
-  /** 在庫絞り込み */
+  /** 値 */
   private String value;
   /** ラベル */
   private String label;
 
   /**
-   * 指定されたvalue持つEnumを返します。
+   * 指定された値を持つ列挙型を返却します。
    *
-   * @param value Enumのvalue
-   * @return 指定されたvalueを持つEnum
+   * @param value 列挙型の値
+   * @return 指定された値を持つ列挙型
    */
   @JsonCreator
   public static MonoStock of(String value) throws IllegalArgumentException {

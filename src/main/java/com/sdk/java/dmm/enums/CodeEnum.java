@@ -4,21 +4,21 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
- * API実行結果とバインドされるenumのインタフェース
+ * 全ての列挙型が実装しなければならない列挙型インタフェース
  *
- * @param <T> getValueが返却する型
+ * @param <T> {@code getValue}が返却する型
  */
 public interface CodeEnum<T> {
 
   /**
-   * 指定されたEnumに指定されたvalueが存在する場合は、Enumを返却します。<br>
-   * そうでない場合は、{@code IllegalArgumentException}をスローします。
+   * 指定された列挙型に指定された値が存在する場合、列挙型を返却します。<br>
+   * そうでない場合、{@code IllegalArgumentException}をスローします。
    *
-   * @param <T>      {@code CodeEnum}の仮型パラメータ
-   * @param <E>      CodeEnumをimplementsしたEnum
-   * @param enumType CodeEnumをimplementsしたEnum
-   * @param value    T型の値
-   * @return Enum
+   * @param <T>      {@code getValue}が返却する型
+   * @param <E>      CodeEnumを実装したした列挙型
+   * @param enumType CodeEnumを実装したした列挙型
+   * @param value    列挙型の値
+   * @return 列挙型
    */
   static <T, E extends Enum<?> & CodeEnum<T>> E of(Class<E> enumType, T value) {
     return Arrays.stream(enumType.getEnumConstants())
@@ -28,17 +28,17 @@ public interface CodeEnum<T> {
   }
 
   /**
-   * valueを取得する。
+   * 値を取得する。
    *
-   * @return value
+   * @return 値
    */
   @JsonValue
   T getValue();
 
   /**
-   * labelを取得する。
+   * ラベルを取得する。
    *
-   * @return label
+   * @return ラベル
    */
   String getLabel();
 

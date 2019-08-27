@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 出力形式Enum。
+ * 出力形式列挙型
  */
 @AllArgsConstructor
 @Getter
@@ -16,16 +16,16 @@ public enum Output implements CodeEnum<String> {
   /** XML */
   XML("xml", "XML");
 
-  /** 出力形式 */
+  /** 値 */
   private String value;
   /** ラベル */
   private String label;
 
   /**
-   * 指定されたvalue持つEnumを返します。
+   * 指定された値を持つ列挙型を返却します。
    *
-   * @param value Enumのvalue
-   * @return 指定されたvalueを持つEnum
+   * @param value 列挙型の値
+   * @return 指定された値を持つ列挙型
    */
   @JsonCreator
   public static Output of(String value) {

@@ -320,19 +320,19 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
 
   /**
    * ソート順を設定する。<br>
-   * 名前昇順：NAME_ASC
-   * 名前降順：NAME_DESC
-   * バスト昇順：BUST_ASC
-   * バスト降順：BUST_DESC
-   * ウエスト昇順：WAIST_ASC
-   * ウエスト降順：WAIST_DESC
-   * ヒップ昇順：HIP_ASC
-   * ヒップ降順：HIP_DESC
-   * 身長昇順：HEIGHT_ASC
-   * 身長降順：HEIGHT_DESC
-   * 生年月日昇順：BIRTHDAY_ASC
-   * 生年月日降順：BIRTHDAY_DESC
-   * 女優ID昇順：ID_ASC
+   * 名前昇順：NAME_ASC <br>
+   * 名前降順：NAME_DESC <br>
+   * バスト昇順：BUST_ASC <br>
+   * バスト降順：BUST_DESC <br>
+   * ウエスト昇順：WAIST_ASC <br>
+   * ウエスト降順：WAIST_DESC <br>
+   * ヒップ昇順：HIP_ASC <br>
+   * ヒップ降順：HIP_DESC <br>
+   * 身長昇順：HEIGHT_ASC <br>
+   * 身長降順：HEIGHT_DESC <br>
+   * 生年月日昇順：BIRTHDAY_ASC <br>
+   * 生年月日降順：BIRTHDAY_DESC <br>
+   * 女優ID昇順：ID_ASC <br>
    * 女優ID降順：ID_DESC
    *
    * @param sort ソート順

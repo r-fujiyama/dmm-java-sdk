@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * DMM_APIを実行するためのURLを管理するEnum。
+ * DMM_APIを実行するためのURLを管理する列挙型
  */
 @AllArgsConstructor
 @Getter
@@ -26,16 +26,16 @@ public enum BaseURL implements CodeEnum<String> {
   /** フロア検索API */
   FLOOR_SEARCH("https://api.dmm.com/affiliate/v3/FloorList?", "フロア検索API");
 
-  /** URL */
+  /** 値 */
   private String value;
   /** ラベル */
   private String label;
 
   /**
-   * 指定されたvalue持つEnumを返します。
+   * 指定された値を持つ列挙型を返却します。
    *
-   * @param value Enumのvalue
-   * @return 指定されたvalueを持つEnum
+   * @param value 列挙型の値
+   * @return 指定された値を持つ列挙型
    */
   @JsonCreator
   public static BaseURL of(String value) {

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 商品検索APIにて使用する検索結果ソートEnum。
+ * 商品検索APIにて使用する検索結果ソート列挙型
  */
 @AllArgsConstructor
 @Getter
@@ -22,16 +22,16 @@ public enum ItemSearchSort implements CodeEnum<String> {
   /** 評価 */
   REVIEW("review", "評価");
 
-  /** ソート順 */
+  /** 値 */
   private String value;
   /** ラベル */
   private String label;
 
   /**
-   * 指定されたvalue持つEnumを返します。
+   * 指定された値を持つ列挙型を返却します。
    *
-   * @param value Enumのvalue
-   * @return 指定されたvalueを持つEnum
+   * @param value 列挙型の値
+   * @return 指定された値を持つ列挙型
    */
   @JsonCreator
   public static ItemSearchSort of(String value) {

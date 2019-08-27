@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * message.propertiesのキーを管理するEnum。
+ * message.propertiesのキーを管理する列挙型
  */
 @AllArgsConstructor
 @Getter
@@ -27,7 +27,7 @@ public enum Message {
   /** {} -&gt; 0は指定できません */
   M0008("M0008");
 
-  /** エラーコード */
+  /** 値 */
   private String value;
 
 }

@@ -108,8 +108,8 @@ public class AuthorSearch extends AbstractDmm<AuthorSearchResult> {
    * @return this GenreSearch
    */
   public AuthorSearch setOffset(Long offset) {
-    if (hits == null) {
-      this.hits = null;
+    if (offset == null) {
+      this.offset = null;
       return this;
     }
     if (offset == 0) {

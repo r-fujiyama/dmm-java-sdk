@@ -108,8 +108,8 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
    * @return this GenreSearch
    */
   public GenreSearch setOffset(Long offset) {
-    if (hits == null) {
-      this.hits = null;
+    if (offset == null) {
+      this.offset = null;
       return this;
     }
     if (offset == 0) {

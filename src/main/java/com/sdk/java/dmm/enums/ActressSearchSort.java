@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 女優検索APIにて使用する検索結果ソートEnum。
+ * 女優検索APIにて使用する検索結果ソート列挙型
  */
 @AllArgsConstructor
 @Getter
@@ -40,16 +40,16 @@ public enum ActressSearchSort implements CodeEnum<String> {
   /** 女優ID(降順) */
   ID_DESC("-id", "女優ID(降順)");
 
-  /** ソート順 */
+  /** 値 */
   private String value;
   /** ラベル */
   private String label;
 
   /**
-   * 指定されたvalue持つEnumを返します。
+   * 指定された値を持つ列挙型を返却します。
    *
-   * @param value Enumのvalue
-   * @return 指定されたvalueを持つEnum
+   * @param value 列挙型の値
+   * @return 指定された値を持つ列挙型
    */
   @JsonCreator
   public static ActressSearchSort of(String value) {

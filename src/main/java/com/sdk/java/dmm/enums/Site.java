@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 商品検索APIにて使用するサイトEnum。
+ * 商品検索APIにて使用するサイト列挙型
  */
 @AllArgsConstructor
 @Getter
@@ -16,16 +16,16 @@ public enum Site implements CodeEnum<String> {
   /** FANZA */
   FANZA("FANZA", "FANZA");
 
-  /** サイト */
+  /** 値 */
   private String value;
   /** ラベル */
   private String label;
 
   /**
-   * 指定されたvalue持つEnumを返します。
+   * 指定された値を持つ列挙型を返却します。
    *
-   * @param value Enumのvalue
-   * @return 指定されたvalueを持つEnum
+   * @param value 列挙型の値
+   * @return 指定された値を持つ列挙型
    */
   @JsonCreator
   public static Site of(String value) throws IllegalArgumentException {
