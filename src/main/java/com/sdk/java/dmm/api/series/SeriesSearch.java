@@ -70,6 +70,9 @@ public class SeriesSearch extends AbstractDmm<SeriesSearchResult> {
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
   public SeriesSearch setInitial(String initial) throws DmmIllegalArgumentException {
+    if (initial == null) {
+      return this;
+    }
     if (!StringUtil.isJapaneseSyllabary(initial)) {
       throw new DmmIllegalArgumentException(Message.M0001, "initial", initial);
     }
@@ -84,7 +87,11 @@ public class SeriesSearch extends AbstractDmm<SeriesSearchResult> {
    * @param hits 取得件数
    * @return this SeriesSearch
    */
-  public SeriesSearch setHits(int hits) {
+  public SeriesSearch setHits(Integer hits) {
+    if (hits == null) {
+      this.hits = null;
+      return this;
+    }
     if (hits == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "hits");
     }
@@ -99,7 +106,11 @@ public class SeriesSearch extends AbstractDmm<SeriesSearchResult> {
    * @param offset 検索開始位置
    * @return this SeriesSearch
    */
-  public SeriesSearch setOffset(long offset) {
+  public SeriesSearch setOffset(Long offset) {
+    if (offset == null) {
+      this.offset = null;
+      return this;
+    }
     if (offset == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "offset");
     }

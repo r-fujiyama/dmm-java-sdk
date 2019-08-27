@@ -70,6 +70,10 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
   public GenreSearch setInitial(String initial) throws DmmIllegalArgumentException {
+    if (initial == null) {
+      this.initial = null;
+      return this;
+    }
     if (!StringUtil.isJapaneseSyllabary(initial)) {
       throw new DmmIllegalArgumentException(Message.M0001, "initial", initial);
     }
@@ -83,9 +87,12 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
    *
    * @param hits 取得件数
    * @return this GenreSearch
-   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public GenreSearch setHits(int hits) throws DmmIllegalArgumentException {
+  public GenreSearch setHits(Integer hits) {
+    if (hits == null) {
+      this.hits = null;
+      return this;
+    }
     if (hits == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "hits");
     }
@@ -99,9 +106,12 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
    *
    * @param offset 検索開始位置
    * @return this GenreSearch
-   * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public GenreSearch setOffset(long offset) throws DmmIllegalArgumentException {
+  public GenreSearch setOffset(Long offset) {
+    if (hits == null) {
+      this.hits = null;
+      return this;
+    }
     if (offset == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "offset");
     }

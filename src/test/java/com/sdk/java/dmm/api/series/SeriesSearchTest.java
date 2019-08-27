@@ -75,7 +75,7 @@ public class SeriesSearchTest {
       seriesSearch.setFloorId("25");
       seriesSearch.setInitial("あ");
       seriesSearch.setHits(500);
-      seriesSearch.setOffset(10);
+      seriesSearch.setOffset(10L);
       assertThat(execute())
           .isEqualTo(JsonUtil.read(seriesSearch.getJson(), SeriesSearchResult.class));
     }
@@ -105,7 +105,16 @@ public class SeriesSearchTest {
     assertThat(seriesSearch.setFloorId("1")).isEqualTo(seriesSearch);
     assertThat(seriesSearch.setInitial("あ")).isEqualTo(seriesSearch);
     assertThat(seriesSearch.setHits(1)).isEqualTo(seriesSearch);
-    assertThat(seriesSearch.setOffset(1)).isEqualTo(seriesSearch);
+    assertThat(seriesSearch.setOffset(1L)).isEqualTo(seriesSearch);
+  }
+
+  @Test
+  public void 正常系_setterの引数にNULLをセットした場合にエラーとならないこと() {
+    assertThat(seriesSearch.setFloorId(null)).isEqualTo(seriesSearch);
+    assertThat(seriesSearch.setInitial(null)).isEqualTo(seriesSearch);
+    assertThat(seriesSearch.setHits(null)).isEqualTo(seriesSearch);
+    assertThat(seriesSearch.setOffset(null)).isEqualTo(seriesSearch);
+    assertThat(seriesSearch).isEqualTo(new SeriesSearch());
   }
 
   @Nested
@@ -135,7 +144,7 @@ public class SeriesSearchTest {
 
     @Test
     public void 異常系_setOffset_0の場合() {
-      assertThatThrownBy(() -> seriesSearch.setOffset(0))
+      assertThatThrownBy(() -> seriesSearch.setOffset(0L))
           .isInstanceOf(DmmIllegalArgumentException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
     }

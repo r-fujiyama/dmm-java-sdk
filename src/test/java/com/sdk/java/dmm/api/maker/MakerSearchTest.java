@@ -75,7 +75,7 @@ public class MakerSearchTest {
       makerSearch.setFloorId("25");
       makerSearch.setInitial("あ");
       makerSearch.setHits(500);
-      makerSearch.setOffset(10);
+      makerSearch.setOffset(10L);
       assertThat(execute())
           .isEqualTo(JsonUtil.read(makerSearch.getJson(), MakerSearchResult.class));
     }
@@ -105,7 +105,16 @@ public class MakerSearchTest {
     assertThat(makerSearch.setFloorId("1")).isEqualTo(makerSearch);
     assertThat(makerSearch.setInitial("あ")).isEqualTo(makerSearch);
     assertThat(makerSearch.setHits(1)).isEqualTo(makerSearch);
-    assertThat(makerSearch.setOffset(1)).isEqualTo(makerSearch);
+    assertThat(makerSearch.setOffset(1L)).isEqualTo(makerSearch);
+  }
+
+  @Test
+  public void 正常系_setterの引数にNULLをセットした場合にエラーとならないこと() {
+    assertThat(makerSearch.setFloorId(null)).isEqualTo(makerSearch);
+    assertThat(makerSearch.setInitial(null)).isEqualTo(makerSearch);
+    assertThat(makerSearch.setHits(null)).isEqualTo(makerSearch);
+    assertThat(makerSearch.setOffset(null)).isEqualTo(makerSearch);
+    assertThat(makerSearch).isEqualTo(new MakerSearch());
   }
 
   @Nested
@@ -135,7 +144,7 @@ public class MakerSearchTest {
 
     @Test
     public void 異常系_setOffset_0の場合() {
-      assertThatThrownBy(() -> makerSearch.setOffset(0))
+      assertThatThrownBy(() -> makerSearch.setOffset(0L))
           .isInstanceOf(DmmIllegalArgumentException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
     }

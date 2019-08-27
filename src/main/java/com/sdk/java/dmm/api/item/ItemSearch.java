@@ -123,7 +123,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @return ItemSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public ItemSearch setHits(int hits) throws DmmIllegalArgumentException {
+  public ItemSearch setHits(Integer hits) throws DmmIllegalArgumentException {
+    if (hits == null) {
+      this.hits = null;
+      return this;
+    }
     if (hits == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "hits");
     }
@@ -139,7 +143,11 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @return ItemSearch
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
-  public ItemSearch setOffset(int offset) throws DmmIllegalArgumentException {
+  public ItemSearch setOffset(Integer offset) throws DmmIllegalArgumentException {
+    if (offset == null) {
+      this.offset = null;
+      return this;
+    }
     if (offset == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "offset");
     }
@@ -243,6 +251,10 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
   public ItemSearch setGteDate(String gteDate) throws DmmIllegalArgumentException {
+    if (gteDate == null) {
+      this.gteDate = null;
+      return this;
+    }
     if (!DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.check(gteDate)) {
       throw new DmmIllegalArgumentException(Message.M0003, "gteDate", gteDate);
     }
@@ -272,6 +284,10 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
   public ItemSearch setLteDate(String lteDate) throws DmmIllegalArgumentException {
+    if (lteDate == null) {
+      this.lteDate = null;
+      return this;
+    }
     if (!DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.check(lteDate)) {
       throw new DmmIllegalArgumentException(Message.M0003, "lteDate", lteDate);
     }

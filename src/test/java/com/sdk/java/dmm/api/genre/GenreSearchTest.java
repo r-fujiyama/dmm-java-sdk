@@ -75,7 +75,7 @@ public class GenreSearchTest {
       genreSearch.setFloorId("19");
       genreSearch.setInitial("あ");
       genreSearch.setHits(500);
-      genreSearch.setOffset(10);
+      genreSearch.setOffset(10L);
       assertThat(execute())
           .isEqualTo(JsonUtil.read(genreSearch.getJson(), GenreSearchResult.class));
     }
@@ -105,7 +105,16 @@ public class GenreSearchTest {
     assertThat(genreSearch.setFloorId("1")).isEqualTo(genreSearch);
     assertThat(genreSearch.setInitial("あ")).isEqualTo(genreSearch);
     assertThat(genreSearch.setHits(1)).isEqualTo(genreSearch);
-    assertThat(genreSearch.setOffset(1)).isEqualTo(genreSearch);
+    assertThat(genreSearch.setOffset(1L)).isEqualTo(genreSearch);
+  }
+
+  @Test
+  public void 正常系_setterの引数にNULLをセットした場合にエラーとならないこと() {
+    assertThat(genreSearch.setFloorId(null)).isEqualTo(genreSearch);
+    assertThat(genreSearch.setInitial(null)).isEqualTo(genreSearch);
+    assertThat(genreSearch.setHits(null)).isEqualTo(genreSearch);
+    assertThat(genreSearch.setOffset(null)).isEqualTo(genreSearch);
+    assertThat(genreSearch).isEqualTo(new GenreSearch());
   }
 
   public GenreSearchResult execute() {
@@ -141,7 +150,7 @@ public class GenreSearchTest {
 
     @Test
     public void 異常系_setOffset_0の場合() {
-      assertThatThrownBy(() -> genreSearch.setOffset(0))
+      assertThatThrownBy(() -> genreSearch.setOffset(0L))
           .isInstanceOf(DmmIllegalArgumentException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
     }

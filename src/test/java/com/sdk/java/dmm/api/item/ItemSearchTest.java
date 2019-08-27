@@ -665,6 +665,27 @@ public class ItemSearchTest {
     assertThat(itemSearch.setMonoStock(MonoStock.STOCK)).isEqualTo(itemSearch);
   }
 
+  @Test
+  public void 正常系_setterの引数にNULLをセットした場合にエラーとならないこと() {
+    assertThat(itemSearch.setSite(null)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setService(null)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setFloor(null)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setHits(null)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setOffset(null)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setSort(ItemSearchSort.RANK)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setKeyword(null)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setCid(null)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setArticle(Article.ACTRESS)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setArticleId(null)).isEqualTo(itemSearch);
+    LocalDateTime ldtIsNull = null;
+    String strIsNull = null;
+    assertThat(itemSearch.setGteDate(ldtIsNull)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setGteDate(strIsNull)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setLteDate(ldtIsNull)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setLteDate(strIsNull)).isEqualTo(itemSearch);
+    assertThat(itemSearch.setMonoStock(MonoStock.STOCK)).isEqualTo(itemSearch);
+  }
+
   @Nested
   public class 異常系 {
 

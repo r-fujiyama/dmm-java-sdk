@@ -70,6 +70,10 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
    * @throws DmmIllegalArgumentException 引数が不正な場合にスローされる
    */
   public MakerSearch setInitial(String initial) throws DmmIllegalArgumentException {
+    if (initial == null) {
+      this.initial = null;
+      return this;
+    }
     if (!StringUtil.isJapaneseSyllabary(initial)) {
       throw new DmmIllegalArgumentException(Message.M0001, "initial", initial);
     }
@@ -84,7 +88,11 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
    * @param hits 取得件数
    * @return this GenreSearch
    */
-  public MakerSearch setHits(int hits) {
+  public MakerSearch setHits(Integer hits) {
+    if (hits == null) {
+      this.hits = null;
+      return this;
+    }
     if (hits == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "hits");
     }
@@ -99,7 +107,11 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
    * @param offset 検索開始位置
    * @return this GenreSearch
    */
-  public MakerSearch setOffset(long offset) {
+  public MakerSearch setOffset(Long offset) {
+    if (offset == null) {
+      this.offset = null;
+      return this;
+    }
     if (offset == 0) {
       throw new DmmIllegalArgumentException(Message.M0008, "offset");
     }

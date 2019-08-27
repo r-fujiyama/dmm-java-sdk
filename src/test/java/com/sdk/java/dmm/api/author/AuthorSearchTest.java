@@ -75,7 +75,7 @@ public class AuthorSearchTest {
       authorSearch.setFloorId("25");
       authorSearch.setInitial("あ");
       authorSearch.setHits(500);
-      authorSearch.setOffset(10);
+      authorSearch.setOffset(10L);
       assertThat(execute())
           .isEqualTo(JsonUtil.read(authorSearch.getJson(), AuthorSearchResult.class));
     }
@@ -105,7 +105,16 @@ public class AuthorSearchTest {
     assertThat(authorSearch.setFloorId("1")).isEqualTo(authorSearch);
     assertThat(authorSearch.setInitial("あ")).isEqualTo(authorSearch);
     assertThat(authorSearch.setHits(1)).isEqualTo(authorSearch);
-    assertThat(authorSearch.setOffset(1)).isEqualTo(authorSearch);
+    assertThat(authorSearch.setOffset(1L)).isEqualTo(authorSearch);
+  }
+
+  @Test
+  public void 正常系_setterの引数にNULLをセットした場合にエラーとならないこと() {
+    assertThat(authorSearch.setFloorId(null)).isEqualTo(authorSearch);
+    assertThat(authorSearch.setInitial(null)).isEqualTo(authorSearch);
+    assertThat(authorSearch.setHits(null)).isEqualTo(authorSearch);
+    assertThat(authorSearch.setOffset(null)).isEqualTo(authorSearch);
+    assertThat(authorSearch).isEqualTo(new AuthorSearch());
   }
 
   @Nested
@@ -135,7 +144,7 @@ public class AuthorSearchTest {
 
     @Test
     public void 異常系_setOffset_0の場合() {
-      assertThatThrownBy(() -> authorSearch.setOffset(0))
+      assertThatThrownBy(() -> authorSearch.setOffset(0L))
           .isInstanceOf(DmmIllegalArgumentException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
     }

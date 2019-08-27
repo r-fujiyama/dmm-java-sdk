@@ -179,7 +179,7 @@ public class ActressSearchTest {
 
     @Test
     public void 正常系_女優検索API実行_検索開始位置() {
-      int cond = 5000;
+      long cond = 5000;
       actressSearch.setOffset(cond);
       ActressSearchResult result = execute();
       assertThat(result.getResult().getFirstPosition()).isEqualTo(cond);
@@ -388,7 +388,7 @@ public class ActressSearchTest {
       actressSearch.setGteBirthday(DateFormat.uuuuMMdd_HYPHEN.parse("1988-05-24"));
       actressSearch.setLteBirthday(DateFormat.uuuuMMdd_HYPHEN.parse("1988-05-24"));
       actressSearch.setHits(1);
-      actressSearch.setOffset(1);
+      actressSearch.setOffset(1L);
       actressSearch.setSort(ActressSearchSort.ID_DESC);
       ActressSearchResult actual = execute();
       ActressSearchResult expected = JsonUtil
@@ -422,7 +422,7 @@ public class ActressSearchTest {
     actressSearch.setGteBirthday(DateFormat.uuuuMMdd_HYPHEN.parse("1988-05-24"));
     actressSearch.setLteBirthday(DateFormat.uuuuMMdd_HYPHEN.parse("1988-05-24"));
     actressSearch.setHits(1);
-    actressSearch.setOffset(1);
+    actressSearch.setOffset(1L);
     actressSearch.setSort(ActressSearchSort.ID_DESC);
     actressSearch.clear();
     assertThat(actressSearch).isEqualTo(new ActressSearch());
@@ -448,8 +448,33 @@ public class ActressSearchTest {
         .isEqualTo(actressSearch);
     assertThat(actressSearch.setLteBirthday("1988-05-24")).isEqualTo(actressSearch);
     assertThat(actressSearch.setHits(1)).isEqualTo(actressSearch);
-    assertThat(actressSearch.setOffset(1)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setOffset(1L)).isEqualTo(actressSearch);
     assertThat(actressSearch.setSort(ActressSearchSort.ID_ASC)).isEqualTo(actressSearch);
+  }
+
+  @Test
+  public void 正常系_setterの引数にNULLをセットした場合にエラーとならないこと() {
+    assertThat(actressSearch.setInitial(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setActressId(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setKeyword(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setGteBust(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteBust(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setGteWaist(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteWaist(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setGteHip(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteHip(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setGteHeight(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteHeight(null)).isEqualTo(actressSearch);
+    LocalDate ldIsNull = null;
+    String strIsNull = null;
+    assertThat(actressSearch.setGteBirthday(ldIsNull));
+    assertThat(actressSearch.setGteBirthday(strIsNull)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setLteBirthday(ldIsNull));
+    assertThat(actressSearch.setLteBirthday(strIsNull)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setHits(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setOffset(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch.setSort(null)).isEqualTo(actressSearch);
+    assertThat(actressSearch).isEqualTo(new ActressSearch());
   }
 
   @Nested
@@ -488,7 +513,7 @@ public class ActressSearchTest {
 
     @Test
     public void 異常系_setOffset_0の場合() {
-      assertThatThrownBy(() -> actressSearch.setOffset(0))
+      assertThatThrownBy(() -> actressSearch.setOffset(0L))
           .isInstanceOf(DmmIllegalArgumentException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
     }
