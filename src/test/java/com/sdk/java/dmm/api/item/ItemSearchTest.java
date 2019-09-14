@@ -3,6 +3,7 @@ package com.sdk.java.dmm.api.item;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.sdk.java.dmm.api.ApiTestBase;
 import com.sdk.java.dmm.api.actress.ActressSearch;
 import com.sdk.java.dmm.api.actress.dto.ActressSearchResult;
 import com.sdk.java.dmm.api.item.dto.Item;
@@ -26,9 +27,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class ItemSearchTest {
+public class ItemSearchTest extends ApiTestBase<ItemSearch> {
 
-  private final ItemSearch itemSearch = new ItemSearch();
+  private final ItemSearch itemSearch = create(ItemSearch.class);
 
   @AfterEach
   public void tearDown() {
@@ -180,7 +181,7 @@ public class ItemSearchTest {
               item.getIteminfo().getActor().stream().map(actor -> actor.getName())
                   .collect(Collectors.toList())));
 
-          ActressSearch actressSearch = new ActressSearch();
+          ActressSearch actressSearch = new ActressSearch(getApiId(), getAffiliateId());
           actressSearch.setActressId("15365");
           ActressSearchResult actressSearchResult = actressSearch.execute();
           String expected = actressSearchResult.getResult().getActress().get(0).getName();
@@ -468,7 +469,7 @@ public class ItemSearchTest {
               item.getIteminfo().getActress().stream().map(actress -> actress.getId())
                   .collect(Collectors.toList())));
 
-          ActressSearch actressSearch = new ActressSearch();
+          ActressSearch actressSearch = new ActressSearch(getApiId(), getAffiliateId());
           actressSearch.setActressId("26225");
           ActressSearchResult actressSearchResult = actressSearch.execute();
           String expected = actressSearchResult.getResult().getActress().get(0).getId();
@@ -639,7 +640,7 @@ public class ItemSearchTest {
     itemSearch.setLteDate(DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse("2019-07-01T00:00:00"));
     itemSearch.setMonoStock(MonoStock.STOCK);
     itemSearch.clear();
-    assertThat(itemSearch).isEqualTo(new ItemSearch());
+    assertThat(itemSearch).isEqualTo(new ItemSearch(getApiId(), getAffiliateId()));
   }
 
   @Test

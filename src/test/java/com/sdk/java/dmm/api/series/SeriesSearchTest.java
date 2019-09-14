@@ -3,6 +3,7 @@ package com.sdk.java.dmm.api.series;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.sdk.java.dmm.api.ApiTestBase;
 import com.sdk.java.dmm.api.floor.FloorSearch;
 import com.sdk.java.dmm.api.floor.dto.FloorSearchResult;
 import com.sdk.java.dmm.api.series.dto.SeriesSearchResult;
@@ -16,9 +17,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class SeriesSearchTest {
+public class SeriesSearchTest extends ApiTestBase<SeriesSearch> {
 
-  private final SeriesSearch seriesSearch = new SeriesSearch();
+  private final SeriesSearch seriesSearch = create(SeriesSearch.class);
 
   @AfterEach
   public void tearDown() {
@@ -35,7 +36,7 @@ public class SeriesSearchTest {
 
     @Test
     public void 正常系_シリーズ検索API実行_フロアID() {
-      FloorSearch floorSearch = new FloorSearch();
+      FloorSearch floorSearch = new FloorSearch(getApiId(), getAffiliateId());
       FloorSearchResult floorSearchResult = floorSearch.execute();
       floorSearchResult.getResult().getSite().forEach(site -> site.getService()
           .forEach(service -> service.getFloor().forEach(floor -> {
@@ -97,7 +98,7 @@ public class SeriesSearchTest {
     seriesSearch.setHits(1);
     seriesSearch.setOffset(1L);
     seriesSearch.clear();
-    assertThat(seriesSearch).isEqualTo(new SeriesSearch());
+    assertThat(seriesSearch).isEqualTo(new SeriesSearch(getApiId(), getAffiliateId()));
   }
 
   @Test
@@ -114,7 +115,7 @@ public class SeriesSearchTest {
     assertThat(seriesSearch.setInitial(null)).isEqualTo(seriesSearch);
     assertThat(seriesSearch.setHits(null)).isEqualTo(seriesSearch);
     assertThat(seriesSearch.setOffset(null)).isEqualTo(seriesSearch);
-    assertThat(seriesSearch).isEqualTo(new SeriesSearch());
+    assertThat(seriesSearch).isEqualTo(new SeriesSearch(getApiId(), getAffiliateId()));
   }
 
   @Nested

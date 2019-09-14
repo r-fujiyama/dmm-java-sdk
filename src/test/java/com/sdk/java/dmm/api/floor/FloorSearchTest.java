@@ -2,13 +2,14 @@ package com.sdk.java.dmm.api.floor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.sdk.java.dmm.api.ApiTestBase;
 import com.sdk.java.dmm.api.floor.dto.FloorSearchResult;
 import com.sdk.java.dmm.utils.JsonUtil;
 import org.junit.jupiter.api.Test;
 
-public class FloorSearchTest {
+public class FloorSearchTest extends ApiTestBase<FloorSearch> {
 
-  private final FloorSearch floorSearch = new FloorSearch();
+  private final FloorSearch floorSearch = create(FloorSearch.class);
 
   @Test
   public void 正常系_execute() {
@@ -26,7 +27,7 @@ public class FloorSearchTest {
   @Test
   public void 正常系_clear() {
     floorSearch.clear();
-    assertThat(floorSearch).isEqualTo(new FloorSearch());
+    assertThat(floorSearch).isEqualTo(new FloorSearch(getApiId(), getAffiliateId()));
   }
 
 }

@@ -29,7 +29,7 @@ import lombok.ToString;
  * </pre>
  */
 @Getter
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @ToString
 public class MakerSearch extends AbstractDmm<MakerSearchResult> {
 
@@ -43,9 +43,13 @@ public class MakerSearch extends AbstractDmm<MakerSearchResult> {
   public Long offset;
 
   /**
-   * MakerSearchオブジェクトを生成します。
+   * メーカー検索オブジェクトを生成します。
+   *
+   * @param apiId       API_ID
+   * @param affiliateId AFFILIATE_ID
    */
-  public MakerSearch() {
+  public MakerSearch(String apiId, String affiliateId) {
+    super(apiId, affiliateId);
   }
 
   /**

@@ -144,7 +144,7 @@ public class StringUtilTest {
 
     @Test
     public void 正常系_50音の場合はTRUE() {
-      assertThat(StringUtil.isJapaneseSyllabary("あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん"))
+      assertThat(StringUtil.isJapaneseSyllabary("あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょ"))
           .isTrue();
     }
 

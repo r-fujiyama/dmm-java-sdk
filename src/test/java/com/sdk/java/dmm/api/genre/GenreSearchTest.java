@@ -3,6 +3,7 @@ package com.sdk.java.dmm.api.genre;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.sdk.java.dmm.api.ApiTestBase;
 import com.sdk.java.dmm.api.floor.FloorSearch;
 import com.sdk.java.dmm.api.floor.dto.FloorSearchResult;
 import com.sdk.java.dmm.api.genre.dto.GenreSearchResult;
@@ -16,9 +17,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class GenreSearchTest {
+public class GenreSearchTest extends ApiTestBase<GenreSearch> {
 
-  private final GenreSearch genreSearch = new GenreSearch();
+  private final GenreSearch genreSearch = create(GenreSearch.class);
 
   @AfterEach
   public void tearDown() {
@@ -35,7 +36,7 @@ public class GenreSearchTest {
 
     @Test
     public void 正常系_ジャンル検索API実行_フロアID() {
-      FloorSearch floorSearch = new FloorSearch();
+      FloorSearch floorSearch = new FloorSearch(getApiId(), getAffiliateId());
       FloorSearchResult floorSearchResult = floorSearch.execute();
       floorSearchResult.getResult().getSite().forEach(site -> site.getService()
           .forEach(service -> service.getFloor().forEach(floor -> {
@@ -97,7 +98,7 @@ public class GenreSearchTest {
     genreSearch.setHits(1);
     genreSearch.setOffset(1L);
     genreSearch.clear();
-    assertThat(genreSearch).isEqualTo(new GenreSearch());
+    assertThat(genreSearch).isEqualTo(new GenreSearch(getApiId(), getAffiliateId()));
   }
 
   @Test
@@ -114,7 +115,7 @@ public class GenreSearchTest {
     assertThat(genreSearch.setInitial(null)).isEqualTo(genreSearch);
     assertThat(genreSearch.setHits(null)).isEqualTo(genreSearch);
     assertThat(genreSearch.setOffset(null)).isEqualTo(genreSearch);
-    assertThat(genreSearch).isEqualTo(new GenreSearch());
+    assertThat(genreSearch).isEqualTo(new GenreSearch(getApiId(), getAffiliateId()));
   }
 
   public GenreSearchResult execute() {

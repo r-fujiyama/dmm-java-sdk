@@ -21,14 +21,18 @@ import lombok.ToString;
  * </pre>
  */
 @Getter
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @ToString
 public class FloorSearch extends AbstractDmm<FloorSearchResult> {
 
   /**
-   * FloorSearchオブジェクトを生成します。
+   * フロア検索オブジェクトを生成します。
+   *
+   * @param apiId       API_ID
+   * @param affiliateId AFFILIATE_ID
    */
-  public FloorSearch() {
+  public FloorSearch(String apiId, String affiliateId) {
+    super(apiId, affiliateId);
   }
 
   /**

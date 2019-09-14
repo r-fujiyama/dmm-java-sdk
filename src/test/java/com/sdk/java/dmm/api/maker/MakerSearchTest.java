@@ -3,6 +3,7 @@ package com.sdk.java.dmm.api.maker;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.sdk.java.dmm.api.ApiTestBase;
 import com.sdk.java.dmm.api.floor.FloorSearch;
 import com.sdk.java.dmm.api.floor.dto.FloorSearchResult;
 import com.sdk.java.dmm.api.maker.dto.MakerSearchResult;
@@ -16,9 +17,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class MakerSearchTest {
+public class MakerSearchTest extends ApiTestBase<MakerSearch> {
 
-  private final MakerSearch makerSearch = new MakerSearch();
+  private final MakerSearch makerSearch = create(MakerSearch.class);
 
   @AfterEach
   public void tearDown() {
@@ -35,7 +36,7 @@ public class MakerSearchTest {
 
     @Test
     public void 正常系_メーカー検索API実行_フロアID() {
-      FloorSearch floorSearch = new FloorSearch();
+      FloorSearch floorSearch = new FloorSearch(getApiId(), getAffiliateId());
       FloorSearchResult floorSearchResult = floorSearch.execute();
       floorSearchResult.getResult().getSite().forEach(site -> site.getService()
           .forEach(service -> service.getFloor().forEach(floor -> {
@@ -97,7 +98,7 @@ public class MakerSearchTest {
     makerSearch.setHits(1);
     makerSearch.setOffset(1L);
     makerSearch.clear();
-    assertThat(makerSearch).isEqualTo(new MakerSearch());
+    assertThat(makerSearch).isEqualTo(new MakerSearch(getApiId(), getAffiliateId()));
   }
 
   @Test
@@ -114,7 +115,7 @@ public class MakerSearchTest {
     assertThat(makerSearch.setInitial(null)).isEqualTo(makerSearch);
     assertThat(makerSearch.setHits(null)).isEqualTo(makerSearch);
     assertThat(makerSearch.setOffset(null)).isEqualTo(makerSearch);
-    assertThat(makerSearch).isEqualTo(new MakerSearch());
+    assertThat(makerSearch).isEqualTo(new MakerSearch(getApiId(), getAffiliateId()));
   }
 
   @Nested

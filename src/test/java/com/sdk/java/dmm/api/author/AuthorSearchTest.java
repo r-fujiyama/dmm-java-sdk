@@ -3,6 +3,7 @@ package com.sdk.java.dmm.api.author;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.sdk.java.dmm.api.ApiTestBase;
 import com.sdk.java.dmm.api.author.dto.AuthorSearchResult;
 import com.sdk.java.dmm.api.floor.FloorSearch;
 import com.sdk.java.dmm.api.floor.dto.FloorSearchResult;
@@ -16,9 +17,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class AuthorSearchTest {
+public class AuthorSearchTest extends ApiTestBase<AuthorSearch> {
 
-  private final AuthorSearch authorSearch = new AuthorSearch();
+  private final AuthorSearch authorSearch = create(AuthorSearch.class);
 
   @AfterEach
   public void tearDown() {
@@ -35,7 +36,7 @@ public class AuthorSearchTest {
 
     @Test
     public void 正常系_作者検索API実行_フロアID() {
-      FloorSearch floorSearch = new FloorSearch();
+      FloorSearch floorSearch = new FloorSearch(getApiId(), getAffiliateId());
       FloorSearchResult floorSearchResult = floorSearch.execute();
       floorSearchResult.getResult().getSite().forEach(site -> site.getService()
           .forEach(service -> service.getFloor().forEach(floor -> {
@@ -97,7 +98,7 @@ public class AuthorSearchTest {
     authorSearch.setHits(1);
     authorSearch.setOffset(1L);
     authorSearch.clear();
-    assertThat(authorSearch).isEqualTo(new AuthorSearch());
+    assertThat(authorSearch).isEqualTo(new AuthorSearch(getApiId(), getAffiliateId()));
   }
 
   @Test
@@ -114,7 +115,7 @@ public class AuthorSearchTest {
     assertThat(authorSearch.setInitial(null)).isEqualTo(authorSearch);
     assertThat(authorSearch.setHits(null)).isEqualTo(authorSearch);
     assertThat(authorSearch.setOffset(null)).isEqualTo(authorSearch);
-    assertThat(authorSearch).isEqualTo(new AuthorSearch());
+    assertThat(authorSearch).isEqualTo(new AuthorSearch(getApiId(), getAffiliateId()));
   }
 
   @Nested

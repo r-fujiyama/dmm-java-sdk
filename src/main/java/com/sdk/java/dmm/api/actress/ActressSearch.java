@@ -30,7 +30,7 @@ import lombok.ToString;
  * </pre>
  */
 @Getter
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @ToString
 public class ActressSearch extends AbstractDmm<ActressSearchResult> {
 
@@ -68,9 +68,13 @@ public class ActressSearch extends AbstractDmm<ActressSearchResult> {
   private ActressSearchSort sort;
 
   /**
-   * ActressSearchオブジェクトを生成します。
+   * 女優検索オブジェクトを生成します。
+   *
+   * @param apiId       API_ID
+   * @param affiliateId AFFILIATE_ID
    */
-  public ActressSearch() {
+  public ActressSearch(String apiId, String affiliateId) {
+    super(apiId, affiliateId);
   }
 
   /**

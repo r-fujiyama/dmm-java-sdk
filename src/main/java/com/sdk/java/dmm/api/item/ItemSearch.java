@@ -38,7 +38,7 @@ import lombok.ToString;
  * </pre>
  */
 @Getter
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @ToString
 public class ItemSearch extends AbstractDmm<ItemSearchResult> {
 
@@ -70,9 +70,13 @@ public class ItemSearch extends AbstractDmm<ItemSearchResult> {
   private MonoStock monoStock;
 
   /**
-   * ItemSearchオブジェクトを生成します。
+   * 商品検索オブジェクトを生成します。
+   *
+   * @param apiId       API_ID
+   * @param affiliateId AFFILIATE_ID
    */
-  public ItemSearch() {
+  public ItemSearch(String apiId, String affiliateId) {
+    super(apiId, affiliateId);
   }
 
   /**

@@ -29,7 +29,7 @@ import lombok.ToString;
  * </pre>
  */
 @Getter
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @ToString
 public class GenreSearch extends AbstractDmm<GenreSearchResult> {
 
@@ -43,9 +43,13 @@ public class GenreSearch extends AbstractDmm<GenreSearchResult> {
   public Long offset;
 
   /**
-   * GenreSearchオブジェクトを生成します。
+   * ジャンル検索オブジェクトを生成します。
+   *
+   * @param apiId       API_ID
+   * @param affiliateId AFFILIATE_ID
    */
-  public GenreSearch() {
+  public GenreSearch(String apiId, String affiliateId) {
+    super(apiId, affiliateId);
   }
 
   /**

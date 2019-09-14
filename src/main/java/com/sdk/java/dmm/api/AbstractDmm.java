@@ -1,7 +1,6 @@
 package com.sdk.java.dmm.api;
 
 import com.sdk.java.dmm.enums.BaseURL;
-import com.sdk.java.dmm.utils.DmmProperties;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.StringUtil;
 import java.io.BufferedReader;
@@ -12,6 +11,9 @@ import java.io.UncheckedIOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,12 +22,15 @@ import lombok.extern.slf4j.Slf4j;
  * @param <T> APIより返却されるJSONのマッピング対象となるDTO
  */
 @Slf4j
+@RequiredArgsConstructor
+@EqualsAndHashCode
+@ToString
 public abstract class AbstractDmm<T extends DmmInfo> {
 
   /** API_ID */
-  private static final String API_ID = DmmProperties.getValue("API_ID");
+  private final String apiId;
   /** アフェリエイトID */
-  private static final String AFFILIATE_ID = DmmProperties.getValue("AFFILIATE_ID");
+  private final String affiliateId;
 
   /**
    * APIを実行しJSON文字列を取得する。<br>
@@ -56,8 +61,8 @@ public abstract class AbstractDmm<T extends DmmInfo> {
    */
   private String fetchJson() {
     log.info("execution start {}_API", this.getBaseURL());
-    String executeURL = StringUtil.addParam(this.getBaseURL().getValue(), "api_id", API_ID);
-    executeURL = StringUtil.addParam(executeURL, "affiliate_id", AFFILIATE_ID);
+    String executeURL = StringUtil.addParam(this.getBaseURL().getValue(), "api_id", apiId);
+    executeURL = StringUtil.addParam(executeURL, "affiliate_id", affiliateId);
     executeURL += this.getParam();
     URL objURL;
     try {

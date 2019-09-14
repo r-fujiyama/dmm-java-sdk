@@ -3,6 +3,7 @@ package com.sdk.java.dmm.api.actress;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.sdk.java.dmm.api.ApiTestBase;
 import com.sdk.java.dmm.api.actress.dto.Actress;
 import com.sdk.java.dmm.api.actress.dto.ActressSearchResult;
 import com.sdk.java.dmm.enums.ActressSearchSort;
@@ -17,9 +18,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class ActressSearchTest {
+public class ActressSearchTest extends ApiTestBase<ActressSearch> {
 
-  private final ActressSearch actressSearch = new ActressSearch();
+  private final ActressSearch actressSearch = create(ActressSearch.class);
 
   @AfterEach
   public void setUp() {
@@ -425,7 +426,7 @@ public class ActressSearchTest {
     actressSearch.setOffset(1L);
     actressSearch.setSort(ActressSearchSort.ID_DESC);
     actressSearch.clear();
-    assertThat(actressSearch).isEqualTo(new ActressSearch());
+    assertThat(actressSearch).isEqualTo(new ActressSearch(getApiId(), getAffiliateId()));
   }
 
   @Test
@@ -474,7 +475,7 @@ public class ActressSearchTest {
     assertThat(actressSearch.setHits(null)).isEqualTo(actressSearch);
     assertThat(actressSearch.setOffset(null)).isEqualTo(actressSearch);
     assertThat(actressSearch.setSort(null)).isEqualTo(actressSearch);
-    assertThat(actressSearch).isEqualTo(new ActressSearch());
+    assertThat(actressSearch).isEqualTo(new ActressSearch(getApiId(), getAffiliateId()));
   }
 
   @Nested
