@@ -16,7 +16,7 @@ plugins {
 }
 
 group = 'com.sdk.java.dmm'
-version = 'v1.0.0'
+version = '1.0.0'
 project.ext {
   artifactId = 'dmm-java-sdk'
 }
