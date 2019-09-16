@@ -18,6 +18,7 @@ import com.sdk.java.dmm.exception.DmmIllegalParameterException;
 import com.sdk.java.dmm.utils.DateTimeFormat;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.MessageResolver;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class ItemSearchTest extends ApiTestBase<ItemSearch> {
+public class ItemSearchTest extends ApiTestBase {
 
   private final ItemSearch itemSearch = create(ItemSearch.class);
 
@@ -181,7 +182,7 @@ public class ItemSearchTest extends ApiTestBase<ItemSearch> {
               item.getIteminfo().getActor().stream().map(actor -> actor.getName())
                   .collect(Collectors.toList())));
 
-          ActressSearch actressSearch = new ActressSearch(getApiId(), getAffiliateId());
+          ActressSearch actressSearch = create(ActressSearch.class);
           actressSearch.setActressId("15365");
           ActressSearchResult actressSearchResult = actressSearch.execute();
           String expected = actressSearchResult.getResult().getActress().get(0).getName();
@@ -469,7 +470,7 @@ public class ItemSearchTest extends ApiTestBase<ItemSearch> {
               item.getIteminfo().getActress().stream().map(actress -> actress.getId())
                   .collect(Collectors.toList())));
 
-          ActressSearch actressSearch = new ActressSearch(getApiId(), getAffiliateId());
+          ActressSearch actressSearch = create(ActressSearch.class);
           actressSearch.setActressId("26225");
           ActressSearchResult actressSearchResult = actressSearch.execute();
           String expected = actressSearchResult.getResult().getActress().get(0).getId();
@@ -640,7 +641,7 @@ public class ItemSearchTest extends ApiTestBase<ItemSearch> {
     itemSearch.setLteDate(DateTimeFormat.uuuuMMddTHHmmss_HYPHEN.parse("2019-07-01T00:00:00"));
     itemSearch.setMonoStock(MonoStock.STOCK);
     itemSearch.clear();
-    assertThat(itemSearch).isEqualTo(new ItemSearch(getApiId(), getAffiliateId()));
+    assertThat(itemSearch).isEqualTo(create(ItemSearch.class));
   }
 
   @Test
@@ -752,6 +753,17 @@ public class ItemSearchTest extends ApiTestBase<ItemSearch> {
       assertThatThrownBy(() -> itemSearch.execute())
           .isInstanceOf(DmmIllegalParameterException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0006));
+    }
+
+    @Test
+    public void 異常系_リクエストが不正な場合() throws Exception {
+      itemSearch.setSite(Site.DMM);
+      Field field = ItemSearch.class.getDeclaredField("hits");
+      field.setAccessible(true);
+      field.set(itemSearch, 0);
+      ItemSearchResult result = itemSearch.execute();
+      assertThat(result.getResult().getStatus()).isEqualTo(400);
+      assertThat(result.getResult().getMessage()).isEqualTo("BAD REQUEST");
     }
 
   }

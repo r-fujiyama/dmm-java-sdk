@@ -12,12 +12,13 @@ import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.exception.DmmIllegalParameterException;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.MessageResolver;
+import java.lang.reflect.Field;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class AuthorSearchTest extends ApiTestBase<AuthorSearch> {
+public class AuthorSearchTest extends ApiTestBase {
 
   private final AuthorSearch authorSearch = create(AuthorSearch.class);
 
@@ -36,7 +37,7 @@ public class AuthorSearchTest extends ApiTestBase<AuthorSearch> {
 
     @Test
     public void 正常系_作者検索API実行_フロアID() {
-      FloorSearch floorSearch = new FloorSearch(getApiId(), getAffiliateId());
+      FloorSearch floorSearch = create(FloorSearch.class);
       FloorSearchResult floorSearchResult = floorSearch.execute();
       floorSearchResult.getResult().getSite().forEach(site -> site.getService()
           .forEach(service -> service.getFloor().forEach(floor -> {
@@ -98,7 +99,7 @@ public class AuthorSearchTest extends ApiTestBase<AuthorSearch> {
     authorSearch.setHits(1);
     authorSearch.setOffset(1L);
     authorSearch.clear();
-    assertThat(authorSearch).isEqualTo(new AuthorSearch(getApiId(), getAffiliateId()));
+    assertThat(authorSearch).isEqualTo(create(AuthorSearch.class));
   }
 
   @Test
@@ -115,7 +116,7 @@ public class AuthorSearchTest extends ApiTestBase<AuthorSearch> {
     assertThat(authorSearch.setInitial(null)).isEqualTo(authorSearch);
     assertThat(authorSearch.setHits(null)).isEqualTo(authorSearch);
     assertThat(authorSearch.setOffset(null)).isEqualTo(authorSearch);
-    assertThat(authorSearch).isEqualTo(new AuthorSearch(getApiId(), getAffiliateId()));
+    assertThat(authorSearch).isEqualTo(create(AuthorSearch.class));
   }
 
   @Nested
@@ -149,6 +150,18 @@ public class AuthorSearchTest extends ApiTestBase<AuthorSearch> {
           .isInstanceOf(DmmIllegalArgumentException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
     }
+
+    @Test
+    public void 異常系_リクエストが不正な場合() throws Exception {
+      authorSearch.setFloorId("25");
+      Field field = AuthorSearch.class.getDeclaredField("hits");
+      field.setAccessible(true);
+      field.set(authorSearch, 0);
+      AuthorSearchResult result = authorSearch.execute();
+      assertThat(result.getResult().getStatus()).isEqualTo(400);
+      assertThat(result.getResult().getMessage()).isEqualTo("BAD REQUEST");
+    }
+
 
   }
 
