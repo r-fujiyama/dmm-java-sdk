@@ -34,7 +34,7 @@ public enum Article implements CodeEnum<String> {
    * @return 指定された値を持つ列挙型
    */
   @JsonCreator
-  public static Article of(String value) throws IllegalArgumentException {
+  public static Article of(String value) {
     return CodeEnum.of(Article.class, value);
   }
 

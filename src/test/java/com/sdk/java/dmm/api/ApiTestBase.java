@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
-public class ApiTestBase<T extends AbstractDmm> {
+public abstract class ApiTestBase {
 
   /** プロパティ */
   private final static Properties PROPERTIES;
@@ -33,7 +33,7 @@ public class ApiTestBase<T extends AbstractDmm> {
    *
    * @return API_ID
    */
-  public static String getApiId() {
+  private String getApiId() {
     return PROPERTIES.getProperty("API_ID");
   }
 
@@ -42,7 +42,7 @@ public class ApiTestBase<T extends AbstractDmm> {
    *
    * @return アフィリエイトID
    */
-  public static String getAffiliateId() {
+  private String getAffiliateId() {
     return PROPERTIES.getProperty("AFFILIATE_ID");
   }
 
@@ -52,7 +52,7 @@ public class ApiTestBase<T extends AbstractDmm> {
    * @param clazz 検索クラス
    * @return 検索オブジェクト
    */
-  public T create(Class<T> clazz) {
+  protected <T extends AbstractDmm> T create(Class<T> clazz) {
     try {
       Constructor<T> constructor = clazz.getConstructor(String.class, String.class);
       return constructor.newInstance(getApiId(), getAffiliateId());

@@ -1,5 +1,6 @@
 package com.sdk.java.dmm.api.maker.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -11,9 +12,11 @@ import lombok.Value;
  * リザルト
  */
 @Value
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "status",
+    "message",
     "result_count",
     "total_count",
     "first_position",
@@ -34,6 +37,9 @@ public class Result {
   /** 取得件数 */
   @JsonProperty("result_count")
   private Integer resultCount;
+  /** メッセージ */
+  @JsonProperty("message")
+  private String message;
   /** 全体件数 */
   @JsonProperty("total_count")
   private Long totalCount;

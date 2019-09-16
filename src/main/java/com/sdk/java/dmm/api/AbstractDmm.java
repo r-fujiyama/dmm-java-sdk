@@ -3,16 +3,14 @@ package com.sdk.java.dmm.api;
 import com.sdk.java.dmm.enums.BaseURL;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.StringUtil;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,15 +20,25 @@ import lombok.extern.slf4j.Slf4j;
  * @param <T> APIより返却されるJSONのマッピング対象となるDTO
  */
 @Slf4j
-@RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
 public abstract class AbstractDmm<T extends DmmInfo> {
 
   /** API_ID */
-  private final String apiId;
+  private final String API_ID;
   /** アフェリエイトID */
-  private final String affiliateId;
+  private final String AFFILIATE_ID;
+
+  /**
+   * 検索オブジェクトを生成します。
+   *
+   * @param apiId       API_ID
+   * @param affiliateId AFFILIATE_ID
+   */
+  public AbstractDmm(String apiId, String affiliateId) {
+    this.API_ID = apiId;
+    this.AFFILIATE_ID = affiliateId;
+  }
 
   /**
    * APIを実行しJSON文字列を取得する。<br>
@@ -39,7 +47,7 @@ public abstract class AbstractDmm<T extends DmmInfo> {
    */
   public String getJson() {
     String json = this.fetchJson();
-    log.info("execution end {}_API JSON:{}", this.getBaseURL(), json);
+    log.info("End {}_API -> INFO:{}", this.getBaseURL(), json);
     return json;
   }
 
@@ -50,7 +58,7 @@ public abstract class AbstractDmm<T extends DmmInfo> {
    */
   public T execute() {
     T result = JsonUtil.read(this.fetchJson(), this.getResultClass());
-    log.info("execution end {}_API DTO-INFO:{}", this.getBaseURL(), result.toString());
+    log.info("End {}_API -> Result:{}", this.getBaseURL(), result.toString());
     return result;
   }
 
@@ -60,30 +68,31 @@ public abstract class AbstractDmm<T extends DmmInfo> {
    * @return JSON文字列
    */
   private String fetchJson() {
-    log.info("execution start {}_API", this.getBaseURL());
-    String executeURL = StringUtil.addParam(this.getBaseURL().getValue(), "api_id", apiId);
-    executeURL = StringUtil.addParam(executeURL, "affiliate_id", affiliateId);
-    executeURL += this.getParam();
-    URL objURL;
+    log.info("Start {}_API", this.getBaseURL());
+    String url = this.getURL();
+    log.info("Execute {}_API -> URL:{}", this.getBaseURL(), url);
+    HttpClient client = HttpClient.newBuilder().build();
+    HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().build();
     try {
-      objURL = new URL(executeURL);
-    } catch (MalformedURLException e) {
-      throw new UncheckedIOException("不正なURLです:" + executeURL, e);
-    }
-    log.info("execute {}_API URL:{}", this.getBaseURL(), executeURL);
-    try (InputStream is = objURL.openStream();
-        InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-        BufferedReader reader = new BufferedReader(isr)) {
-      String json = "";
-      String line = reader.readLine();
-      while (line != null) {
-        json += line;
-        line = reader.readLine();
-      }
-      return json;
+      HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+      return response.body();
     } catch (IOException e) {
-      throw new UncheckedIOException("APIの実行に失敗しました:" + executeURL, e);
+      throw new UncheckedIOException("APIの実行に失敗しました:" + url, e);
+    } catch (InterruptedException e) {
+      throw new AssertionError("APIの実行に失敗しました:" + url, e);
     }
+  }
+
+  /**
+   * APIを実行するためのURLを取得します。
+   *
+   * @return URL URL文字列
+   */
+  private String getURL() {
+    String url = StringUtil.addParam(this.getBaseURL().getValue(), "api_id", API_ID);
+    url = StringUtil.addParam(url, "affiliate_id", AFFILIATE_ID);
+    url += this.getParam();
+    return url;
   }
 
   /**
@@ -99,16 +108,16 @@ public abstract class AbstractDmm<T extends DmmInfo> {
   protected abstract String getParam();
 
   /**
-   * DMM_APIを実行するためのURLを管理するEnumを返却する。
+   * DMM_APIを実行するためのURLを管理する列挙型を返却する。
    *
-   * @return BaseURL
+   * @return BaseURL ベースURL
    */
   protected abstract BaseURL getBaseURL();
 
   /**
-   * APIより返却されるJSONのマッピング対象となるDTOのClassオブジェクトを取得する。
+   * JSONとマッピングされるDTOのクラスオブジェクトを取得する。
    *
-   * @return classオブジェクト
+   * @return クラスオブジェクト
    */
   protected abstract Class<T> getResultClass();
 

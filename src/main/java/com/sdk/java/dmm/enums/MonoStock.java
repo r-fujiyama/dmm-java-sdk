@@ -32,7 +32,7 @@ public enum MonoStock implements CodeEnum<String> {
    * @return 指定された値を持つ列挙型
    */
   @JsonCreator
-  public static MonoStock of(String value) throws IllegalArgumentException {
+  public static MonoStock of(String value) {
     return CodeEnum.of(MonoStock.class, value);
   }
 

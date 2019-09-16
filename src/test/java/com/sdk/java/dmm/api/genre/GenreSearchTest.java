@@ -12,12 +12,13 @@ import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.exception.DmmIllegalParameterException;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.MessageResolver;
+import java.lang.reflect.Field;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class GenreSearchTest extends ApiTestBase<GenreSearch> {
+public class GenreSearchTest extends ApiTestBase {
 
   private final GenreSearch genreSearch = create(GenreSearch.class);
 
@@ -36,7 +37,7 @@ public class GenreSearchTest extends ApiTestBase<GenreSearch> {
 
     @Test
     public void 正常系_ジャンル検索API実行_フロアID() {
-      FloorSearch floorSearch = new FloorSearch(getApiId(), getAffiliateId());
+      FloorSearch floorSearch = create(FloorSearch.class);
       FloorSearchResult floorSearchResult = floorSearch.execute();
       floorSearchResult.getResult().getSite().forEach(site -> site.getService()
           .forEach(service -> service.getFloor().forEach(floor -> {
@@ -98,7 +99,7 @@ public class GenreSearchTest extends ApiTestBase<GenreSearch> {
     genreSearch.setHits(1);
     genreSearch.setOffset(1L);
     genreSearch.clear();
-    assertThat(genreSearch).isEqualTo(new GenreSearch(getApiId(), getAffiliateId()));
+    assertThat(genreSearch).isEqualTo(create(GenreSearch.class));
   }
 
   @Test
@@ -115,7 +116,7 @@ public class GenreSearchTest extends ApiTestBase<GenreSearch> {
     assertThat(genreSearch.setInitial(null)).isEqualTo(genreSearch);
     assertThat(genreSearch.setHits(null)).isEqualTo(genreSearch);
     assertThat(genreSearch.setOffset(null)).isEqualTo(genreSearch);
-    assertThat(genreSearch).isEqualTo(new GenreSearch(getApiId(), getAffiliateId()));
+    assertThat(genreSearch).isEqualTo(create(GenreSearch.class));
   }
 
   public GenreSearchResult execute() {
@@ -154,6 +155,17 @@ public class GenreSearchTest extends ApiTestBase<GenreSearch> {
       assertThatThrownBy(() -> genreSearch.setOffset(0L))
           .isInstanceOf(DmmIllegalArgumentException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
+    }
+
+    @Test
+    public void 異常系_リクエストが不正な場合() throws Exception {
+      genreSearch.setFloorId("19");
+      Field field = GenreSearch.class.getDeclaredField("hits");
+      field.setAccessible(true);
+      field.set(genreSearch, 0);
+      GenreSearchResult result = genreSearch.execute();
+      assertThat(result.getResult().getStatus()).isEqualTo(400);
+      assertThat(result.getResult().getMessage()).isEqualTo("BAD REQUEST");
     }
 
   }

@@ -12,12 +12,13 @@ import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.exception.DmmIllegalParameterException;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.MessageResolver;
+import java.lang.reflect.Field;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class SeriesSearchTest extends ApiTestBase<SeriesSearch> {
+public class SeriesSearchTest extends ApiTestBase {
 
   private final SeriesSearch seriesSearch = create(SeriesSearch.class);
 
@@ -36,7 +37,7 @@ public class SeriesSearchTest extends ApiTestBase<SeriesSearch> {
 
     @Test
     public void 正常系_シリーズ検索API実行_フロアID() {
-      FloorSearch floorSearch = new FloorSearch(getApiId(), getAffiliateId());
+      FloorSearch floorSearch = create(FloorSearch.class);
       FloorSearchResult floorSearchResult = floorSearch.execute();
       floorSearchResult.getResult().getSite().forEach(site -> site.getService()
           .forEach(service -> service.getFloor().forEach(floor -> {
@@ -98,7 +99,7 @@ public class SeriesSearchTest extends ApiTestBase<SeriesSearch> {
     seriesSearch.setHits(1);
     seriesSearch.setOffset(1L);
     seriesSearch.clear();
-    assertThat(seriesSearch).isEqualTo(new SeriesSearch(getApiId(), getAffiliateId()));
+    assertThat(seriesSearch).isEqualTo(create(SeriesSearch.class));
   }
 
   @Test
@@ -115,7 +116,7 @@ public class SeriesSearchTest extends ApiTestBase<SeriesSearch> {
     assertThat(seriesSearch.setInitial(null)).isEqualTo(seriesSearch);
     assertThat(seriesSearch.setHits(null)).isEqualTo(seriesSearch);
     assertThat(seriesSearch.setOffset(null)).isEqualTo(seriesSearch);
-    assertThat(seriesSearch).isEqualTo(new SeriesSearch(getApiId(), getAffiliateId()));
+    assertThat(seriesSearch).isEqualTo(create(SeriesSearch.class));
   }
 
   @Nested
@@ -148,6 +149,17 @@ public class SeriesSearchTest extends ApiTestBase<SeriesSearch> {
       assertThatThrownBy(() -> seriesSearch.setOffset(0L))
           .isInstanceOf(DmmIllegalArgumentException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
+    }
+
+    @Test
+    public void 異常系_リクエストが不正な場合() throws Exception {
+      seriesSearch.setFloorId("25");
+      Field field = SeriesSearch.class.getDeclaredField("hits");
+      field.setAccessible(true);
+      field.set(seriesSearch, 0);
+      SeriesSearchResult result = seriesSearch.execute();
+      assertThat(result.getResult().getStatus()).isEqualTo(400);
+      assertThat(result.getResult().getMessage()).isEqualTo("BAD REQUEST");
     }
 
   }

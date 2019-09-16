@@ -28,7 +28,7 @@ public enum Site implements CodeEnum<String> {
    * @return 指定された値を持つ列挙型
    */
   @JsonCreator
-  public static Site of(String value) throws IllegalArgumentException {
+  public static Site of(String value) {
     return CodeEnum.of(Site.class, value);
   }
 

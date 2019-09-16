@@ -12,13 +12,14 @@ import com.sdk.java.dmm.exception.DmmIllegalArgumentException;
 import com.sdk.java.dmm.utils.DateFormat;
 import com.sdk.java.dmm.utils.JsonUtil;
 import com.sdk.java.dmm.utils.MessageResolver;
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class ActressSearchTest extends ApiTestBase<ActressSearch> {
+public class ActressSearchTest extends ApiTestBase {
 
   private final ActressSearch actressSearch = create(ActressSearch.class);
 
@@ -426,7 +427,7 @@ public class ActressSearchTest extends ApiTestBase<ActressSearch> {
     actressSearch.setOffset(1L);
     actressSearch.setSort(ActressSearchSort.ID_DESC);
     actressSearch.clear();
-    assertThat(actressSearch).isEqualTo(new ActressSearch(getApiId(), getAffiliateId()));
+    assertThat(actressSearch).isEqualTo(create(ActressSearch.class));
   }
 
   @Test
@@ -475,7 +476,7 @@ public class ActressSearchTest extends ApiTestBase<ActressSearch> {
     assertThat(actressSearch.setHits(null)).isEqualTo(actressSearch);
     assertThat(actressSearch.setOffset(null)).isEqualTo(actressSearch);
     assertThat(actressSearch.setSort(null)).isEqualTo(actressSearch);
-    assertThat(actressSearch).isEqualTo(new ActressSearch(getApiId(), getAffiliateId()));
+    assertThat(actressSearch).isEqualTo(create(ActressSearch.class));
   }
 
   @Nested
@@ -517,6 +518,16 @@ public class ActressSearchTest extends ApiTestBase<ActressSearch> {
       assertThatThrownBy(() -> actressSearch.setOffset(0L))
           .isInstanceOf(DmmIllegalArgumentException.class)
           .hasMessage(MessageResolver.getMessage(Message.M0008, "offset"));
+    }
+
+    @Test
+    public void 異常系_リクエストが不正な場合() throws Exception {
+      Field field = ActressSearch.class.getDeclaredField("hits");
+      field.setAccessible(true);
+      field.set(actressSearch, 0);
+      ActressSearchResult result = actressSearch.execute();
+      assertThat(result.getResult().getStatus()).isEqualTo(400);
+      assertThat(result.getResult().getMessage()).isEqualTo("BAD REQUEST");
     }
 
   }
