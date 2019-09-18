@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  python:
+    container_name: "python-3.7.4"
+    build: ./python
+    image: python-3.7.4
+    restart: always
+    volumes:
+      - ./../generate-enum-from-floor:/app/generate-enum-from-floor
+    tty: true
